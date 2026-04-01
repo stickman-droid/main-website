@@ -121,10 +121,26 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
+}
+
+@keyframes move-circular {
+  from {
+    transform: rotate(0deg) translateX(var(--move-radius, -15px)) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(var(--move-radius, -15px)) rotate(-360deg);
+  }
+}
+
+.animate-move-circular {
+  animation: move-circular 4s infinite linear;
 }
