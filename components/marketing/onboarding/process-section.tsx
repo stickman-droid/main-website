@@ -21,7 +21,7 @@ const steps = [
   {
     num: "03",
     title: "Design",
-    desc: "We build high-fidelity, interactive prototypes focused on activation—getting users to their first \"win\" as fast as possible."
+    desc: "We build high-fidelity, interactive prototypes focused on activation, getting users to their first \"win\" as fast as possible."
   },
   {
     num: "04",
