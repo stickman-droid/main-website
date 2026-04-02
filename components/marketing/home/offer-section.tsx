@@ -42,17 +42,19 @@ export function OfferSection() {
           {offers.map((offer, index) => (
             <div
               key={offer.id}
-              className={`flex flex-col space-y-6 px-4 sm:px-8 py-8 ${index !== 0 ? "md:border-l border-[#E0E0E0] border-1px" : ""
+              className={`group relative flex flex-col space-y-6 overflow-hidden rounded-[28px] px-4 py-8 transition-all duration-500 ease-out motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-6 sm:px-8 hover:-translate-y-2 hover:bg-zinc-50/70 hover:shadow-[0_24px_50px_-30px_rgba(0,0,0,0.3)] ${index !== 0 ? "md:border-l border-[#E0E0E0] border-1px" : ""
                 }`}
+              style={{ animationDelay: `${index * 120}ms`, animationFillMode: "both" }}
             >
-              <span className="text-4xl font-mono font-regular text-[#E0E0E0] tracking-tighter sm:text-6xl">
+              <div className="pointer-events-none absolute inset-x-8 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-zinc-300 via-zinc-900/20 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
+              <span className="text-4xl font-mono font-regular tracking-tighter text-[#E0E0E0] transition-all duration-500 group-hover:-translate-y-1 group-hover:text-[#B9B9B9] sm:text-6xl">
                 {offer.id}
               </span>
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-[#3D3D3D]">
+                <h3 className="text-2xl font-bold text-[#3D3D3D] transition-colors duration-300 group-hover:text-black">
                   {offer.title}
                 </h3>
-                <p className="text-[15px] leading-relaxed text-zinc-500 font-normal">
+                <p className="text-[15px] font-normal leading-relaxed text-zinc-500 transition-colors duration-300 group-hover:text-zinc-600">
                   {offer.description}
                 </p>
               </div>
