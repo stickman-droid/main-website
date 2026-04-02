@@ -48,9 +48,29 @@ export function GapSection() {
 
 function BrokenBox() {
   const [isHovered, setIsHovered] = React.useState(false)
+  const [isInView, setIsInView] = React.useState(false)
+  const boxRef = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    if (!boxRef.current) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting)
+      },
+      {
+        threshold: 0.35,
+      }
+    )
+
+    observer.observe(boxRef.current)
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div
+      ref={boxRef}
       className="relative flex h-[350px] w-[350px] items-center justify-center cursor-pointer group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -99,14 +119,31 @@ function BrokenBox() {
         {/* The Box Lines */}
         <div
           className={cn(
-            "lines relative h-[240px] w-[240px] border-[2.55px] border-black transition-opacity duration-1000",
-            isHovered ? "animate-none" : "animate-move-circular"
+            "lines relative h-[240px] w-[240px] transition-opacity duration-1000",
+            isHovered || !isInView ? "animate-none" : "animate-move-circular"
           )}
           style={{
             transform: isHovered ? 'translate3d(0, 0, 0)' : undefined,
             transition: 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)'
           }}
-        />
+        >
+          <svg
+            className="absolute inset-0 h-full w-full"
+            viewBox="0 0 240 240"
+            fill="none"
+            aria-hidden="true"
+          >
+            <rect
+              x="1.75"
+              y="1.75"
+              width="236.5"
+              height="236.5"
+              rx="0"
+              stroke="#3D3D3D"
+              strokeWidth="2.5"
+            />
+          </svg>
+        </div>
       </div>
     </div>
   )
