@@ -7,7 +7,19 @@ import { useGSAP } from "@gsap/react"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const steps = [
+interface Step {
+  num: string
+  title: string
+  desc: string
+}
+
+interface ProcessSectionProps {
+  steps?: Step[]
+  eyebrow?: string
+  title?: string
+}
+
+const defaultSteps = [
   {
     num: "01",
     title: "Discover",
@@ -30,7 +42,11 @@ const steps = [
   }
 ]
 
-export function ProcessSection() {
+export function ProcessSection({
+  steps = defaultSteps,
+  eyebrow = "Our Process",
+  title = "A strategic approach to user orientation"
+}: ProcessSectionProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const circleRef = React.useRef<HTMLDivElement>(null)
   const cardsRef = React.useRef<HTMLDivElement>(null)
@@ -42,7 +58,7 @@ export function ProcessSection() {
       if (!circleRef.current) return
 
       gsap.to(circleRef.current, {
-        rotate: 360,
+        rotate: 170,
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
@@ -86,18 +102,18 @@ export function ProcessSection() {
         {/* Header */}
         <div className="mb-10 flex flex-col items-center space-y-4 text-center sm:mb-20">
           <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
-            Our Process
+            {eyebrow}
           </p>
           <h2
             className="text-4xl font-bold tracking-tight text-[#3D3D3D] sm:text-5xl lg:text-5xl max-w-3xl leading-[1.1]"
             style={{ fontFamily: 'var(--font-heading, serif)' }}
           >
-            A strategic approach to user orientation
+            {title}
           </h2>
         </div>
 
         {/* Circular Animation Grid */}
-        <div className="relative mx-auto mt-8 max-w-[1000px] sm:mt-20">
+        <div className="relative mx-auto mt-10 max-w-[1000px] sm:mt-24">
 
           {/* The Dashed Circle Wrapper (Rotates) */}
           <div className="absolute inset-0 hidden items-center justify-center pointer-events-none sm:flex">
@@ -143,10 +159,10 @@ export function ProcessSection() {
                 style={{ perspective: "1000px" }}
               >
                 <div className="relative pb-2 sm:pb-0">
-                  <span className="text-5xl font-black text-zinc-200 select-none sm:text-7xl lg:text-8xl">
+                  <span className="block text-5xl leading-none font-black text-zinc-200 select-none sm:text-7xl lg:text-8xl">
                     {step.num}
                   </span>
-                  <h3 className="absolute bottom-[-2px] left-0 text-lg font-bold text-[#3D3D3D] sm:bottom-1 sm:text-2xl">
+                  <h3 className="absolute bottom-[-8px] left-0 text-lg font-bold text-[#3D3D3D] sm:bottom-[-10px] sm:text-2xl lg:bottom-[-12px]">
                     {step.title}
                   </h3>
                 </div>
