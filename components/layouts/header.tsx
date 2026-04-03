@@ -27,7 +27,7 @@ export function Header() {
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur supports-backdrop-filter:bg-white/80">
       <div className="w-full">
         <div
-          className="flex w-full items-center justify-between gap-4 border-b border-black/5 bg-white px-4 py-4 sm:px-6 lg:px-[80px]"
+          className="flex w-full items-center justify-between gap-4 border-b border-black/5 bg-white px-4 py-4 sm:px-6 lg:px-[48px] xl:px-[80px]"
           style={{ boxShadow: navShadow }}
         >
           <Link
