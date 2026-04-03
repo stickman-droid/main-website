@@ -2,31 +2,39 @@
 
 import { Suspense, useEffect, useMemo, useRef } from "react"
 import { Canvas, useFrame, useLoader } from "@react-three/fiber"
-import * as THREE from "three"
+import {
+  AmbientLight,
+  BufferGeometry,
+  Float32BufferAttribute,
+  Group,
+  Mesh,
+  Points,
+  PointsMaterial,
+} from "three"
 // @ts-ignore
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js"
 
 function ParticleModel() {
-  const pointsRef = useRef<any>(null)
-  const obj = useLoader(OBJLoader, "https://s3-us-west-2.amazonaws.com/s.cdpn.io/40480/head.obj") as any
+  const pointsRef = useRef<Points<BufferGeometry, PointsMaterial> | null>(null)
+  const obj = useLoader(OBJLoader, "https://s3-us-west-2.amazonaws.com/s.cdpn.io/40480/head.obj") as Group
 
   const originalPositions = useMemo(() => {
     if (!obj) return null
 
     const basePositions: number[] = []
     obj.traverse((child: any) => {
-      if (child.isMesh) {
-        const pos = child.geometry.attributes.position
-        if (pos) {
-          const scale = 8.8
-          for (let i = 0; i < pos.count; i++) {
-            basePositions.push(
-              pos.getX(i) * scale,
-              pos.getY(i) * scale,
-              pos.getZ(i) * scale
-            )
-          }
-        }
+      if (!(child instanceof Mesh)) return
+
+      const pos = child.geometry.attributes.position
+      if (!pos) return
+
+      const scale = 8.8
+      for (let i = 0; i < pos.count; i++) {
+        basePositions.push(
+          pos.getX(i) * scale,
+          pos.getY(i) * scale,
+          pos.getZ(i) * scale
+        )
       }
     })
 
@@ -60,10 +68,10 @@ function ParticleModel() {
   const pointsObject = useMemo(() => {
     if (!originalPositions) return null
 
-    const geometry = new THREE.BufferGeometry()
-    geometry.setAttribute("position", new THREE.Float32BufferAttribute(originalPositions, 3))
+    const geometry = new BufferGeometry()
+    geometry.setAttribute("position", new Float32BufferAttribute(originalPositions, 3))
 
-    const material = new THREE.PointsMaterial({
+    const material = new PointsMaterial({
       color: "#3d3d3d",
       size: 1.35,
       sizeAttenuation: true,
@@ -71,7 +79,7 @@ function ParticleModel() {
       opacity: 0.8,
     })
 
-    return new THREE.Points(geometry, material)
+    return new Points(geometry, material)
   }, [originalPositions])
 
   useEffect(() => {
@@ -117,7 +125,7 @@ export function ParticleHead() {
         gl={{ alpha: true, antialias: true }}
         style={{ background: "transparent" }}
       >
-        <primitive object={new THREE.AmbientLight(0xffffff, 0.5)} />
+        <primitive object={new AmbientLight(0xffffff, 0.5)} />
         <Suspense fallback={null}>
           <ParticleModel />
         </Suspense>
