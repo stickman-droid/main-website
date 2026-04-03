@@ -13,6 +13,10 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "typeRoots": [
+      "./node_modules/.pnpm/@types+three@0.183.1/node_modules/@types",
+      "./node_modules/@types"
+    ],
     "plugins": [
       {
         "name": "next"
@@ -24,6 +28,7 @@
   },
   "include": [
     "next-env.d.ts",
+    "**/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
