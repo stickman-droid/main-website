@@ -57,6 +57,8 @@ export function FluidBackground() {
     const mouse = {
       x: 0,
       y: 0,
+      tx: 0,
+      ty: 0,
       px: 0,
       py: 0,
       down: false,
@@ -64,13 +66,14 @@ export function FluidBackground() {
 
     let canvasWidth = window.innerWidth
     let canvasHeight = window.innerHeight
-    const resolution = 9
-    const penSize = 36
-    const cursorInfluence = 0.08
-    const ambientDrift = 0.014
+    let pixelRatio = 1
+    const resolution = window.innerWidth < 640 ? 14 : 12
+    const penSize = window.innerWidth < 640 ? 48 : 56
+    const cursorInfluence = 0.13
+    const ambientDrift = 0.008
     let numCols = Math.ceil(canvasWidth / resolution)
     let numRows = Math.ceil(canvasHeight / resolution)
-    const speckCount = window.innerWidth < 640 ? 18000 : 26000
+    const speckCount = window.innerWidth < 640 ? 5000 : 11000
     let tick = 0
 
     let vecCells: Cell[][] = []
@@ -79,8 +82,12 @@ export function FluidBackground() {
     const init = () => {
       canvasWidth = window.innerWidth
       canvasHeight = window.innerHeight
-      canvas.width = canvasWidth
-      canvas.height = canvasHeight
+      pixelRatio = Math.min(window.devicePixelRatio || 1, 1.25)
+      canvas.width = Math.floor(canvasWidth * pixelRatio)
+      canvas.height = Math.floor(canvasHeight * pixelRatio)
+      canvas.style.width = `${canvasWidth}px`
+      canvas.style.height = `${canvasHeight}px`
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
       numCols = Math.ceil(canvasWidth / resolution)
       numRows = Math.ceil(canvasHeight / resolution)
 
@@ -151,8 +158,8 @@ export function FluidBackground() {
               p.yv += ay * cell.down.yv * 0.05
             }
 
-            p.xv += Math.sin(tick + p.y * 0.01) * 0.018
-            p.yv += Math.cos(tick * 0.9 + p.x * 0.01) * 0.018
+            p.xv += Math.sin(tick + p.y * 0.01) * 0.01
+            p.yv += Math.cos(tick * 0.9 + p.x * 0.01) * 0.01
 
             p.x += p.xv
             p.y += p.yv
@@ -251,7 +258,9 @@ export function FluidBackground() {
     }
 
     const draw = () => {
-      tick += 0.015
+      tick += 0.012
+      mouse.x += (mouse.tx - mouse.x) * 0.22
+      mouse.y += (mouse.ty - mouse.y) * 0.22
       const mouse_xv = mouse.x - mouse.px
       const mouse_yv = mouse.y - mouse.py
 
@@ -281,11 +290,9 @@ export function FluidBackground() {
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouse.px = mouse.x
-      mouse.py = mouse.y
       const rect = canvas.getBoundingClientRect()
-      mouse.x = e.clientX - rect.left
-      mouse.y = e.clientY - rect.top
+      mouse.tx = e.clientX - rect.left
+      mouse.ty = e.clientY - rect.top
     }
 
     const handleResize = () => {
@@ -293,8 +300,8 @@ export function FluidBackground() {
     }
 
     init()
-    window.addEventListener("resize", handleResize)
-    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("resize", handleResize, { passive: true })
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
     draw()
 
     return () => {
