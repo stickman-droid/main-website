@@ -13,7 +13,7 @@ export function ContactSection() {
   ]
 
   return (
-    <section className="flex w-full justify-center bg-white lg:py-8 mt-16 lg:mt-18">
+    <section className="flex w-full justify-center bg-background lg:py-8 mt-16 lg:mt-18">
       <div className="flex w-full max-w-[950px] flex-col px-6">
         <div className="mb-8 flex w-full max-w-[640px] flex-col space-y-4 text-left">
           <p className="text-[12px] font-mono font-bold tracking-[0.25em] text-zinc-400 uppercase">
@@ -58,3 +58,4 @@ export function ContactSection() {
     </section>
   )
 }
+
