@@ -22,7 +22,7 @@ export function OfferSection() {
   ]
 
   return (
-    <section className="flex w-full justify-center bg-white py-12 sm:py-8">
+    <section className="flex w-full justify-center bg-background py-12 sm:py-8">
       <div className="flex w-full max-w-[1150px] flex-col space-y-5 px-6 lg:h-[480px]">
         {/* Header */}
         <div className="flex flex-col items-center text-center space-y-4">
@@ -74,3 +74,4 @@ export function OfferSection() {
     </section>
   )
 }
+
