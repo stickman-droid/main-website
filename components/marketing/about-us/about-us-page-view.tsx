@@ -8,7 +8,7 @@ import { FounderSection } from "@/components/marketing/about-us/founder-section"
 
 export function AboutUsPageView() {
   return (
-    <main className="relative min-h-screen bg-white selection:bg-black/5 selection:text-black">
+    <main className="relative min-h-screen bg-background selection:bg-black/5 selection:text-black">
       {/* Hero Section */}
       <div>
         <AboutUsHero />
@@ -31,3 +31,4 @@ export function AboutUsPageView() {
     </main>
   )
 }
+
