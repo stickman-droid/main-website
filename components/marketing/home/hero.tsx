@@ -8,7 +8,7 @@ import { ChevronRight } from "lucide-react"
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[calc(100dvh-81px)] w-full items-center justify-center overflow-hidden bg-white lg:h-[calc(100dvh-81px)] lg:min-h-0">
+    <section className="relative flex min-h-[calc(100dvh-81px)] w-full items-center justify-center overflow-hidden bg-background lg:h-[calc(100dvh-81px)] lg:min-h-0">
       <InteractiveDotGrid className="pointer-events-none absolute inset-0 z-0" />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[900px] items-center justify-center px-6 py-12 sm:px-8 lg:py-0">
@@ -62,3 +62,4 @@ export function Hero() {
     </section>
   )
 }
+
