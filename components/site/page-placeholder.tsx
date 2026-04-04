@@ -28,7 +28,7 @@ export function PagePlaceholder({
           </div>
         </div>
 
-        <div className="grid gap-4 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm sm:p-8">
+        <div className="grid gap-4 rounded-3xl border border-zinc-200 bg-background p-6 shadow-sm sm:p-8">
           <h2 className="text-lg font-semibold text-zinc-950">Implementation Queue</h2>
           <ul className="space-y-3 text-sm leading-6 text-zinc-600 sm:text-base">
             {nextSteps.map((step) => (
@@ -42,3 +42,4 @@ export function PagePlaceholder({
     </main>
   );
 }
+
