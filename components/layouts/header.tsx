@@ -24,10 +24,10 @@ const navShadow =
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur supports-backdrop-filter:bg-white/80">
+    <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
       <div className="w-full">
         <div
-          className="flex w-full items-center justify-between gap-4 border-b border-black/5 bg-white px-4 py-4 sm:px-6 lg:px-[48px] xl:px-[80px]"
+          className="flex w-full items-center justify-between gap-4 border-b border-black/5 bg-background px-4 py-4 sm:px-6 lg:px-[48px] xl:px-[80px]"
           style={{ boxShadow: navShadow }}
         >
           <Link
@@ -80,7 +80,7 @@ export function Header() {
 
             <SheetContent
               side="right"
-              className="w-[86vw] max-w-sm border-l border-black/10 bg-white p-0"
+              className="w-[86vw] max-w-sm border-l border-black/10 bg-background p-0"
             >
               <div className="flex h-full flex-col">
                 <div className="border-b border-black/5 px-5 py-5">
@@ -133,3 +133,4 @@ export function Header() {
     </header>
   );
 }
+
