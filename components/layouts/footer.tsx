@@ -57,7 +57,11 @@ export function Footer() {
 
         <div className="flex flex-col gap-3 text-sm text-[#5A5A5A] md:flex-row md:items-center md:justify-between">
           <div>c 2026 Stickman.Design</div>
-          <div className="text-left md:text-center">Privacy Ploicy | Terms of Use</div>
+          <div className="flex items-center gap-1.5 text-left md:text-center">
+            <Link href="/privacy" className="transition-colors hover:text-black">Privacy Policy</Link>
+            <span className="text-black/10">|</span>
+            <Link href="/terms" className="transition-colors hover:text-black">Terms of Use</Link>
+          </div>
           <div className="md:text-right">All rights reserved.</div>
         </div>
       </div>
