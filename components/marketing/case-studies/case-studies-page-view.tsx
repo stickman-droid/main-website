@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ContactSection } from "@/components/marketing/home/contact-section";
 import { caseStudies } from "@/lib/case-studies-data";
 
@@ -66,7 +67,7 @@ export function CaseStudiesPageView() {
   }
 
   return (
-    <main className="min-h-screen bg-[#FFFFFF] text-[#3D3D3D]">
+    <main className="min-h-screen bg-background text-[#3D3D3D]">
       <section className="w-full py-8 sm:py-10 lg:py-12">
         <div className="mx-auto w-full px-6 lg:px-12 xl:px-20">
           <div className="flex items-center justify-start gap-1.5 text-left text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase">
@@ -102,7 +103,7 @@ export function CaseStudiesPageView() {
                 style={{
                   transitionDelay: `${Math.min(index * 70, 240)}ms`,
                 }}
-                className={`group overflow-hidden rounded-[24px] border border-black/8 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.05)] will-change-transform transition-[transform,opacity,filter,box-shadow] duration-[950ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.08)] ${getCardMotion(index, !!visibleCards[index]).card}`}
+                className={`group overflow-hidden rounded-[24px] border border-black/8 bg-background shadow-[0_20px_60px_rgba(0,0,0,0.05)] will-change-transform transition-[transform,opacity,filter,box-shadow] duration-[950ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.08)] ${getCardMotion(index, !!visibleCards[index]).card}`}
               >
                 <div
                   style={{
@@ -110,11 +111,22 @@ export function CaseStudiesPageView() {
                   }}
                   className={`border-b border-black/8 bg-[#FFFFFF] p-4 transition-[transform,opacity] duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] sm:p-5 xl:p-4 ${getCardMotion(index, !!visibleCards[index]).image}`}
                 >
-                  <div className="flex min-h-[220px] items-center justify-center rounded-[20px] border border-dashed border-black/10 bg-[#FFFFFF] sm:min-h-[260px] lg:min-h-[280px] xl:min-h-[220px]">
-                    <span className="text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-300 uppercase">
-                      Image Placeholder
-                    </span>
-                  </div>
+                  {caseStudy.heroImage.image ? (
+                    <div className="relative min-h-[220px] overflow-hidden rounded-[20px] sm:min-h-[260px] lg:min-h-[280px] xl:min-h-[220px]">
+                      <Image
+                        src={caseStudy.heroImage.image}
+                        alt={caseStudy.heroImage.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex min-h-[220px] items-center justify-center rounded-[20px] border border-dashed border-black/10 bg-background sm:min-h-[260px] lg:min-h-[280px] xl:min-h-[220px]">
+                      <span className="text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-300 uppercase">
+                        Image Placeholder
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div
@@ -137,7 +149,7 @@ export function CaseStudiesPageView() {
                       {caseStudy.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-black/8 bg-[#FFFFFF] px-3 py-1.5 text-[11px] font-semibold text-zinc-500"
+                          className="rounded-full border border-black/8 bg-background px-3 py-1.5 text-[11px] font-semibold text-zinc-500"
                         >
                           {tag}
                         </span>
@@ -164,3 +176,4 @@ export function CaseStudiesPageView() {
     </main>
   );
 }
+
