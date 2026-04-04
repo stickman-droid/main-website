@@ -6,7 +6,7 @@ import { NoiseAnimation } from "./noise-animation"
 
 export function NotFoundPageView() {
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center justify-center lg:-mt-6 xl:-mt-8">
+    <main className="min-h-screen bg-background flex flex-col items-center justify-center lg:-mt-6 xl:-mt-8">
 
       {/* Header Heading */}
       <div>
@@ -58,3 +58,4 @@ export function NotFoundPageView() {
     </main>
   )
 }
+
