@@ -8,7 +8,7 @@ import { FocusSection } from "@/components/marketing/onboarding/focus-section"
 
 export default function OnboardingPage() {
   return (
-    <main className="relative min-h-screen bg-white selection:bg-black/5 selection:text-black">
+    <main className="relative min-h-screen bg-background selection:bg-black/5 selection:text-black">
       {/* Hero Section with Fluid Background */}
       <section className="relative w-full h-[90vh] overflow-hidden">
         <FluidBackground />
@@ -55,3 +55,4 @@ export default function OnboardingPage() {
     </main>
   )
 }
+
