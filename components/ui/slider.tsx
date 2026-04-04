@@ -42,7 +42,7 @@ function Slider({
           <BaseSlider.Thumb
             key={index}
             data-slot="slider-thumb"
-            className="block h-5 w-5 rounded-full border-2 border-zinc-900 bg-white shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50"
+            className="block h-5 w-5 rounded-full border-2 border-zinc-900 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50"
           />
         ))}
       </BaseSlider.Control>
@@ -51,3 +51,4 @@ function Slider({
 }
 
 export { Slider }
+
