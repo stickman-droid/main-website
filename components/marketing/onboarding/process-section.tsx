@@ -97,7 +97,7 @@ export function ProcessSection({
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="relative w-full overflow-hidden bg-white py-16 sm:py-32">
+    <section ref={containerRef} className="relative w-full overflow-hidden bg-background py-16 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header */}
         <div className="mb-10 flex flex-col items-center space-y-4 text-center sm:mb-20">
@@ -123,25 +123,25 @@ export function ProcessSection({
             >
               {/* Arrows at North, East, South, West */}
               {/* Arrow North (pointing right-ish) */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 bg-white">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 bg-background">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="rotate-0 text-black">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               {/* Arrow East (pointing down-ish) */}
-              <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 p-2 bg-white">
+              <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 p-2 bg-background">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="rotate-90 text-black">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               {/* Arrow South (pointing left-ish) */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 p-2 bg-white">
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 p-2 bg-background">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="rotate-180 text-black">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               {/* Arrow West (pointing up-ish) */}
-              <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 p-2 bg-white">
+              <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 p-2 bg-background">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="-rotate-90 text-black">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -154,7 +154,7 @@ export function ProcessSection({
             {steps.map((step, i) => (
               <div
                 key={step.num}
-                className={`process-card flex flex-col space-y-3 rounded-[18px] bg-white p-3 sm:space-y-6 sm:rounded-none sm:bg-transparent sm:p-0 ${i % 2 === 1 ? "sm:items-start text-left" : "sm:items-start text-left"
+                className={`process-card flex flex-col space-y-3 rounded-[18px] bg-background p-3 sm:space-y-6 sm:rounded-none sm:bg-transparent sm:p-0 ${i % 2 === 1 ? "sm:items-start text-left" : "sm:items-start text-left"
                   }`}
                 style={{ perspective: "1000px" }}
               >
@@ -178,3 +178,4 @@ export function ProcessSection({
     </section>
   )
 }
+
