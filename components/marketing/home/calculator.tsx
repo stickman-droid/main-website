@@ -76,7 +76,7 @@ export function Calculator() {
   }
 
   return (
-    <Card className="h-[470px] w-full max-w-[400px] overflow-visible rounded-2xl border-none bg-white shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] transition-all duration-700 hover:shadow-[0_48px_80px_-20px_rgba(0,0,0,0.15)]">
+    <Card className="h-[470px] w-full max-w-[400px] overflow-visible rounded-2xl border-none bg-background shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] transition-all duration-700 hover:shadow-[0_48px_80px_-20px_rgba(0,0,0,0.15)]">
       <CardContent className="flex h-full flex-col px-8 py-2">
         <div className="flex justify-between items-start">
           <div className="space-y-1">
@@ -208,3 +208,4 @@ export function Calculator() {
     </Card>
   )
 }
+
