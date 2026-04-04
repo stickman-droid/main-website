@@ -66,7 +66,7 @@ export function PhilosophySection() {
   }
 
   return (
-    <section ref={containerRef} className="relative w-full bg-white py-12 lg:py-32 overflow-hidden">
+    <section ref={containerRef} className="relative w-full bg-background py-12 lg:py-32 overflow-hidden">
       <div className="mx-auto max-w-[1240px] px-6 sm:px-12">
         {/* Header */}
         <div className="mb-6 lg:mb-14 flex flex-col items-center text-center space-y-4">
@@ -100,7 +100,7 @@ export function PhilosophySection() {
                 }}
               />
 
-              <div className="relative z-10 flex h-full flex-col space-y-6 rounded-[23px] border border-[#E0E0E0] bg-white p-4 transition-colors group-hover:border-blue-500/10 lg:p-6">
+              <div className="relative z-10 flex h-full flex-col space-y-6 rounded-[23px] border border-[#E0E0E0] bg-background p-4 transition-colors group-hover:border-blue-500/10 lg:p-6">
                 <h3 className="text-xl font-bold leading-snug tracking-tight text-[#3D3D3D] lg:text-2xl">
                   {item.title}
                 </h3>
@@ -130,3 +130,4 @@ export function PhilosophySection() {
     </section>
   )
 }
+
