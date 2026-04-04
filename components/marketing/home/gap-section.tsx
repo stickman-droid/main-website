@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 export function GapSection() {
   return (
-    <section className="flex w-full justify-center overflow-hidden bg-white py-8 sm:py-16">
+    <section className="flex w-full justify-center overflow-hidden bg-background py-8 sm:py-16">
       <div className="flex w-full max-w-[950px] flex-col gap-5 px-6">
         <div className="mx-auto flex max-w-[720px] flex-col items-start gap-4 text-left">
           <p className="text-[14px] font-mono font-bold tracking-[0.25em] text-zinc-400 uppercase">
@@ -78,19 +78,19 @@ function BrokenBox() {
       <div className="wrapper relative h-[240px] w-[240px] transform-gpu">
         {/* Occluders (Corners) */}
         <div className={cn(
-          "occluder absolute -top-[40px] -left-[40px] z-20 h-[80px] w-[80px] bg-white transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)",
+          "occluder absolute -top-[40px] -left-[40px] z-20 h-[80px] w-[80px] bg-background transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)",
           isHovered ? "opacity-0 scale-50 pointer-events-none" : "opacity-100 scale-100"
         )} />
         <div className={cn(
-          "occluder absolute -top-[40px] -right-[40px] z-20 h-[80px] w-[80px] bg-white transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)",
+          "occluder absolute -top-[40px] -right-[40px] z-20 h-[80px] w-[80px] bg-background transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)",
           isHovered ? "opacity-0 scale-50 pointer-events-none" : "opacity-100 scale-100"
         )} />
         <div className={cn(
-          "occluder absolute -bottom-[40px] -right-[40px] z-20 h-[80px] w-[80px] bg-white transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)",
+          "occluder absolute -bottom-[40px] -right-[40px] z-20 h-[80px] w-[80px] bg-background transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)",
           isHovered ? "opacity-0 scale-50 pointer-events-none" : "opacity-100 scale-100"
         )} />
         <div className={cn(
-          "occluder absolute -bottom-[40px] -left-[40px] z-20 h-[80px] w-[80px] bg-white transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)",
+          "occluder absolute -bottom-[40px] -left-[40px] z-20 h-[80px] w-[80px] bg-background transition-all duration-1000 cubic-bezier(0.4, 0, 0.2, 1)",
           isHovered ? "opacity-0 scale-50 pointer-events-none" : "opacity-100 scale-100"
         )} />
 
@@ -148,3 +148,4 @@ function BrokenBox() {
     </div>
   )
 }
+
