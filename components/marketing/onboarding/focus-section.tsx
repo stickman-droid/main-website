@@ -148,7 +148,7 @@ export function FocusSection() {
   }
 
   return (
-    <section ref={containerRef} className="relative w-full bg-white pt-4 pb-12 sm:py-12 overflow-hidden">
+    <section ref={containerRef} className="relative w-full bg-background pt-4 pb-12 sm:py-12 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header Section */}
         <div className="mb-4 flex flex-col items-start text-left space-y-4 max-w-[640px]">
@@ -215,7 +215,7 @@ export function FocusSection() {
                 />
 
                 {/* Inner Content Card */}
-                <div className="relative z-10 bg-white rounded-[23px] px-5 py-4 flex flex-col space-y-2 border border-[#E0E0E0] transition-colors group-hover:border-blue-500/10">
+                <div className="relative z-10 bg-background rounded-[23px] px-5 py-4 flex flex-col space-y-2 border border-[#E0E0E0] transition-colors group-hover:border-blue-500/10">
                   <h3 className="text-xl font-bold text-[#3D3D3D] tracking-tight">
                     {card.title}
                   </h3>
@@ -248,3 +248,4 @@ export function FocusSection() {
     </section>
   )
 }
+
