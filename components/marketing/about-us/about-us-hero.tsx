@@ -83,7 +83,7 @@ export function AboutUsHero() {
   }, [])
 
   return (
-    <section className="relative w-full overflow-hidden bg-white py-6 lg:py-14">
+    <section className="relative w-full overflow-hidden bg-background py-6 lg:py-14">
       <div className="mx-auto w-full px-6 lg:px-12 xl:px-[80px]">
         {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase mb-14">
@@ -114,7 +114,7 @@ export function AboutUsHero() {
           {/* Right Column: Dynamic Status Cards - Now side-by-side as requested, including mobile */}
           <div className="grid grid-cols-2 gap-5 sm:gap-6 items-stretch lg:pl-4 xl:pl-0">
             {/* Card 1: Headquarters */}
-            <div className="bg-white rounded-[24px] sm:rounded-[24px] p-4 xl:p-8 border border-[#E0E0E0] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full sm:min-h-[150px]">
+            <div className="bg-background rounded-[24px] sm:rounded-[24px] p-4 xl:p-8 border border-[#E0E0E0] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full sm:min-h-[150px]">
               <div className="space-y-3 sm:space-y-4">
                 <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
                   Headquarters
@@ -133,7 +133,7 @@ export function AboutUsHero() {
             </div>
 
             {/* Card 2: Work Bandwidth */}
-            <div className="bg-white rounded-[24px] sm:rounded-[24px] p-4 xl:p-8 border border-[#E0E0E0] shadow-[0_8px_32px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full sm:min-h-[20px]">
+            <div className="bg-background rounded-[24px] sm:rounded-[24px] p-4 xl:p-8 border border-[#E0E0E0] shadow-[0_8px_32px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full sm:min-h-[20px]">
               <div className="space-y-4 sm:space-y-6">
                 <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
                   Work Bandwidth
@@ -178,3 +178,4 @@ export function AboutUsHero() {
     </section>
   )
 }
+
