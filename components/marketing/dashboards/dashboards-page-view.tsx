@@ -31,7 +31,7 @@ const dashboardSteps = [
 
 export function DashboardsPageView() {
   return (
-    <main className="relative min-h-screen bg-white">
+    <main className="relative min-h-screen bg-background">
       <section className="relative w-full overflow-hidden py-8 xl:min-h-[90vh]">
         <div className="mx-auto w-full px-6 lg:px-12 xl:px-20">
           <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase">
@@ -82,3 +82,4 @@ export function DashboardsPageView() {
     </main>
   )
 }
+
