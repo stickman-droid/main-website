@@ -77,7 +77,7 @@ export function FocusGridSection() {
   }
 
   return (
-    <section ref={containerRef} className="relative w-full bg-white py-4 lg:py-10 overflow-hidden">
+    <section ref={containerRef} className="relative w-full bg-background py-4 lg:py-10 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header Section - Centered as per request image */}
         <div className="mb-8 lg:mb-16 flex flex-col items-center text-center space-y-4">
@@ -112,7 +112,7 @@ export function FocusGridSection() {
               />
 
               {/* Inner Content Card */}
-              <div className="relative z-10 bg-white rounded-[23px] px-4 py-6 h-full flex flex-col space-y-3 sm:space-y-4 border border-[#E0E0E0] transition-colors group-hover:border-blue-500/10">
+              <div className="relative z-10 bg-background rounded-[23px] px-4 py-6 h-full flex flex-col space-y-3 sm:space-y-4 border border-[#E0E0E0] transition-colors group-hover:border-blue-500/10">
                 <h3 className="text-lg sm:text-2xl font-bold text-[#3D3D3D] tracking-tight">
                   {card.title}
                 </h3>
@@ -143,3 +143,4 @@ export function FocusGridSection() {
     </section>
   )
 }
+
