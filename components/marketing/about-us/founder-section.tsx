@@ -39,7 +39,7 @@ export function FounderSection() {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="relative w-full overflow-hidden border-t border-zinc-50 bg-white py-16 lg:py-32">
+    <section ref={containerRef} className="relative w-full overflow-hidden border-t border-zinc-50 bg-background py-16 lg:py-32">
       <div className="mx-auto max-w-[1240px] px-6 sm:px-12">
         <div className="mx-auto flex max-w-[980px] flex-col items-center gap-12 lg:gap-16">
           <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-10">
@@ -88,3 +88,4 @@ export function FounderSection() {
     </section>
   )
 }
+
