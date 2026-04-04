@@ -231,7 +231,7 @@ export function WorkSection() {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="relative min-h-screen w-full bg-white pt-12 sm:pt-16">
+    <section ref={containerRef} className="relative min-h-screen w-full bg-background pt-12 sm:pt-16">
       <div className="work-header mx-auto flex w-full max-w-[820px] flex-col items-center gap-3 px-6 text-center sm:px-8">
         <p className="text-[10px] font-mono font-bold tracking-[0.4em] text-zinc-400 uppercase">
           Selected Work
@@ -262,7 +262,7 @@ export function WorkSection() {
                 {projects.map((project, i) => (
                   <article
                     key={project.id}
-                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[min(76vw,320px)] rounded-[26px] bg-white p-3 shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:w-[260px] sm:left-auto lg:w-[300px]`}
+                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[min(76vw,320px)] rounded-[26px] bg-background p-3 shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:w-[260px] sm:left-auto lg:w-[300px]`}
                     style={{
                       zIndex: projects.length - i,
                     }}
@@ -313,3 +313,4 @@ export function WorkSection() {
     </section>
   )
 }
+
