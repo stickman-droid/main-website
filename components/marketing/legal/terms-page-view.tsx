@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function TermsPageView() {
   return (
-    <main className="min-h-screen bg-white text-[#3D3D3D]">
+    <main className="min-h-screen bg-background text-[#3D3D3D]">
       <section className="w-full py-12 lg:py-24">
         <div className="mx-auto w-full max-w-4xl px-6 lg:px-12">
           {/* Breadcrumb */}
@@ -95,3 +95,4 @@ export function TermsPageView() {
     </main>
   );
 }
+
