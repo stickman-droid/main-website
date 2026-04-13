@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { Calculator } from "./calculator"
 import { InteractiveDotGrid } from "@/components/utility/interactive-dot-grid"
 import { Button } from "@/components/ui/button"
@@ -41,6 +42,10 @@ export function Hero() {
               <Button
                 variant="outline"
                 size="lg"
+                nativeButton={false}
+                render={
+                  <Link href="/case-studies" />
+                }
                 className="flex gap-2 rounded-[6px] border border-[#D1D1D1] px-8 py-6 text-base font-semibold text-[#3D3D3D] transition-all hover:scale-[1.02] hover:bg-zinc-50 active:scale-[0.98]"
               >
                 See What We Made
