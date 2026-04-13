@@ -81,13 +81,13 @@ export function TermsPageView() {
               <p>
                 We reserve the right to revise these terms of service at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.
               </p>
-              <p className="mt-4">
+              {/* <p className="mt-4">
                 If you have questions about these terms, please contact:
                 <br />
                 <span className="font-bold text-blue-600 block mt-2">
                   {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "admin.stickman@gmail.com"}
                 </span>
-              </p>
+              </p> */}
             </section>
           </div>
         </div>
