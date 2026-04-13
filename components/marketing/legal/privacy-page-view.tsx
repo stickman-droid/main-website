@@ -75,7 +75,7 @@ export function PrivacyPageView() {
               </p>
             </section>
 
-            <section className="space-y-4 pt-8 border-t border-zinc-100">
+            {/* <section className="space-y-4 pt-8 border-t border-zinc-100">
               <h2 className="text-xl font-bold text-[#3D3D3D] tracking-tight">Contact Us</h2>
               <p>
                 If you have any questions about this Privacy Policy, please contact us at:
@@ -84,7 +84,7 @@ export function PrivacyPageView() {
                   {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "admin.stickman@gmail.com"}
                 </span>
               </p>
-            </section>
+            </section> */}
           </div>
         </div>
       </section>
