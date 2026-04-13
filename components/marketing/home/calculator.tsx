@@ -168,7 +168,7 @@ export function Calculator() {
               value={users}
               onValueChange={setUsers}
               min={100}
-              max={1000000}
+              max={500000}
               step={100}
               className="py-2"
             />
