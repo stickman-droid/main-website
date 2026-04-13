@@ -5,6 +5,7 @@ import { FluidBackground } from "@/components/marketing/onboarding/fluid-backgro
 import { ContactSection } from "@/components/marketing/home/contact-section"
 import { ProcessSection } from "@/components/marketing/onboarding/process-section"
 import { FocusSection } from "@/components/marketing/onboarding/focus-section"
+import { WorkSection } from "@/components/marketing/home/work-section"
 
 export default function OnboardingPage() {
   return (
@@ -13,42 +14,47 @@ export default function OnboardingPage() {
       <section className="relative w-full h-[90vh] overflow-hidden">
         <FluidBackground />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-12 sm:px-12 sm:pt-16">
-          {/* Breadcrumb - Uniform light coloring */}
-          <div className="lg:mb-24 mb-12 flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase">
+        <div className="relative z-10 flex h-full flex-col px-4 pt-10 sm:px-6 lg:px-[48px] xl:px-[80px]">
+          {/* Breadcrumb - Aligned with Navbar content */}
+          <div className="lg:mb-0 mb-8 flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase">
             <span>Home</span>
             <span className="text-zinc-200">.</span>
             <span>Onboarding</span>
           </div>
 
-          {/* Content Section */}
-          <div className="max-w-[720px] space-y-12">
-            <h1
-              className="text-4xl lg:text-5xl font-bold tracking-tight text-[#3D3D3D] sm:text-6xl lg:text-[72px] leading-[1.05]"
-              style={{ fontFamily: 'var(--font-heading, serif)' }}
-            >
-              Where Clarity Flows,<br />Users Follow
-            </h1>
+          {/* Centered Content Section */}
+          <div className="flex flex-1 flex-col items-center justify-center text-center pb-20">
+            <div className="max-w-[820px] space-y-10">
+              <h1
+                className="text-4xl lg:text-5xl font-bold tracking-tight text-[#3D3D3D] sm:text-6xl lg:text-[72px] leading-[1.05]"
+                style={{ fontFamily: 'var(--font-heading, serif)' }}
+              >
+                Where Clarity Flows,<br />Users Follow
+              </h1>
 
-            <div className="flex flex-col space-y-8">
-              <p className="text-[17px] leading-relaxed text-zinc-500 font-medium">
-                SaaS products win when they make their value obvious from the first interaction.
-                When users instantly understand how the product helps them, they move forward with confidence instead of hesitation.
-              </p>
-              <p className="text-[17px] leading-relaxed text-zinc-500 font-medium">
-                We audit your entire journey to ensure it welcomes users, builds trust, and
-                guides your users directly into their first meaningful workflow.
-              </p>
+              <div className="flex flex-col space-y-8 items-center text-left">
+                <p className="max-w-[680px] text-[18px] leading-relaxed text-zinc-500 font-medium">
+                  SaaS products win when they make their value obvious from the first interaction.
+                  When users instantly understand how the product helps them, they move forward with confidence instead of hesitation.
+                </p>
+                <p className="max-w-[680px] text-[18px] leading-relaxed text-zinc-500 font-medium">
+                  We audit your entire journey to ensure it welcomes users, builds trust, and
+                  guides your users directly into their first meaningful workflow.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Focus Section */}
+      <FocusSection />
+
       {/* Process Section */}
       <ProcessSection />
 
-      {/* Focus Section */}
-      <FocusSection />
+      {/* Selected Work Section */}
+      <WorkSection />
 
       {/* Reused Contact CTA Section */}
       <ContactSection />
