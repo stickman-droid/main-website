@@ -46,9 +46,9 @@ export function FocusSection() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: imagesRef.current,
-          start: "top 78%",
-          end: "top 42%",
-          scrub: 0.9,
+          start: "top 96%",
+          end: "top 10%",
+          scrub: 2.5,
         },
       })
 
@@ -56,10 +56,10 @@ export function FocusSection() {
         images,
         {
           opacity: 0,
-          x: -70,
-          y: 100,
-          rotate: -10,
-          scale: 0.9,
+          x: -150,
+          y: -120,
+          rotate: -15,
+          scale: 0.85,
         },
         {
           opacity: 1,
@@ -67,8 +67,8 @@ export function FocusSection() {
           y: 0,
           rotate: 0,
           scale: 1,
-          stagger: 0.14,
-          ease: "power3.out",
+          stagger: 0.22,
+          ease: "power2.out",
         }
       )
     })
@@ -76,16 +76,16 @@ export function FocusSection() {
     mm.add("(max-width: 1023px)", () => {
       gsap.fromTo(
         images,
-        { opacity: 0, y: 60, x: -20, rotate: -4, scale: 0.94 },
+        { opacity: 0, y: -50, x: -50, rotate: -8, scale: 0.92 },
         {
           opacity: 1,
           y: 0,
           x: 0,
           rotate: 0,
           scale: 1,
-          duration: 0.9,
-          stagger: 0.16,
-          ease: "power3.out",
+          duration: 2.5,
+          stagger: 0.25,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: imagesRef.current,
             start: "top 82%",
@@ -248,4 +248,3 @@ export function FocusSection() {
     </section>
   )
 }
-

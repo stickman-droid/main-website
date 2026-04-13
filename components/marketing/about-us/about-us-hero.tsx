@@ -12,7 +12,7 @@ function getSprintMetrics(now: Date) {
   }).format(now)
   const dayOfMonth = Number(dayPart)
   const dayIndex = (dayOfMonth - 1) % SPRINT_LENGTH_DAYS
-  const daysRemaining = SPRINT_LENGTH_DAYS - dayIndex
+  const daysRemaining = Math.max(1, SPRINT_LENGTH_DAYS - dayIndex)
   const completionPercentage = (dayIndex / SPRINT_LENGTH_DAYS) * 100
 
   return {
@@ -140,7 +140,7 @@ export function AboutUsHero() {
                 </p>
                 <div className="space-y-4">
                   <div className="space-y-1">
-                    <p className="text-[14px] sm:text-[16px] font-bold text-[#3D3D3D]">Capacity</p>
+                    <p className="text-[14px] sm:text-[16px] font-bold text-[#3D3D3D]">Consumed Capacity</p>
                     <p className="text-2xl sm:text-4xl font-bold text-[#3D3D3D]">
                       {bandwidthPercentage.toFixed(2)}%
                     </p>
@@ -164,7 +164,7 @@ export function AboutUsHero() {
               <div className="flex flex-col space-y-2 pt-4 sm:pt-6 border-t border-zinc-50 text-[11px] sm:text-[12px] font-medium text-zinc-500">
                 <div className="flex items-center justify-between">
                   <span>Active Engagements:</span>
-                  <span className="text-[#3D3D3D] font-bold">1 / 3</span>
+                  <span className="text-[#3D3D3D] font-bold">{days > 6 ? "2 / 3" : "1 / 3"}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Next Sprint:</span>

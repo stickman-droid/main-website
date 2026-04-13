@@ -69,7 +69,7 @@ export function WorkSection() {
         scrollTrigger: {
           trigger: panelRef.current,
           start: "center center",
-          end: "+=320%",
+          end: "+=500%",
           pin: true,
           pinSpacing: true,
           scrub: 0.65,
@@ -143,7 +143,7 @@ export function WorkSection() {
         scrollTrigger: {
           trigger: panelRef.current,
           start: "center center",
-          end: "+=220%",
+          end: "+=400%",
           pin: true,
           pinSpacing: true,
           scrub: 0.65,
@@ -262,7 +262,7 @@ export function WorkSection() {
                 {projects.map((project, i) => (
                   <article
                     key={project.id}
-                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[min(76vw,320px)] rounded-[26px] bg-background p-3 shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:w-[260px] sm:left-auto lg:w-[300px]`}
+                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[min(85vw,360px)] rounded-[26px] bg-background p-3 shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:w-[300px] sm:left-auto lg:w-[360px]`}
                     style={{
                       zIndex: projects.length - i,
                     }}
@@ -313,4 +313,3 @@ export function WorkSection() {
     </section>
   )
 }
-

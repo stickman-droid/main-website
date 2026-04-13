@@ -94,39 +94,34 @@ function BrokenBox() {
           isHovered ? "opacity-0 scale-50 pointer-events-none" : "opacity-100 scale-100"
         )} />
 
-        {/* Revealed Content: Clarity Visual */}
-        <div className={cn(
-          "absolute inset-0 z-10 flex flex-col items-center justify-center transition-all duration-1000 delay-300 ease-out",
-          isHovered ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-75 translate-y-12"
-        )}>
-          <div className="mb-4 flex items-end gap-2.5 h-12">
-            {/* Bar 1: Smallest */}
-            <div className="w-1.5 bg-zinc-900/10 rounded-full h-full relative overflow-hidden">
-              <div className={cn("absolute bottom-0 left-0 w-full bg-zinc-900 transition-all duration-1000 delay-500", isHovered ? "h-[30%]" : "h-0")} />
-            </div>
-            {/* Bar 2: Medium */}
-            <div className="w-1.5 bg-zinc-900/10 rounded-full h-full relative overflow-hidden">
-              <div className={cn("absolute bottom-0 left-0 w-full bg-zinc-900 transition-all duration-1000 delay-700", isHovered ? "h-[65%]" : "h-0")} />
-            </div>
-            {/* Bar 3: Biggest */}
-            <div className="w-1.5 bg-zinc-900/10 rounded-full h-full relative overflow-hidden">
-              <div className={cn("absolute bottom-0 left-0 w-full bg-zinc-900 transition-all duration-1000 delay-900", isHovered ? "h-full" : "h-0")} />
-            </div>
-          </div>
-          <span className="text-[11px] font-mono font-bold tracking-[0.4em] text-zinc-900 uppercase">Revenue</span>
-        </div>
-
-        {/* The Box Lines */}
         <div
           className={cn(
             "lines relative h-[240px] w-[240px] transition-opacity duration-1000",
-            isHovered || !isInView ? "animate-none" : "animate-move-circular"
+            !isInView ? "animate-none" : "animate-move-circular"
           )}
-          style={{
-            transform: isHovered ? 'translate3d(0, 0, 0)' : undefined,
-            transition: 'transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)'
-          }}
         >
+          {/* Revealed Content: Clarity Visual */}
+          <div className={cn(
+            "absolute inset-0 z-10 flex flex-col items-center justify-center transition-all duration-1000 delay-300 ease-out",
+            isHovered ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-75 translate-y-12"
+          )}>
+            <div className="mb-4 flex items-end gap-2.5 h-12">
+              {/* Bar 1: Smallest */}
+              <div className="w-1.5 bg-zinc-900/10 rounded-full h-full relative overflow-hidden">
+                <div className={cn("absolute bottom-0 left-0 w-full bg-zinc-900 transition-all duration-1000 delay-500", isHovered ? "h-[30%]" : "h-0")} />
+              </div>
+              {/* Bar 2: Medium */}
+              <div className="w-1.5 bg-zinc-900/10 rounded-full h-full relative overflow-hidden">
+                <div className={cn("absolute bottom-0 left-0 w-full bg-zinc-900 transition-all duration-1000 delay-700", isHovered ? "h-[65%]" : "h-0")} />
+              </div>
+              {/* Bar 3: Biggest */}
+              <div className="w-1.5 bg-zinc-900/10 rounded-full h-full relative overflow-hidden">
+                <div className={cn("absolute bottom-0 left-0 w-full bg-zinc-900 transition-all duration-1000 delay-900", isHovered ? "h-full" : "h-0")} />
+              </div>
+            </div>
+            <span className="text-[11px] font-mono font-bold tracking-[0.4em] text-zinc-900 uppercase">Revenue</span>
+          </div>
+
           <svg
             className="absolute inset-0 h-full w-full"
             viewBox="0 0 240 240"
