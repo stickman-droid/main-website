@@ -128,6 +128,7 @@
 
   html {
     @apply font-sans;
+    scrollbar-gutter: stable;
   }
 }
 
@@ -143,4 +144,19 @@
 
 .animate-move-circular {
   animation: move-circular 7s infinite linear;
+}
+
+@keyframes mobile-nav-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.mobile-nav-marquee {
+  animation: mobile-nav-marquee 18s linear infinite;
+  will-change: transform;
 }
