@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Menu, X } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -22,10 +23,46 @@ const navItems = [
 const navShadow =
   "0px 2px 5px 0px #0000000A, 0px 10px 10px 0px #00000008, 0px 22px 13px 0px #00000005, 0px 38px 15px 0px #00000003, 0px 60px 17px 0px #00000000";
 
+const mobileTopShadow =
+  "0px 2px 5px 0px #0000000A, 0px 10px 10px 0px #00000008, 0px 22px 13px 0px #00000005, 0px 38px 15px 0px #00000003, 0px 60px 17px 0px #00000000";
+
+const mobileBottomShadow =
+  "0px -3px 7px 0px #00000014, 0px -13px 13px 0px #00000012, 0px -29px 17px 0px #0000000A, 0px -51px 20px 0px #00000003, 0px -79px 22px 0px #00000000";
+
 export function Header() {
+  const mobileNavTicker = [...navItems, ...navItems];
+  const topHeaderRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(57);
+
+  useEffect(() => {
+    const el = topHeaderRef.current;
+    if (!el) return;
+    const update = () => setHeaderHeight(el.offsetHeight);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 w-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
-      <div className="w-full">
+    <>
+      {/* Mobile top brand bar */}
+      <header ref={topHeaderRef} className="sticky top-0 z-[60] w-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80 lg:hidden">
+        <div
+          className="flex w-full items-center justify-center bg-background px-4 py-4"
+          style={{ boxShadow: mobileTopShadow }}
+        >
+          <Link
+            href="/"
+            className="text-base font-semibold tracking-[0.04em] text-[#3D3D3D] uppercase"
+          >
+            STICKMAN.DESIGN
+          </Link>
+        </div>
+      </header>
+
+      {/* Desktop header */}
+      <header className="sticky top-0 z-40 hidden w-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80 lg:block">
         <div
           className="flex w-full items-center justify-between gap-4 border-b border-black/5 bg-background px-4 py-4 sm:px-6 lg:px-[48px] xl:px-[80px]"
           style={{ boxShadow: navShadow }}
@@ -63,6 +100,29 @@ export function Header() {
               Book Your Free Call
             </Link>
           </div>
+        </div>
+      </header>
+
+      <div className="fixed inset-x-0 bottom-0 z-50 lg:hidden">
+        <div
+          className="flex w-full items-center gap-4 bg-background/95 px-4 py-3 backdrop-blur supports-backdrop-filter:bg-background/90"
+          style={{ boxShadow: mobileBottomShadow }}
+        >
+          <div className="relative min-w-0 flex-1 overflow-hidden">
+            <div className="mobile-nav-marquee flex min-w-max items-center gap-5">
+              {mobileNavTicker.map((item, index) => (
+                <Link
+                  key={`${item.href}-${index}`}
+                  href={item.href}
+                  aria-hidden={index >= navItems.length}
+                  tabIndex={index >= navItems.length ? -1 : undefined}
+                  className="shrink-0 text-xs font-medium tracking-[0.03em] text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
 
           <Sheet>
             <SheetTrigger
@@ -70,26 +130,40 @@ export function Header() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="rounded-full text-[#3D3D3D] hover:bg-black/5 lg:hidden"
+                  className="shrink-0 text-[#3D3D3D] hover:bg-transparent hover:text-[#1C1C1C]"
                 />
               }
             >
-              <Menu className="size-5" />
+              <Menu className="size-5" strokeWidth={2.5} />
               <span className="sr-only">Open navigation menu</span>
             </SheetTrigger>
 
             <SheetContent
-              side="right"
-              className="w-[86vw] max-w-sm border-l border-black/10 bg-background p-0"
+              side="bottom"
+              showCloseButton={false}
+              className="border-0 bg-background px-0 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-0"
+              style={{ top: headerHeight }}
             >
-              <div className="flex h-full flex-col">
-                <div className="border-b border-black/5 px-5 py-5">
-                  <SheetTitle className="text-left text-base font-semibold tracking-[0.04em] text-[#3D3D3D] uppercase">
-                    STICKMAN.DESIGN
-                  </SheetTitle>
+              <div className="relative flex h-full flex-col">
+                <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+
+                {/* X close — absolutely top-right */}
+                <div className="absolute right-4 top-4">
+                  <SheetClose
+                    render={
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-[#3D3D3D] hover:bg-black/5 hover:text-[#1C1C1C]"
+                      />
+                    }
+                  >
+                    <X className="size-5" strokeWidth={2.5} />
+                    <span className="sr-only">Close menu</span>
+                  </SheetClose>
                 </div>
 
-                <nav className="flex flex-1 flex-col gap-2 px-4 py-5">
+                <div className="flex flex-1 flex-col items-center justify-center gap-10 px-6">
                   {navItems.map((item) => (
                     <SheetClose
                       key={item.href}
@@ -97,19 +171,14 @@ export function Header() {
                       render={
                         <Link
                           href={item.href}
-                          className={cn(
-                            buttonVariants({ variant: "ghost", size: "lg" }),
-                            "w-full justify-start rounded-2xl px-4 text-base text-[#3D3D3D] hover:bg-black/5 hover:text-[#1C1C1C]"
-                          )}
+                          className="text-xl font-medium text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
                         />
                       }
                     >
                       {item.label}
                     </SheetClose>
                   ))}
-                </nav>
 
-                <div className="border-t border-black/5 p-4">
                   <SheetClose
                     nativeButton={false}
                     render={
@@ -117,7 +186,7 @@ export function Header() {
                         href="/onboarding"
                         className={cn(
                           buttonVariants({ size: "lg" }),
-                          "w-full rounded-[6px] bg-[#1C1C1C] px-5 text-white hover:bg-[#2A2A2A]"
+                          "mt-2 w-auto min-w-[220px] rounded-[6px] bg-[#1C1C1C] px-8 text-white hover:bg-[#2A2A2A]"
                         )}
                       />
                     }
@@ -130,7 +199,7 @@ export function Header() {
           </Sheet>
         </div>
       </div>
-    </header>
+    </>
   );
 }
 
