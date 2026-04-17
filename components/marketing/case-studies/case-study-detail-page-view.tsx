@@ -41,8 +41,8 @@ export function CaseStudyDetailPageView({
   return (
     <article className="min-h-screen bg-background text-[#3D3D3D] lg:pb-8">
       <div className="px-6 py-5 sm:py-10">
-        <nav className="hidden w-full lg:block lg:pl-15">
-          <div className="flex flex-wrap items-center justify-start gap-1.5 text-left text-sm lg:text-[11px] font-mono tracking-[0.2em] text-[#3D3D3D] uppercase sm:flex-nowrap">
+        <nav className="w-full lg:pl-15">
+          <div className="flex flex-wrap items-center justify-start gap-1.5 text-left text-[10px] lg:text-[11px] font-mono tracking-[0.2em] text-[#3D3D3D] uppercase sm:flex-nowrap">
             <NextLink
               href="/"
               className="whitespace-nowrap transition-colors hover:text-zinc-600"
