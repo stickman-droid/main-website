@@ -18,13 +18,46 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-auto w-full pb-6 pt-12">
-      <div className="flex w-full flex-col gap-6 bg-[#FCFCFC] px-4 py-8 text-[#3D3D3D] sm:px-6 lg:px-[80px]">
-        <div className="text-left text-base font-semibold tracking-[0.04em] uppercase sm:text-lg">
+    <footer className="mt-auto w-full pb-0 pt-12 sm:pb-0">
+      <div className="flex w-full flex-col gap-6 bg-[#FCFCFC] px-4 pt-4 sm:py-8 text-[#3D3D3D] sm:px-6 lg:px-[80px]">
+
+        {/* Brand */}
+        <div className="text-center text-2xl font-semibold tracking-[0.04em] uppercase sm:text-lg md:text-left">
           STICKMAN.DESIGN
         </div>
 
-        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+        {/* ── MOBILE layout ── */}
+        <div className="flex flex-col items-center gap-5 md:hidden">
+          <nav className="flex flex-col items-center gap-4 text-sm">
+            {footerLinks.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="transition-colors hover:text-black"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            {socialLinks.map(({ href, label, icon: Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+                className="inline-flex size-10 items-center justify-center rounded-full border border-black/10 transition-colors hover:border-black/20 hover:bg-black/5"
+              >
+                <Icon className="size-[18px]" />
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* ── DESKTOP layout ── */}
+        <div className="hidden flex-col gap-6 md:flex md:flex-row md:items-start md:justify-between">
           <nav className="flex flex-wrap gap-x-5 gap-y-3 text-sm">
             {footerLinks.map((item) => (
               <Link
@@ -55,8 +88,20 @@ export function Footer() {
 
         <Separator className="bg-black/10" />
 
-        <div className="flex flex-col gap-3 text-sm text-[#5A5A5A] md:flex-row md:items-center md:justify-between">
-          <div>c 2026 Stickman.Design</div>
+        {/* ── MOBILE copyright block ── */}
+        <div className="flex flex-col items-center gap-2 text-sm text-[#5A5A5A] md:hidden">
+          <div>© 2026 Stickman.Design</div>
+          <div className="flex items-center gap-1.5">
+            <Link href="/privacy" className="transition-colors hover:text-black">Privacy Policy</Link>
+            <span className="text-black/20">|</span>
+            <Link href="/terms" className="transition-colors hover:text-black">Terms of Use</Link>
+          </div>
+          <div>All rights reserved.</div>
+        </div>
+
+        {/* ── DESKTOP copyright block ── */}
+        <div className="hidden flex-col gap-3 text-sm text-[#5A5A5A] md:flex md:flex-row md:items-center md:justify-between">
+          <div>© 2026 Stickman.Design</div>
           <div className="flex items-center gap-1.5 text-left md:text-center">
             <Link href="/privacy" className="transition-colors hover:text-black">Privacy Policy</Link>
             <span className="text-black/10">|</span>
@@ -64,10 +109,17 @@ export function Footer() {
           </div>
           <div className="md:text-right">All rights reserved.</div>
         </div>
+
+        {/* Faded tagline
+        <div className="text-center text-sm font-medium text-[#3D3D3D]/20 md:text-left">
+          Making Digital Products For Humans
+        </div> */}
+
       </div>
     </footer>
   );
 }
+
 
 function LinkedInIcon(props: ComponentProps<"svg">) {
   return (
