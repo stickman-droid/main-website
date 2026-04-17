@@ -151,7 +151,7 @@ export function FocusSection() {
     <section ref={containerRef} className="relative w-full bg-background pt-4 pb-12 sm:py-12 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header Section */}
-        <div className="mb-4 flex flex-col items-start text-left space-y-4 max-w-[640px]">
+        <div className="mb-4 flex flex-col items-center text-center space-y-4 lg:items-start lg:text-left max-w-[640px] mx-auto lg:mx-0">
           <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
             Our Focus
           </p>
@@ -166,35 +166,72 @@ export function FocusSection() {
         {/* Content Section: 2-Column Mesh */}
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] items-start">
 
-          <div ref={imagesRef} className="relative hidden min-h-[420px] items-start justify-center lg:flex lg:min-h-[620px] lg:justify-start">
-            <div className="relative h-full w-full max-w-[760px] transform-style-3d">
-              <div className="focus-image absolute top-4 z-0 w-[280px]">
-                <Image
-                  src="/onboarding1.svg"
-                  alt="Onboarding Screen 1"
-                  width={300}
-                  height={600}
-                  className="rounded-[32px]"
-                />
+          {/* Images: shown on mobile (stacked) + desktop (overlapping side-by-side) */}
+          <div ref={imagesRef} className="relative flex min-h-[380px] items-start justify-center py-10 lg:min-h-[620px] lg:justify-start">
+            <div className="relative h-full w-full max-w-[760px]">
+
+              {/* Mobile: absolute cascading slope (3 in front -> 2 -> 1 in back) */}
+              <div className="relative lg:hidden mx-auto h-[320px] w-[320px]">
+                <div className="focus-image absolute left-0 top-[-20px] z-0 w-[160px]">
+                  <Image
+                    src="/onboarding1.svg"
+                    alt="Onboarding Screen 1"
+                    width={300}
+                    height={600}
+                    className="rounded-[24px] w-full h-auto"
+                  />
+                </div>
+                <div className="focus-image absolute left-[75px] top-[28px] z-10 w-[160px]">
+                  <Image
+                    src="/onboarding2.svg"
+                    alt="Onboarding Screen 2"
+                    width={300}
+                    height={600}
+                    className="rounded-[24px] w-full h-auto"
+                  />
+                </div>
+                <div className="focus-image absolute left-[150px] top-[40px] z-20 w-[160px]">
+                  <Image
+                    src="/onboarding3.svg"
+                    alt="Onboarding Screen 3"
+                    width={300}
+                    height={600}
+                    className="rounded-[24px] w-full h-auto"
+                  />
+                </div>
               </div>
-              <div className="focus-image absolute left-[20%] top-24 z-1 w-[280px]">
-                <Image
-                  src="/onboarding2.svg"
-                  alt="Onboarding Screen 2"
-                  width={300}
-                  height={600}
-                  className="rounded-[32px]"
-                />
+
+              {/* Desktop: absolute overlapping */}
+              <div className="hidden lg:block">
+                <div className="focus-image absolute top-4 z-0 w-[280px]">
+                  <Image
+                    src="/onboarding1.svg"
+                    alt="Onboarding Screen 1"
+                    width={300}
+                    height={600}
+                    className="rounded-[32px]"
+                  />
+                </div>
+                <div className="focus-image absolute left-[20%] top-24 z-10 w-[280px]">
+                  <Image
+                    src="/onboarding2.svg"
+                    alt="Onboarding Screen 2"
+                    width={300}
+                    height={600}
+                    className="rounded-[32px]"
+                  />
+                </div>
+                <div className="focus-image absolute left-[40%] top-28 z-20 w-[280px]">
+                  <Image
+                    src="/onboarding3.svg"
+                    alt="Onboarding Screen 3"
+                    width={300}
+                    height={600}
+                    className="rounded-[32px]"
+                  />
+                </div>
               </div>
-              <div className="focus-image absolute left-[40%] top-28 z-20 w-[280px]">
-                <Image
-                  src="/onboarding3.svg"
-                  alt="Onboarding Screen 3"
-                  width={300}
-                  height={600}
-                  className="rounded-[32px]"
-                />
-              </div>
+
             </div>
           </div>
 
