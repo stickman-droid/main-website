@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -11,27 +12,31 @@ gsap.registerPlugin(ScrollTrigger)
 const projects = [
   {
     id: "01",
-    title: "More Speed For The Logistics Titan",
-    pills: ["Supply Chain", "Onboarding"],
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1200",
+    title: "Speed Boost For The Logistics Titan",
+    pills: ["Supply Chain & Industrial Logistics", "Onboarding"],
+    image: "/logistics/Logistics_case_study_hero.webp",
+    slug: "more-speed-for-the-logistics-titan",
   },
   {
     id: "02",
-    title: "Streamlining Health Tech Dashboards",
-    pills: ["HealthTech", "Dashboard"],
-    image: "https://images.unsplash.com/photo-1576091160550-2173dad99901?auto=format&fit=crop&q=80&w=1200",
+    title: "ESG Compliance Fatigue",
+    pills: ["Legal-Tech / Sustainability", "Onboarding"],
+    image: "/sustainability/ESG_compliance_case_study_hero.webp",
+    slug: "esg-compliance-fatigue",
   },
   {
     id: "03",
-    title: "Retention Magic for Fintech App",
-    pills: ["Fintech", "Retention"],
-    image: "https://images.unsplash.com/photo-1551288049-bb1c00451a43?auto=format&fit=crop&q=80&w=1200",
+    title: "Solving Digital SME Bank Delays",
+    pills: ["Fintech", "Onboarding"],
+    image: "/fintech/Fintech_case_study_hero.webp",
+    slug: "digital-sme-bank-delays",
   },
   {
     id: "04",
-    title: "Scaling SaaS Infrastructure",
-    pills: ["SaaS", "Optimization"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200",
+    title: "When risk is buried, decisions slow down",
+    pills: ["Fintech", "Dashboard"],
+    image: "/fintech/Wealthmanagement_case_study_hero.webp",
+    slug: "germany-risk-dashboard",
   },
 ]
 
@@ -180,9 +185,9 @@ export function WorkSection() {
         {
           xPercent: -50,
           yPercent: -50,
-          autoAlpha: 0.16,
-          scale: 0.88,
-          z: -240,
+          autoAlpha: 0,
+          scale: 0.8,
+          z: -90,
         },
         0
       )
@@ -200,18 +205,9 @@ export function WorkSection() {
         0.18
       )
 
-      tl.to(
-        [queueLeft, queueRight],
-        {
-          z: 0,
-          scale: 1,
-          autoAlpha: 1,
-          duration: 0.34,
-          stagger: 0.04,
-          ease: "power2.out",
-        },
-        0.22
-      )
+      // Bring queue cards forward — nudged slightly closer to 30/70 for a balanced gap
+      tl.to(queueLeft, { left: "30%", z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 0.22)
+      tl.to(queueRight, { left: "70%", z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 0.26)
 
       tl.to(
         [queueLeft, queueRight],
@@ -260,45 +256,51 @@ export function WorkSection() {
             <div className="absolute inset-0 transform-style-3d">
               <div className="relative h-full w-full transform-style-3d">
                 {projects.map((project, i) => (
-                  <article
+                  <Link
                     key={project.id}
-                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[min(85vw,360px)] rounded-[26px] bg-background p-3 shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:w-[300px] sm:left-auto lg:w-[360px]`}
-                    style={{
-                      zIndex: projects.length - i,
-                    }}
-                    data-desktop-left={i === 0 || i === 2 ? "32%" : "68%"}
+                    href={`/case-studies/${project.slug}`}
+                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[330px] h-[350px] lg:w-[400px] lg:h-[350px] overflow-hidden rounded-[22px] shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:left-auto`}
+                    style={{ zIndex: projects.length - i }}
+                    data-desktop-left={
+                      i === 0 ? "30%" :
+                        i === 1 ? "70%" :
+                          i === 2 ? "44%" : "56%"
+                    }
                   >
-                    <div className="aspect-[16/10] w-full overflow-hidden rounded-[18px] bg-zinc-100">
+                    {/* Full-bleed image */}
+                    <div className="relative h-full w-full bg-zinc-200">
                       <Image
                         src={project.image}
                         alt={project.title}
-                        width={1200}
-                        height={750}
-                        className="h-full w-full object-cover grayscale opacity-90"
+                        fill
+                        className="object-cover"
                       />
                     </div>
 
-                    <div className="mt-4 flex flex-col space-y-3 px-2 pb-2">
-                      <div className="space-y-1">
-                        <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest leading-none">
-                          Project {project.id}
-                        </span>
-                        <h3 className="line-clamp-2 text-base leading-tight font-bold tracking-tight text-[#3D3D3D] sm:text-lg">
-                          {project.title}
-                        </h3>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
+                    {/* Bottom overlay */}
+                    <div
+                      className="absolute inset-x-0 bottom-0 space-y-2.5 px-4 py-4"
+                      style={{
+                        backdropFilter: "blur(4px)",
+                        WebkitBackdropFilter: "blur(4px)",
+                        background: "linear-gradient(180deg, rgba(0,0,0,0.4) 0%, #000000 100%)",
+                      }}
+                    >
+                      <h3 className="line-clamp-2 text-sm font-semibold leading-snug tracking-tight text-white sm:text-base">
+                        {project.title}
+                      </h3>
+                      <div className="flex flex-wrap gap-1.5">
                         {project.pills.map((pill) => (
                           <span
                             key={pill}
-                            className="rounded-[18px] bg-[#F5F5F5] px-3 py-1.5 text-[10px] font-bold text-zinc-500 uppercase tracking-widest whitespace-nowrap"
+                            className="rounded-full bg-white px-2.5 py-1 text-[10px] font-semibold text-[#3D3D3D]"
                           >
                             {pill}
                           </span>
                         ))}
                       </div>
                     </div>
-                  </article>
+                  </Link>
                 ))}
               </div>
             </div>
