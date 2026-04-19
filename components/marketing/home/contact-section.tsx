@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 
 export function ContactSection() {
   const pills = [
@@ -47,9 +48,14 @@ export function ContactSection() {
         </div>
 
         <div className="flex w-full flex-col items-center space-y-4">
-          <button className="h-14 px-10 rounded-xl bg-[#1A1A1A] text-white font-bold text-[15px] shadow-lg transition-all hover:bg-black hover:scale-[1.02]">
-            Book Your Free Call
-          </button>
+          <Link
+                href="https://cal.eu/savio"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-[48px] cursor-pointer items-center justify-center rounded-[6px] bg-zinc-900 px-6 text-base font-semibold text-zinc-100 shadow-xl shadow-zinc-900/10 transition-all hover:scale-[1.02] hover:bg-[#3775E9] active:scale-[0.98]"
+              >
+                Book Your Free Call
+              </Link>
           <p className="text-[10px] font-mono font-regular tracking-[0.3em] text-[#3D3D3D] uppercase">
             No Pitch, Just Value
           </p>
