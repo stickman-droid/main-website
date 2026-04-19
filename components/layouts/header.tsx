@@ -91,11 +91,10 @@ export function Header() {
             </nav>
 
             <Link
-              href="/onboarding"
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "ml-2 rounded-[6px] bg-[#1C1C1C] px-5 text-sm text-white hover:bg-[#2A2A2A]"
-              )}
+              href="https://cal.eu/savio"
+              target="_blank"
+              rel="noreferrer"
+              className="ml-2 inline-flex h-9 cursor-pointer items-center justify-center rounded-[6px] bg-[#1C1C1C] px-5 text-sm font-medium text-white transition-colors hover:bg-[#3775E9]"
             >
               Book Your Free Call
             </Link>
@@ -183,11 +182,10 @@ export function Header() {
                     nativeButton={false}
                     render={
                       <Link
-                        href="/onboarding"
-                        className={cn(
-                          buttonVariants({ size: "lg" }),
-                          "mt-2 w-auto min-w-[220px] rounded-[6px] bg-[#1C1C1C] px-8 text-white hover:bg-[#2A2A2A]"
-                        )}
+                        href="https://cal.eu/savio"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-2 inline-flex h-9 min-w-[220px] cursor-pointer items-center justify-center rounded-[6px] bg-[#1C1C1C] px-8 text-sm font-medium text-white transition-colors hover:bg-[#3775E9]"
                       />
                     }
                   >
@@ -202,4 +200,3 @@ export function Header() {
     </>
   );
 }
-
