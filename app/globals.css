@@ -146,6 +146,17 @@
   animation: move-circular 7s infinite linear;
 }
 
+@keyframes move-square {
+  0%, 100% { transform: translate(calc(var(--move-radius, 15px) * -1), calc(var(--move-radius, 15px) * -1)); }
+  25% { transform: translate(var(--move-radius, 15px), calc(var(--move-radius, 15px) * -1)); }
+  50% { transform: translate(var(--move-radius, 15px), var(--move-radius, 15px)); }
+  75% { transform: translate(calc(var(--move-radius, 15px) * -1), var(--move-radius, 15px)); }
+}
+
+.animate-move-square {
+  animation: move-square 8s infinite linear;
+}
+
 @keyframes mobile-nav-marquee {
   from {
     transform: translateX(0);
