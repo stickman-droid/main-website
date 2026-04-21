@@ -13,17 +13,18 @@ function getSprintMetrics(now: Date) {
   const dayOfMonth = Number(dayPart)
   const dayIndex = (dayOfMonth - 1) % SPRINT_LENGTH_DAYS
   const daysRemaining = Math.max(1, SPRINT_LENGTH_DAYS - dayIndex)
-  const completionPercentage = (dayIndex / SPRINT_LENGTH_DAYS) * 100
+  const activeEngagements = daysRemaining > 11 ? 1 : daysRemaining > 5 ? 2 : 3
 
   return {
     daysRemaining,
-    completionPercentage,
+    activeEngagements,
   }
 }
 
 export function AboutUsHero() {
   const [time, setTime] = React.useState("")
   const [days, setDays] = React.useState(14)
+  const [activeEngagements, setActiveEngagements] = React.useState(1)
   const [bandwidthPercentage, setBandwidthPercentage] = React.useState(0)
   const [weather, setWeather] = React.useState({ temp: 29, humidity: 69 })
 
@@ -67,9 +68,12 @@ export function AboutUsHero() {
 
     // Continuous 14-day sprint cycle that does not reset at month boundaries.
     const updateSprintMetrics = () => {
-      const { daysRemaining, completionPercentage } = getSprintMetrics(new Date())
+      const { daysRemaining, activeEngagements } = getSprintMetrics(new Date())
       setDays(daysRemaining)
-      setBandwidthPercentage(completionPercentage)
+      setActiveEngagements(activeEngagements)
+      // Each engagement consumes 1/3 of capacity, plus a small variation based on sprint progress for realism
+      const baseCapacity = (activeEngagements / 3) * 100
+      setBandwidthPercentage(baseCapacity)
     }
 
     updateSprintMetrics()
@@ -105,8 +109,7 @@ export function AboutUsHero() {
 
             <div className="max-w-[580px] space-y-8">
               <p className="text-[16px] lg:text-[20px] leading-relaxed text-zinc-500 font-medium">
-                Stickman is an independent design practice specialising in SaaS retention and decision architecture.
-                No account managers. No bloated timelines. Just 11 years of specialised UX experience applied directly to your most complex product problems.
+                Stickman is an independent design practice specialising in SaaS retention and decision architecture. No account managers. No bloated timelines. Over a decade of specialised UX experience applied directly to your most complex product problems.
               </p>
             </div>
           </div>
@@ -164,7 +167,7 @@ export function AboutUsHero() {
               <div className="flex flex-col space-y-2 pt-4 sm:pt-6 border-t border-zinc-50 text-[11px] sm:text-[12px] font-medium text-zinc-500">
                 <div className="flex items-center justify-between">
                   <span>Active Engagements:</span>
-                  <span className="text-[#3D3D3D] font-bold">{days > 6 ? "2 / 3" : "1 / 3"}</span>
+                  <span className="text-[#3D3D3D] font-bold">{activeEngagements} / 3</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Next Sprint:</span>
