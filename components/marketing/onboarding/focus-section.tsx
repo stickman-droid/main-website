@@ -43,23 +43,15 @@ export function FocusSection() {
     const mm = gsap.matchMedia()
 
     mm.add("(min-width: 1024px)", () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: imagesRef.current,
-          start: "top 96%",
-          end: "top 10%",
-          scrub: 2.5,
-        },
-      })
-
-      tl.fromTo(
+      gsap.fromTo(
         images,
         {
           opacity: 0,
-          x: -150,
-          y: -120,
-          rotate: -15,
-          scale: 0.85,
+          x: -200,
+          y: -150,
+          rotate: -45,
+          scale: 0.8,
+          transformOrigin: "left top",
         },
         {
           opacity: 1,
@@ -67,8 +59,14 @@ export function FocusSection() {
           y: 0,
           rotate: 0,
           scale: 1,
-          stagger: 0.22,
-          ease: "power2.out",
+          stagger: 0.25,
+          duration: 2,
+          ease: "back.out(1.5)",
+          scrollTrigger: {
+            trigger: imagesRef.current,
+            start: "top 85%",
+            once: true,
+          },
         }
       )
     })
@@ -76,19 +74,27 @@ export function FocusSection() {
     mm.add("(max-width: 1023px)", () => {
       gsap.fromTo(
         images,
-        { opacity: 0, y: -50, x: -50, rotate: -8, scale: 0.92 },
+        {
+          opacity: 0,
+          y: -100,
+          x: -100,
+          rotate: -35,
+          scale: 0.8,
+          transformOrigin: "left top"
+        },
         {
           opacity: 1,
           y: 0,
           x: 0,
           rotate: 0,
           scale: 1,
-          duration: 2.5,
-          stagger: 0.25,
-          ease: "power2.out",
+          duration: 2.2,
+          stagger: 0.2,
+          ease: "back.out(1.6)",
           scrollTrigger: {
             trigger: imagesRef.current,
             start: "top 82%",
+            once: true,
           },
         }
       )
@@ -97,41 +103,44 @@ export function FocusSection() {
     const cards = gsap.utils.toArray<HTMLElement>(".focus-card")
 
     mm.add("(max-width: 1023px)", () => {
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.65,
-          stagger: 0.12,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 82%",
-            end: "bottom 35%",
-            toggleActions: "play reverse play reverse",
-          },
-        }
-      )
+      cards.forEach((card) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 92%",
+              once: true,
+            },
+          }
+        )
+      })
     })
 
     mm.add("(min-width: 1024px)", () => {
-      gsap.fromTo(
-        cards,
-        { opacity: 0, x: 50 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 75%",
-          },
-        }
-      )
+      cards.forEach((card) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, x: 40, y: 20 },
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        )
+      })
     })
 
     return () => mm.revert()
@@ -167,7 +176,7 @@ export function FocusSection() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] items-start">
 
           {/* Images: shown on mobile (stacked) + desktop (overlapping side-by-side) */}
-          <div ref={imagesRef} className="relative flex min-h-[380px] items-start justify-center py-10 lg:min-h-[620px] lg:justify-start">
+          <div ref={imagesRef} className="relative flex min-h-[380px] items-start justify-center pb-10 pt-6 lg:pt-0 lg:min-h-[620px] lg:justify-start">
             <div className="relative h-full w-full max-w-[760px]">
 
               {/* Mobile: absolute cascading slope (3 in front -> 2 -> 1 in back) */}
