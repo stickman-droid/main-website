@@ -104,97 +104,129 @@ export function Header() {
 
       <div className="fixed inset-x-0 bottom-0 z-50 lg:hidden">
         <div
-          className="flex w-full items-center gap-4 bg-background/95 px-4 py-3 backdrop-blur supports-backdrop-filter:bg-background/90"
+          className="flex w-full items-center bg-background/95 py-2.5 backdrop-blur supports-backdrop-filter:bg-background/90"
           style={{ boxShadow: mobileBottomShadow }}
         >
-          <div className="relative min-w-0 flex-1 overflow-hidden">
-            <div className="mobile-nav-marquee flex min-w-max items-center gap-5">
-              {mobileNavTicker.map((item, index) => (
-                <Link
-                  key={`${item.href}-${index}`}
-                  href={item.href}
-                  aria-hidden={index >= navItems.length}
-                  tabIndex={index >= navItems.length ? -1 : undefined}
-                  className="shrink-0 text-xs font-medium tracking-[0.03em] text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
+          {/* 3 Vertical Sections with Marquees */}
+          <div className="grid flex-1 grid-cols-3">
+            {[0, 1, 2].map((i) => {
+              // Only Onboarding, Dashboards, and Case Studies for the moving section
+              const tickerItems = navItems.filter(item => item.label !== "About Us");
+
+              // Offset items so each section starts with a different name
+              // tickerItems order: 0:Onboarding, 1:Dashboards, 2:Case Studies
+              const slotItems = i === 0
+                ? [tickerItems[0], tickerItems[1], tickerItems[2]] // Starts with Onboarding
+                : i === 1
+                  ? [tickerItems[1], tickerItems[2], tickerItems[0]] // Starts with Dashboards
+                  : [tickerItems[2], tickerItems[0], tickerItems[1]]; // Starts with Case Studies
+
+              return (
+                <div
+                  key={i}
+                  className={cn(
+                    "relative flex min-w-0 items-center justify-center border-r border-black/15",
+                    i === 2 && "border-r-0"
+                  )}
                 >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
+                  {/* Centralized clipping window for the marquee */}
+                  <div className="relative w-full max-w-[80%] overflow-hidden text-center">
+                    <div
+                      className="mobile-nav-marquee flex min-w-max items-center py-1"
+                      style={{
+                        animationDuration: "15s", // Uniform speed keeps them perfectly offset
+                      }}
+                    >
+                      {[...slotItems, ...slotItems].map((item, index) => (
+                        <Link
+                          key={`${item.href}-${i}-${index}`}
+                          href={item.href}
+                          className="shrink-0 pr-6 text-[13px] font-medium tracking-tight text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
-          <Sheet>
-            <SheetTrigger
-              render={
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="shrink-0 text-[#3D3D3D] hover:bg-transparent hover:text-[#1C1C1C]"
-                />
-              }
-            >
-              <Menu className="size-5" strokeWidth={2.5} />
-              <span className="sr-only">Open navigation menu</span>
-            </SheetTrigger>
+          <div className="flex shrink-0 items-center border-l border-black/[0.08] px-4">
+            <Sheet>
+              <SheetTrigger
+                render={
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="size-10 shrink-0 text-[#3D3D3D] hover:bg-transparent"
+                  />
+                }
+              >
+                <Menu className="size-6" strokeWidth={2.5} />
+                <span className="sr-only">Open navigation menu</span>
+              </SheetTrigger>
 
-            <SheetContent
-              side="bottom"
-              showCloseButton={false}
-              className="border-0 bg-background px-0 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-0"
-              style={{ top: headerHeight }}
-            >
-              <div className="relative flex h-full flex-col">
-                <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+              <SheetContent
+                side="bottom"
+                showCloseButton={false}
+                className="border-0 bg-background px-0 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-0"
+                style={{ top: headerHeight }}
+              >
+                <div className="relative flex h-full flex-col">
+                  <SheetTitle className="sr-only">Navigation menu</SheetTitle>
 
-                {/* X close — absolutely top-right */}
-                <div className="absolute right-4 top-4">
-                  <SheetClose
-                    render={
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="text-[#3D3D3D] hover:bg-black/5 hover:text-[#1C1C1C]"
-                      />
-                    }
-                  >
-                    <X className="size-5" strokeWidth={2.5} />
-                    <span className="sr-only">Close menu</span>
-                  </SheetClose>
-                </div>
-
-                <div className="flex flex-1 flex-col items-center justify-center gap-10 px-6">
-                  {navItems.map((item) => (
+                  {/* X close — absolutely top-right */}
+                  <div className="absolute right-4 top-4">
                     <SheetClose
-                      key={item.href}
-                      nativeButton={false}
                       render={
-                        <Link
-                          href={item.href}
-                          className="text-xl font-medium text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-[#3D3D3D] hover:bg-black/5 hover:text-[#1C1C1C]"
                         />
                       }
                     >
-                      {item.label}
+                      <X className="size-5" strokeWidth={2.5} />
+                      <span className="sr-only">Close menu</span>
                     </SheetClose>
-                  ))}
+                  </div>
 
-                  <SheetClose
-                    nativeButton={false}
-                    render={
-                      <Link
-                        href="https://cal.eu/savio"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-2 inline-flex h-9 min-w-[220px] cursor-pointer items-center justify-center rounded-[6px] bg-[#1C1C1C] px-8 text-sm font-medium text-white transition-colors hover:bg-[#3775E9]"
-                      />
-                    }
-                  >
-                    Book Your Free Call
-                  </SheetClose>
+                  <div className="flex flex-1 flex-col items-center justify-center gap-10 px-6">
+                    {navItems.map((item) => (
+                      <SheetClose
+                        key={item.href}
+                        nativeButton={false}
+                        render={
+                          <Link
+                            href={item.href}
+                            className="text-xl font-medium text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
+                          />
+                        }
+                      >
+                        {item.label}
+                      </SheetClose>
+                    ))}
+
+                    <SheetClose
+                      nativeButton={false}
+                      render={
+                        <Link
+                          href="https://cal.eu/savio"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-2 inline-flex h-9 min-w-[220px] cursor-pointer items-center justify-center rounded-[6px] bg-[#1C1C1C] px-8 text-sm font-medium text-white transition-colors hover:bg-[#3775E9]"
+                        />
+                      }
+                    >
+                      Book Your Free Call
+                    </SheetClose>
+                  </div>
                 </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </>
