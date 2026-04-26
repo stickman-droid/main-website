@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Cloud } from "lucide-react"
+import { GlowCard } from "@/components/ui/glow-card"
 
 const SPRINT_LENGTH_DAYS = 14
 
@@ -117,7 +118,11 @@ export function AboutUsHero() {
           {/* Right Column: Dynamic Status Cards - Now side-by-side as requested, including mobile */}
           <div className="grid grid-cols-2 gap-5 sm:gap-6 items-stretch lg:pl-4 xl:pl-0">
             {/* Card 1: Headquarters */}
-            <div className="bg-background rounded-[24px] sm:rounded-[24px] p-4 xl:p-8 border border-[#E0E0E0] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full sm:min-h-[150px]">
+            <GlowCard
+              radius={12}
+              className="rounded-[22px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full sm:min-h-[150px]"
+              innerClassName="bg-background p-4 xl:p-6 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
+            >
               <div className="space-y-3 sm:space-y-4">
                 <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
                   Headquarters
@@ -133,10 +138,14 @@ export function AboutUsHero() {
                 <Cloud className="size-4 text-zinc-400" />
                 <span>{weather.temp}°C / Humidity: {weather.humidity}%</span>
               </div>
-            </div>
+            </GlowCard>
 
             {/* Card 2: Work Bandwidth */}
-            <div className="bg-background rounded-[24px] sm:rounded-[24px] p-4 xl:p-8 border border-[#E0E0E0] shadow-[0_8px_32px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full sm:min-h-[20px]">
+            <GlowCard
+              radius={12}
+              className="rounded-[22px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full"
+              innerClassName="bg-background p-4 xl:p-6 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
+            >
               <div className="space-y-4 sm:space-y-6">
                 <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
                   Work Bandwidth
@@ -163,7 +172,6 @@ export function AboutUsHero() {
                   </div>
                 </div>
               </div>
-
               <div className="flex flex-col space-y-2 pt-4 sm:pt-6 border-t border-zinc-50 text-[11px] sm:text-[12px] font-medium text-zinc-500">
                 <div className="flex items-center justify-between">
                   <span>Active Engagements:</span>
@@ -174,7 +182,7 @@ export function AboutUsHero() {
                   <span className="text-[#3D3D3D] font-bold">{days} days</span>
                 </div>
               </div>
-            </div>
+            </GlowCard>
           </div>
         </div>
       </div>

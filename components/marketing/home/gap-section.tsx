@@ -25,7 +25,10 @@ export function GapSection() {
           </div>
 
           <div className="flex flex-col justify-center">
-            <div className="max-w-[480px] space-y-6 text-[15px] leading-relaxed font-normal text-[#3D3D3D]/80">
+            <div
+              className="max-w-[480px] space-y-6 text-[15px] leading-relaxed font-normal text-[#3D3D3D]/80"
+              style={{ fontFamily: '"Inter", sans-serif' }}
+            >
               <p>
                 The distance between a loyal customer and a lost one is a single gap of confusion.
               </p>
@@ -126,4 +129,3 @@ function BrokenBox() {
     </div>
   )
 }
-

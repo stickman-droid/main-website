@@ -6,6 +6,7 @@ import Link from "next/link"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
+import { Heading, Mono } from "@/components/ui/typography"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -227,17 +228,18 @@ export function WorkSection() {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="relative min-h-screen w-full bg-background pt-12 sm:pt-16">
+    <section ref={containerRef} className="relative min-h-screen w-full bg-background pt-12 sm:pt-6">
       <div className="work-header mx-auto flex w-full max-w-[820px] flex-col items-center gap-3 px-6 text-center sm:px-8">
-        <p className="text-[10px] font-mono font-bold tracking-[0.4em] text-zinc-400 uppercase">
+        <Mono className="text-[10px] font-bold tracking-[0.4em] text-zinc-400 uppercase">
           Selected Work
-        </p>
-        <h2
-          className="max-w-[620px] text-3xl font-bold tracking-tight text-[#3D3D3D] sm:text-5xl"
-          style={{ fontFamily: "var(--font-heading, serif)" }}
+        </Mono>
+        <Heading
+          as="h2"
+          className="max-w-[620px] text-3xl font-bold text-[#3D3D3D] sm:text-5xl"
+          style={{ fontFamily: '"Fraunces", serif' }}
         >
           Problems we&apos;ve solved for others like you
-        </h2>
+        </Heading>
         <div className="h-0.5 w-48 bg-zinc-100/20 rounded-full overflow-hidden">
           <div
             ref={progressRef}

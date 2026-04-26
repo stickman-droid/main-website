@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
+import { GlowCard } from "@/components/ui/glow-card"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -247,38 +248,24 @@ export function FocusSection() {
           {/* Right: Feature Cards with Spotlight Effect */}
           <div ref={cardsRef} className="flex flex-col space-y-3">
             {focusCards.map((card, i) => (
-              <div
+              <GlowCard
                 key={i}
-                onPointerMove={handlePointerMove}
-                className="focus-card group relative p-[1.5px] rounded-[24px] bg-zinc-100/50 overflow-hidden transition-all duration-300"
+                className="focus-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300"
+                innerClassName="bg-background px-5 py-4 flex flex-col space-y-2"
+                onPointerMove={(e) => {
+                  const card = e.currentTarget
+                  const rect = card.getBoundingClientRect()
+                  card.style.setProperty("--x", `${e.clientX - rect.left}px`)
+                  card.style.setProperty("--y", `${e.clientY - rect.top}px`)
+                }}
               >
-                {/* Spotlight Background Overlay */}
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: `radial-gradient(400px circle at var(--x) var(--y), rgba(55, 117, 233, 0.22), transparent 45%)`
-                  }}
-                />
-
-                {/* Inner Content Card */}
-                <div className="relative z-10 bg-background rounded-[23px] px-5 py-4 flex flex-col space-y-2 border border-[#E0E0E0] transition-colors group-hover:border-blue-500/10">
-                  <h3 className="text-xl font-bold text-[#3D3D3D] tracking-tight">
-                    {card.title}
-                  </h3>
-                  <p className="text-[15px] leading-relaxed text-zinc-500 max-w-[480px]">
-                    {card.desc}
-                  </p>
-                </div>
-
-                {/* Border Spotlight Glow */}
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-                  style={{
-                    background: `radial-gradient(800px circle at var(--x) var(--y), #3775E9, transparent 40%)`,
-                    zIndex: -1
-                  }}
-                />
-              </div>
+                <h3 className="text-xl font-bold text-[#3D3D3D] tracking-tight">
+                  {card.title}
+                </h3>
+                <p className="text-[15px] leading-relaxed text-zinc-500 max-w-[480px]">
+                  {card.desc}
+                </p>
+              </GlowCard>
             ))}
           </div>
 

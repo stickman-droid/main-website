@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { GlowCard } from "@/components/ui/glow-card"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -98,38 +99,19 @@ export function FocusGridSection() {
           className="grid grid-cols-2 gap-3 sm:gap-6"
         >
           {focusCards.map((card, i) => (
-            <div
+            <GlowCard
               key={i}
-              onPointerMove={handlePointerMove}
-              className="focus-card group relative p-[1px] rounded-[24px] bg-zinc-100/50 overflow-hidden transition-all duration-300"
+              radius={12}
+              className="focus-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1px] transition-all duration-300"
+              innerClassName="bg-background px-4 py-6 h-full flex flex-col space-y-3 sm:space-y-4"
             >
-              {/* Spotlight Background Overlay - Blue Theme */}
-              <div
-                className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  background: `radial-gradient(400px circle at var(--x) var(--y), rgba(55, 117, 233, 0.18), transparent 45%)`
-                }}
-              />
-
-              {/* Inner Content Card */}
-              <div className="relative z-10 bg-background rounded-[23px] px-4 py-6 h-full flex flex-col space-y-3 sm:space-y-4 border border-[#E0E0E0] transition-colors group-hover:border-blue-500/10">
-                <h3 className="text-lg sm:text-2xl font-bold text-[#3D3D3D] tracking-tight">
-                  {card.title}
-                </h3>
-                <p className="text-[13px] sm:text-[15px] leading-relaxed text-zinc-500 font-medium">
-                  {card.desc}
-                </p>
-              </div>
-
-              {/* Border Spotlight Glow - Blue Theme */}
-              <div
-                className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-                style={{
-                  background: `radial-gradient(800px circle at var(--x) var(--y), #3775E9, transparent 40%)`,
-                  zIndex: -1
-                }}
-              />
-            </div>
+              <h3 className="text-lg sm:text-2xl font-bold text-[#3D3D3D] tracking-tight">
+                {card.title}
+              </h3>
+              <p className="text-[13px] sm:text-[15px] leading-relaxed text-zinc-500 font-medium">
+                {card.desc}
+              </p>
+            </GlowCard>
           ))}
         </div>
       </div>

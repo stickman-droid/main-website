@@ -29,7 +29,7 @@ export function ContactSection() {
         </div>
 
         <div className="mb-12 grid w-full grid-cols-1 gap-8 lg:grid-cols-[440px_minmax(0,1fr)] lg:gap-10">
-          <p className="max-w-[440px] text-[16px] leading-relaxed text-zinc-500 font-normal">
+          <p className="max-w-[440px] font-sans text-[16px] leading-relaxed text-zinc-500 font-normal">
             You don&apos;t always need a full team; sometimes you just need a moment of clarity.
             Think of this as a dedicated space to talk through your challenges.
             We&apos;ll untangle the issue together, identifying exactly where to lean in so you can move forward with confidence.
@@ -64,4 +64,3 @@ export function ContactSection() {
     </section>
   )
 }
-

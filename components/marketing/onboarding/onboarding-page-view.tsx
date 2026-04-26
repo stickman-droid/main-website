@@ -31,11 +31,11 @@ export function OnboardingPageView() {
               </h1>
 
               <div className="max-w-[620px] space-y-6">
-                <p className="text-[15px] lg:text-[16px] xl:text-[17px] font-medium leading-relaxed text-zinc-500">
+                <p className="text-[13px] sm:text-[15px] leading-relaxed text-zinc-500">
                   Onboarding is where product confidence is either built or lost. We design activation flows
                   that make the next step obvious, reduce hesitation, and help users feel progress early.
                 </p>
-                <p className="text-[15px] lg:text-[16px] xl:text-[17px] font-medium leading-relaxed text-zinc-500">
+                <p className="text-[13px] sm:text-[15px] leading-relaxed text-zinc-500">
                   From setup to first outcome, every screen is tuned to remove friction, reinforce value,
                   and move people toward habit instead of abandonment.
                 </p>

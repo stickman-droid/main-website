@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -54,9 +55,16 @@ export function Header() {
         >
           <Link
             href="/"
-            className="text-base font-semibold tracking-[0.04em] text-[#3D3D3D] uppercase"
+            className="flex items-center"
           >
-            STICKMAN.DESIGN
+            <Image
+              src="/stickman_design_logo.svg"
+              alt="Stickman Design Main Logo"
+              width={212}
+              height={24}
+              priority
+              className="h-auto w-[180px] sm:w-[200px]"
+            />
           </Link>
         </div>
       </header>
@@ -69,9 +77,16 @@ export function Header() {
         >
           <Link
             href="/"
-            className="shrink-0 text-base font-semibold tracking-[0.04em] text-[#3D3D3D] uppercase sm:text-lg"
+            className="shrink-0 flex items-center"
           >
-            STICKMAN.DESIGN
+            <Image
+              src="/stickman_design_logo.svg"
+              alt="Stickman Design"
+              width={180}
+              height={20}
+              priority
+              className="h-auto w-[160px] lg:w-[180px]"
+            />
           </Link>
 
           <div className="hidden items-center gap-1 lg:flex">

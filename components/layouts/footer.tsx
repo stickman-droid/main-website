@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import type { ComponentProps } from "react";
 
@@ -22,8 +23,16 @@ export function Footer() {
       <div className="flex w-full flex-col gap-6 bg-[#FCFCFC] px-4 pt-4 sm:py-8 text-[#3D3D3D] sm:px-6 lg:px-[80px]">
 
         {/* Brand */}
-        <div className="text-center text-2xl font-semibold tracking-[0.04em] uppercase sm:text-lg md:text-left">
-          STICKMAN.DESIGN
+        <div className="flex justify-center md:justify-start">
+          <Link href="/">
+            <Image
+              src="/stickman_design_logo.svg"
+              alt="Stickman Design"
+              width={200}
+              height={22}
+              className="h-auto w-[180px] sm:w-[200px]"
+            />
+          </Link>
         </div>
 
         {/* ── MOBILE layout ── */}
@@ -90,24 +99,24 @@ export function Footer() {
 
         {/* ── MOBILE copyright block ── */}
         <div className="flex flex-col items-center gap-2 text-sm text-[#5A5A5A] md:hidden">
-          <div>© 2026 Stickman.Design</div>
-          <div className="flex items-center gap-1.5">
+          <div className="font-mono">© 2026 Stickman.Design</div>
+          <div className="flex items-center gap-1.5 font-mono">
             <Link href="/privacy" className="transition-colors hover:text-black">Privacy Policy</Link>
             <span className="text-black/20">|</span>
             <Link href="/terms" className="transition-colors hover:text-black">Terms of Use</Link>
           </div>
-          <div>All rights reserved.</div>
+          <div className="font-mono">All rights reserved.</div>
         </div>
 
         {/* ── DESKTOP copyright block ── */}
         <div className="hidden flex-col gap-3 text-sm text-[#5A5A5A] md:flex md:flex-row md:items-center md:justify-between">
-          <div>© 2026 Stickman.Design</div>
-          <div className="flex items-center gap-1.5 text-left md:text-center">
+          <div className="font-mono">© 2026 Stickman.Design</div>
+          <div className="flex items-center gap-1.5 text-left font-mono md:text-center">
             <Link href="/privacy" className="transition-colors hover:text-black">Privacy Policy</Link>
             <span className="text-black/10">|</span>
             <Link href="/terms" className="transition-colors hover:text-black">Terms of Use</Link>
           </div>
-          <div className="md:text-right">All rights reserved.</div>
+          <div className="font-mono md:text-right">All rights reserved.</div>
         </div>
 
         {/* Faded tagline

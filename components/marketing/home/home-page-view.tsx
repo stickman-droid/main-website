@@ -10,7 +10,9 @@ export function HomePageView() {
       <Hero />
       <GapSection />
       <OfferSection />
-      <WorkSection />
+      <div className="lg:mt-24">
+        <WorkSection />
+      </div>
       <ContactSection />
     </div>
   );

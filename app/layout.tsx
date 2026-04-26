@@ -1,19 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Fraunces, Kode_Mono } from "next/font/google";
 import { Footer } from "@/components/layouts/footer";
 import { Header } from "@/components/layouts/header";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fraunces = Fraunces({
+  variable: "--font-heading",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+const kodeMono = Kode_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -54,8 +63,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${fraunces.variable} ${kodeMono.variable} h-full antialiased`}
     >
+      <head>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+          :root {
+            --font-sans: ${inter.style.fontFamily};
+            --font-heading: ${fraunces.style.fontFamily};
+            --font-mono: ${kodeMono.style.fontFamily};
+          }
+        `}} />
+      </head>
       <body className="min-h-full flex flex-col pb-28 lg:pb-0">
         <TooltipProvider>
           <Header />

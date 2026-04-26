@@ -42,7 +42,7 @@ export function OfferSection() {
           {offers.map((offer, index) => (
             <div
               key={offer.id}
-              className={`group relative flex flex-col space-y-6 overflow-hidden rounded-[28px] px-4 py-8 transition-all duration-500 ease-out motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-6 sm:px-8 hover:-translate-y-2 hover:bg-zinc-50/70 hover:shadow-[0_24px_50px_-30px_rgba(0,0,0,0.3)] ${index !== 0 ? "md:border-l border-[#E0E0E0] border-1px" : ""
+              className={`group relative flex flex-col space-y-6 overflow-hidden rounded-[28px] px-4 py-8 transition-all duration-500 ease-out motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-6 sm:px-8 hover:-translate-y-2 hover:bg-zinc-50/70 ${index !== 0 ? "md:border-l border-[#E0E0E0] border-1px" : ""
                 }`}
               style={{ animationDelay: `${index * 120}ms`, animationFillMode: "both" }}
             >
@@ -54,7 +54,7 @@ export function OfferSection() {
                 <h3 className="text-2xl font-bold text-[#3D3D3D] transition-colors duration-300 group-hover:text-black">
                   {offer.title}
                 </h3>
-                <p className="text-[15px] font-normal leading-relaxed text-zinc-500 transition-colors duration-300 group-hover:text-zinc-600">
+                <p className="font-sans text-[15px] font-normal leading-relaxed text-zinc-500 transition-colors duration-300 group-hover:text-zinc-600">
                   {offer.description}
                 </p>
               </div>
@@ -64,7 +64,7 @@ export function OfferSection() {
 
         {/* Footer Text */}
         <div className="flex justify-center pt-4">
-          <p className="max-w-[450px] text-center text-sm font-medium text-zinc-400 leading-relaxed">
+          <p className="max-w-[450px] font-sans text-center text-sm font-medium text-zinc-400 leading-relaxed">
             We don&apos;t do everything. We do two things with obsessive precision: The Flow and The View.
             We build onboarding that connects and dashboards that clarify.
             For teams ready to stop guessing and start scaling.

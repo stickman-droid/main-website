@@ -159,10 +159,13 @@ export function ProcessSection({
                 style={{ perspective: "1000px" }}
               >
                 <div className="relative pb-2 sm:pb-0">
-                  <span className="block text-5xl leading-none font-black text-zinc-200 select-none sm:text-7xl lg:text-8xl">
+                  <span
+                    className="block text-5xl leading-none font-black text-zinc-200 select-none sm:text-7xl"
+                    style={{ fontFamily: 'var(--font-mono, "Kode Mono", monospace)' }}
+                  >
                     {step.num}
                   </span>
-                  <h3 className="absolute bottom-[-8px] left-0 text-lg font-bold text-[#3D3D3D] sm:bottom-[-10px] sm:text-2xl lg:bottom-[-12px]">
+                  <h3 className="absolute bottom-[-14px] left-0 text-lg font-bold text-[#3D3D3D] sm:bottom-[-18px] sm:text-2xl lg:bottom-[-22px]">
                     {step.title}
                   </h3>
                 </div>
@@ -178,4 +181,3 @@ export function ProcessSection({
     </section>
   )
 }
-

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { GlowCard } from "@/components/ui/glow-card"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -88,35 +89,19 @@ export function PhilosophySection() {
         {/* 2x2 Grid */}
         <div className="grid grid-cols-2 gap-6 lg:gap-8">
           {philosophyItems.map((item, i) => (
-            <div
+            <GlowCard
               key={i}
-              onPointerMove={handlePointerMove}
-              className="philosophy-card group relative h-full overflow-hidden rounded-[24px] bg-zinc-100/50 p-[1.5px] transition-all duration-300"
+              radius={12}
+              className="philosophy-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full"
+              innerClassName="flex h-full flex-col space-y-6 bg-background p-4 lg:p-6"
             >
-              <div
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{
-                  background: "radial-gradient(400px circle at var(--x) var(--y), rgba(55, 117, 233, 0.18), transparent 45%)"
-                }}
-              />
-
-              <div className="relative z-10 flex h-full flex-col space-y-6 rounded-[23px] border border-[#E0E0E0] bg-background p-4 transition-colors group-hover:border-blue-500/10 lg:p-6">
-                <h3 className="text-xl font-bold leading-snug tracking-tight text-[#3D3D3D] lg:text-2xl">
-                  {item.title}
-                </h3>
-                <p className="text-[14px] font-medium leading-relaxed text-zinc-500 lg:text-[16px]">
-                  {item.desc}
-                </p>
-              </div>
-
-              <div
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{
-                  background: "radial-gradient(800px circle at var(--x) var(--y), #3775E9, transparent 40%)",
-                  zIndex: -1
-                }}
-              />
-            </div>
+              <h3 className="text-xl font-bold leading-snug tracking-tight text-[#3D3D3D] lg:text-2xl">
+                {item.title}
+              </h3>
+              <p className="text-[14px] font-medium leading-relaxed text-zinc-500 lg:text-[16px]">
+                {item.desc}
+              </p>
+            </GlowCard>
           ))}
         </div>
       </div>
@@ -130,4 +115,3 @@ export function PhilosophySection() {
     </section>
   )
 }
-

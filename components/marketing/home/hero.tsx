@@ -6,6 +6,7 @@ import { Calculator } from "./calculator"
 import { InteractiveDotGrid } from "@/components/utility/interactive-dot-grid"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
+import { Heading, Text } from "@/components/ui/typography"
 
 export function Hero() {
   return (
@@ -20,12 +21,15 @@ export function Hero() {
             <div className="space-y-5">
               <h1
                 className="text-[50px] leading-[1.02] font-bold tracking-tight text-[#3D3D3D] lg:text-[56px]"
-                style={{ fontFamily: "var(--font-heading, serif)" }}
+                style={{ fontFamily: '"Fraunces", serif' }}
               >
                 Made With Purpose For Human Intelligence
               </h1>
 
-              <p className="mx-auto max-w-[520px] text-[15px] leading-relaxed font-normal text-[#3D3D3D] sm:text-base lg:mx-0 lg:text-lg">
+              <p
+                className="mx-auto max-w-[520px] text-[15px] font-normal text-[#3D3D3D] sm:text-base lg:mx-0 lg:text-lg leading-relaxed"
+                style={{ fontFamily: '"Inter", sans-serif' }}
+              >
                 We help SaaS teams fix onboarding and dashboard experience problems
                 before they become growth blockers.
               </p>
