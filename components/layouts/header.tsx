@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -13,6 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { OsmoUnderline } from "@/components/ui/osmo-underline";
 
 const navItems = [
   { href: "/onboarding", label: "Onboarding" },
@@ -31,7 +32,6 @@ const mobileBottomShadow =
   "0px -3px 7px 0px #00000014, 0px -13px 13px 0px #00000012, 0px -29px 17px 0px #0000000A, 0px -51px 20px 0px #00000003, 0px -79px 22px 0px #00000000";
 
 export function Header() {
-  const mobileNavTicker = [...navItems, ...navItems];
   const topHeaderRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState(57);
 
@@ -90,17 +90,14 @@ export function Header() {
           </Link>
 
           <div className="hidden items-center gap-1 lg:flex">
-            <nav className="flex items-center gap-1">
+            <nav className="flex items-center gap-4">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={cn(
-                    buttonVariants({ variant: "ghost", size: "sm" }),
-                    "rounded-full px-4 text-sm text-[#3D3D3D] hover:bg-black/5 hover:text-[#1C1C1C]"
-                  )}
+                  className="px-2 text-sm font-medium text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
                 >
-                  {item.label}
+                  <OsmoUnderline>{item.label}</OsmoUnderline>
                 </Link>
               ))}
             </nav>
