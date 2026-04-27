@@ -103,7 +103,7 @@ export function FocusGridSection() {
               key={i}
               radius={12}
               className="focus-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1px] transition-all duration-300"
-              innerClassName="bg-background px-4 py-6 h-full flex flex-col space-y-3 sm:space-y-4"
+              innerClassName="bg-background px-4 py-6 h-full flex flex-col space-y-1"
             >
               <h3 className="text-lg sm:text-2xl font-bold text-[#3D3D3D] tracking-tight">
                 {card.title}
