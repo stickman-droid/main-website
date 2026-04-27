@@ -251,7 +251,7 @@ export function FocusSection() {
               <GlowCard
                 key={i}
                 className="focus-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300"
-                innerClassName="bg-background px-5 py-4 flex flex-col space-y-2"
+                innerClassName="bg-background px-5 py-4 flex flex-col space-y-1"
                 onPointerMove={(e) => {
                   const card = e.currentTarget
                   const rect = card.getBoundingClientRect()
