@@ -12,21 +12,32 @@ function getSprintMetrics(now: Date) {
     day: "numeric",
   }).format(now)
   const dayOfMonth = Number(dayPart)
+
+  // Continuous 14-day sprint cycle
   const dayIndex = (dayOfMonth - 1) % SPRINT_LENGTH_DAYS
   const daysRemaining = Math.max(1, SPRINT_LENGTH_DAYS - dayIndex)
-  const activeEngagements = daysRemaining > 11 ? 1 : daysRemaining > 5 ? 2 : 3
+
+  // Logic: 
+  // - Sprint begins (daysRemaining 14): Capacity full (2/3 engagements)
+  // - Last 6 days (daysRemaining <= 6): Reduces to 1/3 engagements
+  // - Ultimate value is 2/3, never 3/3
+  const activeEngagements = daysRemaining > 6 ? 2 : 1
+
+  // Progress bar is full at start of sprint and decreases as it progresses
+  const bandwidthPercentage = (daysRemaining / SPRINT_LENGTH_DAYS) * 100
 
   return {
     daysRemaining,
     activeEngagements,
+    bandwidthPercentage,
   }
 }
 
 export function AboutUsHero() {
   const [time, setTime] = React.useState("")
   const [days, setDays] = React.useState(14)
-  const [activeEngagements, setActiveEngagements] = React.useState(1)
-  const [bandwidthPercentage, setBandwidthPercentage] = React.useState(0)
+  const [activeEngagements, setActiveEngagements] = React.useState(2)
+  const [bandwidthPercentage, setBandwidthPercentage] = React.useState(100)
   const [weather, setWeather] = React.useState({ temp: 29, humidity: 69 })
 
   React.useEffect(() => {
@@ -67,14 +78,11 @@ export function AboutUsHero() {
     fetchWeather()
     const weatherTimer = setInterval(fetchWeather, 600000) // Refresh every 10 mins
 
-    // Continuous 14-day sprint cycle that does not reset at month boundaries.
     const updateSprintMetrics = () => {
-      const { daysRemaining, activeEngagements } = getSprintMetrics(new Date())
-      setDays(daysRemaining)
-      setActiveEngagements(activeEngagements)
-      // Each engagement consumes 1/3 of capacity, plus a small variation based on sprint progress for realism
-      const baseCapacity = (activeEngagements / 3) * 100
-      setBandwidthPercentage(baseCapacity)
+      const metrics = getSprintMetrics(new Date())
+      setDays(metrics.daysRemaining)
+      setActiveEngagements(metrics.activeEngagements)
+      setBandwidthPercentage(metrics.bandwidthPercentage)
     }
 
     updateSprintMetrics()
@@ -105,7 +113,7 @@ export function AboutUsHero() {
               style={{ fontFamily: 'var(--font-heading, serif)' }}
             >
               We Don&apos;t Just Design Screens.<br />
-              <span>We Engineer Clarity.</span>
+              <span>We Engineer Clarity</span>
             </h1>
 
             <div className="max-w-[580px] space-y-8">
