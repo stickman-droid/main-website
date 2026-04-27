@@ -78,7 +78,7 @@ export function CaseStudiesPageView() {
               className="text-[36px] font-bold tracking-tight text-[#3D3D3D] leading-[1.1]"
               style={{ fontFamily: "var(--font-heading, serif)" }}
             >
-              Problems we&apos;ve Solved.
+              Problems We&apos;ve Solved.
               <br />
               Results That Speak
             </h1>
