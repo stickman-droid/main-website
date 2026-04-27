@@ -54,9 +54,9 @@ export function DashboardsPageView() {
                 className="text-4xl font-bold text-[#3D3D3D] sm:text-5xl xl:text-[72px] leading-[1.05]"
                 style={{ fontFamily: '"Fraunces", serif' }}
               >
-                Progress happens
+                Progress Happens
                 <br />
-                <span className="font-heading">when Action Begins</span>
+                <span className="font-heading">When Action Begins</span>
               </Heading>
 
               <div className="flex flex-col items-center space-y-8">
