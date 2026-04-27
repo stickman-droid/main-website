@@ -80,7 +80,7 @@ export function PhilosophySection() {
           >
             What we believe is who we are
           </h2>
-          <p className="max-w-[720px] text-[15px] lg:text-[17px] leading-relaxed text-zinc-500 font-medium pt-4">
+          <p className="max-w-[720px] text-[15px] lg:text-[17px] leading-relaxed text-zinc-500 font-medium pt-1">
             Our work isn&apos;t driven by trends; it&apos;s driven by a few core convictions about how people and software should interact.
             We don&apos;t just &quot;design screens&quot;, we build the bridge between a user&apos;s intent and your product&apos;s value.
           </p>
@@ -93,7 +93,7 @@ export function PhilosophySection() {
               key={i}
               radius={12}
               className="philosophy-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full"
-              innerClassName="flex h-full flex-col space-y-6 bg-background p-4 lg:p-6"
+              innerClassName="flex h-full flex-col space-y-1 bg-background p-4 lg:p-6"
             >
               <h3 className="text-xl font-bold leading-snug tracking-tight text-[#3D3D3D] lg:text-2xl">
                 {item.title}
