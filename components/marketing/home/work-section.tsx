@@ -44,14 +44,16 @@ const projects = [
 export function WorkSection() {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const panelRef = React.useRef<HTMLDivElement>(null)
+  const expandBgRef = React.useRef<HTMLDivElement>(null)
   const progressRef = React.useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    if (!containerRef.current || !panelRef.current) return
+    if (!containerRef.current || !panelRef.current || !expandBgRef.current) return
 
     const cards = gsap.utils.toArray<HTMLElement>(".project-card")
     const header = containerRef.current.querySelector(".work-header")
     const progressBar = progressRef.current
+    const expandBg = expandBgRef.current
 
     if (!header || !progressBar || cards.length < 4) return
 
@@ -60,22 +62,37 @@ export function WorkSection() {
       ease: "none",
     })
 
+    // Initial states
     gsap.set(cards, {
       transformPerspective: 1400,
       transformOrigin: "50% 50%",
       force3D: true,
+      autoAlpha: 0,
+      scale: 0.8,
+      z: -100,
+      xPercent: -50,
+      yPercent: -50,
+      top: "50%"
     })
     gsap.set(progressBar, { scaleX: 0, transformOrigin: "left center" })
+
+    // Calculate scale to fill screen
+    const rect = expandBg.getBoundingClientRect()
+    const targetScale = Math.max(
+      window.innerWidth / rect.width,
+      window.innerHeight / rect.height
+    ) * 1.1 // Add margin to be safe
+
     const mm = gsap.matchMedia()
 
     mm.add("(max-width: 639px)", () => {
-      gsap.set(cards, { left: "50%" })
+      gsap.set(cards, { left: "50%", top: "50%" })
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: panelRef.current,
           start: "center center",
-          end: "+=500%",
+          end: "+=400%",
           pin: true,
           pinSpacing: true,
           scrub: 0.65,
@@ -88,61 +105,65 @@ export function WorkSection() {
         },
       })
 
-      tl.to(header, { opacity: 0.1, y: -20, duration: 0.4 }, 0)
+      // Stage 1: Expand Background (responsive speed)
+      tl.to(expandBg, {
+        scale: targetScale,
+        borderRadius: 0,
+        duration: 1.0,
+        ease: "power1.inOut"
+      }, 0)
 
-      tl.set(
-        cards,
-        {
-          xPercent: -50,
-          yPercent: -50,
-          autoAlpha: 0,
-          scale: 0.88,
-          z: -180,
-        },
-        0
-      )
+      tl.to(header, { opacity: 0.1, y: -20, duration: 0.4 }, 0.1)
 
-      tl.set(
-        cards[0],
-        {
-          autoAlpha: 1,
-          scale: 1,
-          z: 0,
-        },
-        0
-      )
+      // Stage 2: Immediate Card Reveal
+      // Make the first card appear almost immediately as expansion starts
+      tl.to(cards[0], {
+        autoAlpha: 1,
+        scale: 1,
+        z: 0,
+        duration: 0.5,
+        ease: "back.out(1.4)"
+      }, 0.35)
 
       cards.forEach((card, index) => {
-        if (index > 0) {
+        // Exit animation for current card
+        tl.to(
+          card,
+          {
+            z: 600,
+            scale: 1.3,
+            autoAlpha: 0,
+            duration: 0.4,
+            ease: "power2.in",
+          },
+          1.0 + index * 0.5
+        )
+
+        // Enter animation for next card
+        if (index < cards.length - 1) {
           tl.to(
-            card,
+            cards[index + 1],
             {
               autoAlpha: 1,
               scale: 1,
               z: 0,
-              duration: 0.28,
+              duration: 0.5,
+              ease: "power2.out"
             },
-            0.22 + index * 0.2
+            1.2 + index * 0.5
           )
         }
-
-        tl.to(
-          card,
-          {
-            z: 480,
-            scale: 1.2,
-            autoAlpha: 0,
-            duration: 0.28,
-            ease: "power2.in",
-          },
-          0.42 + index * 0.2
-        )
       })
     })
 
     mm.add("(min-width: 640px)", () => {
+      const desktopTop = window.innerWidth >= 1024 ? "54%" : "50%"
+
       cards.forEach((card) => {
-        gsap.set(card, { left: card.dataset.desktopLeft ?? "50%" })
+        gsap.set(card, {
+          left: card.dataset.desktopLeft ?? "50%",
+          top: desktopTop
+        })
       })
 
       const tl = gsap.timeline({
@@ -162,14 +183,23 @@ export function WorkSection() {
         },
       })
 
-      tl.to(header, { opacity: 0.1, y: -20, duration: 0.5 }, 0)
+      // Stage 1: Expand Background (Slightly faster)
+      tl.to(expandBg, {
+        scale: targetScale,
+        borderRadius: 0,
+        duration: 0.8,
+        ease: "power1.inOut"
+      }, 0)
 
+      tl.to(header, { opacity: 0.1, y: -20, duration: 0.5 }, 0.1)
+
+      // Stage 2: Cards Stack (Reveal significantly earlier)
       const frontLeft = cards[0]
       const frontRight = cards[1]
       const queueLeft = cards[2]
       const queueRight = cards[3]
 
-      tl.set(
+      tl.to(
         [frontLeft, frontRight],
         {
           xPercent: -50,
@@ -177,20 +207,9 @@ export function WorkSection() {
           autoAlpha: 1,
           scale: 1,
           z: 0,
+          duration: 0.4
         },
-        0
-      )
-
-      tl.set(
-        [queueLeft, queueRight],
-        {
-          xPercent: -50,
-          yPercent: -50,
-          autoAlpha: 0,
-          scale: 0.8,
-          z: -90,
-        },
-        0
+        0.5
       )
 
       tl.to(
@@ -203,12 +222,12 @@ export function WorkSection() {
           stagger: 0.035,
           ease: "power2.inOut",
         },
-        0.18
+        0.9
       )
 
-      // Bring queue cards forward — nudged slightly closer to 30/70 for a balanced gap
-      tl.to(queueLeft, { left: "30%", z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 0.22)
-      tl.to(queueRight, { left: "70%", z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 0.26)
+      // Bring queue cards forward
+      tl.to(queueLeft, { xPercent: -50, yPercent: -50, left: "32%", z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.0)
+      tl.to(queueRight, { xPercent: -50, yPercent: -50, left: "68%", z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.05)
 
       tl.to(
         [queueLeft, queueRight],
@@ -220,7 +239,7 @@ export function WorkSection() {
           stagger: 0.035,
           ease: "power2.in",
         },
-        0.68
+        1.6
       )
     })
 
@@ -248,24 +267,32 @@ export function WorkSection() {
         </div>
       </div>
 
-      <div className="mt-6 flex justify-center px-4 sm:px-12">
+      <div className="-mt-8 sm:-mt-18 flex justify-center">
         <div
           ref={panelRef}
-          className="relative h-[80vh] w-[calc(100vw-2rem)] max-w-[1120px] overflow-hidden rounded-[12px] bg-[#3D3D3D] shadow-2xl sm:h-[76vh] sm:w-full"
+          className="relative h-screen w-full flex items-center justify-center overflow-hidden"
         >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_42%)]" />
-          <div className="relative z-10 h-full w-full perspective-[2000px]">
+          {/* Expanding Background Box */}
+          <div
+            ref={expandBgRef}
+            className="absolute z-0 bg-[#252525] h-[75vh] w-[calc(100vw-2rem)] max-w-[1280px] rounded-[12px] shadow-2xl sm:h-[70vh] sm:w-full sm:max-w-[1200px]"
+          >
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_42%)]" />
+          </div>
+
+          {/* Cards Content (Absolute Over Expansion) */}
+          <div className="absolute inset-0 z-10 w-full h-full perspective-[2000px]">
             <div className="absolute inset-0 transform-style-3d">
               <div className="relative h-full w-full transform-style-3d">
                 {projects.map((project, i) => (
                   <Link
                     key={project.id}
                     href={`/case-studies/${project.slug}`}
-                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[330px] h-[350px] lg:w-[400px] lg:h-[350px] overflow-hidden rounded-[22px] shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:left-auto`}
+                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[340px] h-[380px] lg:w-[500px] lg:h-[450px] overflow-hidden rounded-[22px] shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:left-auto`}
                     style={{ zIndex: projects.length - i }}
                     data-desktop-left={
-                      i === 0 ? "30%" :
-                        i === 1 ? "70%" :
+                      i === 0 ? "32%" :
+                        i === 1 ? "68%" :
                           i === 2 ? "44%" : "56%"
                     }
                   >
