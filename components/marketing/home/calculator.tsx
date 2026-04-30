@@ -21,6 +21,7 @@ export function Calculator() {
   const [users, setUsers] = React.useState<readonly number[] | number>([10000])
   const [crc, setCrc] = React.useState<readonly number[] | number>([120])
   const [dropoff, setDropoff] = React.useState<readonly number[] | number>([30])
+  const [tooltipOpen, setTooltipOpen] = React.useState(false)
 
   // Helper to ensure we always have a single number for calculations
   const getVal = (v: readonly number[] | number) => {
@@ -91,11 +92,15 @@ export function Calculator() {
             </div>
           </div>
           <TooltipProvider delay={0}>
-            <Tooltip>
-              <TooltipTrigger>
-                <div className="p-1 rounded-full cursor-help hover:bg-zinc-50 transition-colors">
-                  <div className="w-5 h-5 rounded-full border border-blue-500 flex items-center justify-center text-blue-500 text-[10px] font-bold">i</div>
-                </div>
+            <Tooltip open={tooltipOpen} onOpenChange={setTooltipOpen}>
+              <TooltipTrigger
+                onClick={(e) => {
+                  e.preventDefault()
+                  setTooltipOpen(!tooltipOpen)
+                }}
+                className="p-1 rounded-full cursor-help hover:bg-zinc-50 transition-colors border-none bg-transparent outline-none"
+              >
+                <div className="w-5 h-5 rounded-full border border-blue-500 flex items-center justify-center text-blue-500 text-[10px] font-bold">i</div>
               </TooltipTrigger>
               <TooltipContent
                 side="left"
