@@ -13,7 +13,7 @@ export function OnboardingPageView() {
         <FluidBackground />
 
         <div className="relative z-10 mx-auto w-full px-6 lg:px-12 xl:px-20">
-          <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase">
+          <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase">
             <span>Home</span>
             <span className="text-zinc-200">.</span>
             <span>Onboarding</span>
@@ -22,7 +22,7 @@ export function OnboardingPageView() {
           <div className="mt-12 flex min-h-[calc(90vh-10rem)] max-w-[760px] items-center">
             <div className="space-y-8">
               <h1
-                className="text-4xl font-bold tracking-tight text-[#3D3D3D] sm:text-5xl xl:text-[72px] leading-[1.05]"
+                className="text-4xl font-bold tracking-tight text-[#252525] sm:text-5xl xl:text-[72px] leading-[1.05]"
                 style={{ fontFamily: "var(--font-heading, serif)" }}
               >
                 First-time users
@@ -31,11 +31,11 @@ export function OnboardingPageView() {
               </h1>
 
               <div className="max-w-[620px] space-y-6">
-                <p className="text-[13px] sm:text-[15px] leading-relaxed text-zinc-500">
+                <p className="text-[13px] sm:text-[15px] leading-relaxed text-[#252525]">
                   Onboarding is where product confidence is either built or lost. We design activation flows
                   that make the next step obvious, reduce hesitation, and help users feel progress early.
                 </p>
-                <p className="text-[13px] sm:text-[15px] leading-relaxed text-zinc-500">
+                <p className="text-[13px] sm:text-[15px] leading-relaxed text-[#252525]">
                   From setup to first outcome, every screen is tuned to remove friction, reinforce value,
                   and move people toward habit instead of abandonment.
                 </p>
