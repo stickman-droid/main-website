@@ -54,6 +54,25 @@ export function ProcessSection({
   useGSAP(() => {
     const mm = gsap.matchMedia()
 
+    const cards = gsap.utils.toArray<HTMLElement>(".process-card")
+    gsap.fromTo(
+      cards,
+      { opacity: 0, x: -32, filter: "blur(8px)" },
+      {
+        opacity: 1,
+        x: 0,
+        filter: "blur(0px)",
+        duration: 1.2,
+        stagger: 0.35,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    )
+
     mm.add("(min-width: 640px)", () => {
       if (!circleRef.current) return
 
@@ -69,30 +88,6 @@ export function ProcessSection({
       })
     })
 
-    mm.add("(max-width: 639px)", () => {
-      if (!cardsRef.current) return
-
-      const cards = gsap.utils.toArray<HTMLElement>(".process-card")
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 36, scale: 0.94, rotateX: 8 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          rotateX: 0,
-          duration: 0.9,
-          stagger: 0.16,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 88%",
-            toggleActions: "play none none reverse",
-          }
-        }
-      )
-    })
-
     return () => mm.revert()
   }, { scope: containerRef })
 
@@ -101,11 +96,11 @@ export function ProcessSection({
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header */}
         <div className="mb-10 flex flex-col items-center space-y-4 text-center sm:mb-20">
-          <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
+          <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
             {eyebrow}
           </p>
           <h2
-            className="text-4xl font-bold tracking-tight text-[#3D3D3D] sm:text-5xl lg:text-5xl max-w-3xl leading-[1.1]"
+            className="text-4xl font-bold tracking-tight text-[#252525] sm:text-5xl lg:text-5xl max-w-3xl leading-[1.1]"
             style={{ fontFamily: 'var(--font-heading, serif)' }}
           >
             {title}
@@ -165,11 +160,11 @@ export function ProcessSection({
                   >
                     {step.num}
                   </span>
-                  <h3 className="absolute bottom-[-14px] left-0 text-lg font-bold text-[#3D3D3D] sm:bottom-[-18px] sm:text-2xl lg:bottom-[-22px]">
+                  <h3 className="absolute bottom-[-14px] left-0 text-lg font-bold text-[#252525] sm:bottom-[-18px] sm:text-2xl lg:bottom-[-22px]">
                     {step.title}
                   </h3>
                 </div>
-                <p className="max-w-[340px] text-[13px] leading-relaxed text-zinc-500 sm:text-[15px]">
+                <p className="max-w-[340px] text-[13px] leading-relaxed text-[#252525] sm:text-[15px]">
                   {step.desc}
                 </p>
               </div>
