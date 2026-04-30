@@ -56,21 +56,22 @@ export function FounderSection() {
             </div>
 
             <div className="space-y-4">
-              <p className="text-center text-[12px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase lg:text-left">
+              <p className="text-center text-[12px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase lg:text-left">
                 Founder | Creative Director
               </p>
               <h2
-                className="text-left text-4xl font-medium tracking-tight text-[#3D3D3D] leading-[1.1] lg:text-5xl"
+                className="text-left text-4xl font-medium tracking-tight text-[#252525] leading-[1.1] lg:text-5xl"
                 style={{ fontFamily: 'var(--font-heading, serif)' }}
               >
-                <span className="font-bold">Hi, I&apos;m Savio.</span> Product designer, over ten years in, and still genuinely excited by the work.
+                Hi, I design customer experiences with less friction, better decisions and stronger retention.
               </h2>
             </div>
           </div>
 
-          <div className="max-w-[820px] space-y-6 lg:space-y-8 text-left text-[16px] font-medium leading-relaxed text-zinc-500 lg:text-[17px]">
+          {/* Content  */}
+          <div className="max-w-[820px] space-y-6 lg:space-y-8 text-left text-[16px] font-medium leading-relaxed text-[#252525] lg:text-[17px]">
             <p className="founder-paragraph">
-              I started my career in marketing before moving into design, which means I think about products from both sides. How they are built and how they need to perform in the real world.
+              My name is Savio and I started my career in marketing before moving into design, which means I think about products from both sides. How they are built and how they need to perform in the real world.
             </p>
             <p className="founder-paragraph">
               Over the past decade I have worked with clients across fintech, healthcare, logistics and hospitality. The work has always been the same: figure out how users actually think and then design experiences that meet them there.
