@@ -80,10 +80,10 @@ export function Calculator() {
       <CardContent className="flex h-full flex-col px-8 py-2">
         <div className="flex justify-between items-start">
           <div className="space-y-1">
-            <p className="text-[10px] font-mono tracking-[0.25em] text-zinc-400 font-bold uppercase">
+            <p className="text-[10px] font-mono tracking-[0.25em] text-[#8e8e8e] font-bold uppercase">
               Cost of Confusion
             </p>
-            <h3 className="text-sm font-medium text-zinc-500">
+            <h3 className="text-sm font-medium text-[#252525]">
               Est. Annual Revenue Lost
             </h3>
             <div className="text-4xl font-mono tracking-tighter font-bold text-zinc-900">
@@ -161,7 +161,7 @@ export function Calculator() {
         <div className="mt-auto space-y-4 pt-6">
           <div className="space-y-2.5">
             <div className="flex justify-between text-xs font-semibold">
-              <span className="text-zinc-500">Monthly Users:</span>
+              <span className="text-[#252525]">Monthly Users:</span>
               <span className="font-mono text-zinc-900">{usersVal.toLocaleString()}</span>
             </div>
             <Slider
@@ -176,7 +176,7 @@ export function Calculator() {
 
           <div className="space-y-2.5">
             <div className="flex justify-between text-xs font-semibold">
-              <span className="text-zinc-500">Avg. Retention Cost:</span>
+              <span className="text-[#252525]">Avg. Retention Cost:</span>
               <span className="font-mono text-zinc-900">${crcVal}</span>
             </div>
             <Slider
@@ -191,7 +191,7 @@ export function Calculator() {
 
           <div className="space-y-2.5">
             <div className="flex justify-between text-xs font-semibold">
-              <span className="text-zinc-500">Drop-off Rate:</span>
+              <span className="text-[#252525]">Drop-off Rate:</span>
               <span className="font-mono text-zinc-900">{dropoffVal}%</span>
             </div>
             <Slider
