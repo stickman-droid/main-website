@@ -99,7 +99,7 @@ export function AboutUsHero() {
     <section className="relative w-full overflow-hidden bg-background py-6 lg:py-14">
       <div className="mx-auto w-full px-6 lg:px-12 xl:px-[80px]">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase mb-14">
+        <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase mb-14">
           <span>Home</span>
           <span className="text-zinc-200">.</span>
           <span>About Us</span>
@@ -109,7 +109,7 @@ export function AboutUsHero() {
           {/* Left Column: Content */}
           <div className="flex flex-col space-y-8">
             <h1
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-[#3D3D3D] sm:text-6xl leading-[1.05]"
+              className="text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-[#252525] sm:text-6xl leading-[1.05]"
               style={{ fontFamily: 'var(--font-heading, serif)' }}
             >
               We Don&apos;t Just Design Screens.<br />
@@ -117,8 +117,8 @@ export function AboutUsHero() {
             </h1>
 
             <div className="max-w-[580px] space-y-8">
-              <p className="text-[16px] lg:text-[20px] leading-relaxed text-zinc-500 font-medium">
-                Stickman is an independent design practice specialising in SaaS retention and decision architecture. No account managers. No bloated timelines. Over a decade of specialised UX experience applied directly to your most complex product problems.
+              <p className="text-[16px] lg:text-[20px] leading-relaxed text-[#252525] font-medium">
+                Stickman.Design is an independent design practice specialising in SaaS retention and decision architecture. No account managers. No bloated timelines. Over a decade of specialised UX experience applied directly to your most complex product problems.
               </p>
             </div>
           </div>
@@ -132,18 +132,18 @@ export function AboutUsHero() {
               innerClassName="bg-background p-4 xl:p-6 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
             >
               <div className="space-y-3 sm:space-y-4">
-                <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
+                <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
                   Headquarters
                 </p>
                 <div className="space-y-1">
-                  <p className="text-[14px] sm:text-[16px] font-bold text-[#3D3D3D]">Goa, India</p>
-                  <p className="text-2xl sm:text-4xl font-bold text-[#3D3D3D] tabular-nums tracking-tighter">
+                  <p className="text-[14px] sm:text-[16px] font-bold text-[#252525]">Goa, India</p>
+                  <p className="text-2xl sm:text-4xl font-bold text-[#252525] tabular-nums tracking-tighter">
                     {time || "00:00:00"}
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-zinc-500 font-medium text-[12px] sm:text-[13px] pt-4">
-                <Cloud className="size-4 text-zinc-400" />
+              <div className="flex items-center gap-2 text-[#252525] font-medium text-[12px] sm:text-[13px] pt-4">
+                <Cloud className="size-4 text-[#8e8e8e]" />
                 <span>{weather.temp}°C / Humidity: {weather.humidity}%</span>
               </div>
             </GlowCard>
@@ -155,13 +155,13 @@ export function AboutUsHero() {
               innerClassName="bg-background p-4 xl:p-6 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
             >
               <div className="space-y-4 sm:space-y-6">
-                <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
+                <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
                   Work Bandwidth
                 </p>
                 <div className="space-y-4">
                   <div className="space-y-1">
-                    <p className="text-[14px] sm:text-[16px] font-bold text-[#3D3D3D]">Consumed Capacity</p>
-                    <p className="text-2xl sm:text-4xl font-bold text-[#3D3D3D]">
+                    <p className="text-[14px] sm:text-[16px] font-bold text-[#252525]">Consumed Capacity</p>
+                    <p className="text-2xl sm:text-4xl font-bold text-[#252525]">
                       {bandwidthPercentage.toFixed(2)}%
                     </p>
                   </div>
@@ -180,14 +180,14 @@ export function AboutUsHero() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col space-y-2 pt-4 sm:pt-6 border-t border-zinc-50 text-[11px] sm:text-[12px] font-medium text-zinc-500">
+              <div className="flex flex-col space-y-2 pt-4 sm:pt-6 border-t border-zinc-50 text-[11px] sm:text-[12px] font-medium text-[#252525]">
                 <div className="flex items-center justify-between">
                   <span>Active Engagements:</span>
-                  <span className="text-[#3D3D3D] font-bold">{activeEngagements} / 3</span>
+                  <span className="text-[#252525] font-bold">{activeEngagements} / 3</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Next Sprint:</span>
-                  <span className="text-[#3D3D3D] font-bold">{days} days</span>
+                  <span className="text-[#252525] font-bold">{days} days</span>
                 </div>
               </div>
             </GlowCard>
