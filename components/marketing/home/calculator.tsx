@@ -176,7 +176,7 @@ export function Calculator() {
 
           <div className="space-y-2.5">
             <div className="flex justify-between text-xs font-semibold">
-              <span className="text-[#252525]">Avg. Retention Cost:</span>
+              <span className="text-[#252525]">Acquisition Cost (CAC):</span>
               <span className="font-mono text-zinc-900">${crcVal}</span>
             </div>
             <Slider
