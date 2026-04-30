@@ -1,8 +1,15 @@
 "use client"
 
 import * as React from "react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export function OfferSection() {
+  const containerRef = React.useRef<HTMLDivElement>(null)
+
   const offers = [
     {
       id: "01",
@@ -21,16 +28,42 @@ export function OfferSection() {
     }
   ]
 
+  useGSAP(() => {
+    if (!containerRef.current) return
+
+    const revealItems = gsap.utils.toArray<HTMLElement>(".offer-reveal")
+
+    revealItems.forEach((item, index) => {
+      gsap.fromTo(
+        item,
+        { opacity: 0, y: 24, filter: "blur(8px)" },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.9,
+          delay: index * 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 92%",
+            once: true,
+          }
+        }
+      )
+    })
+  }, { scope: containerRef })
+
   return (
-    <section className="flex w-full justify-center bg-background py-12 sm:py-8">
+    <section ref={containerRef} className="flex w-full justify-center bg-background py-12 sm:py-8">
       <div className="flex w-full max-w-[1150px] flex-col space-y-5 px-6 lg:h-[480px]">
         {/* Header */}
-        <div className="flex flex-col items-center text-center space-y-4">
-          <p className="text-[14px] font-mono font-bold tracking-[0.25em] text-zinc-400 uppercase">
+        <div className="offer-reveal flex flex-col items-center text-center space-y-4">
+          <p className="text-[14px] font-mono font-bold tracking-[0.25em] text-[#8e8e8e] uppercase">
             Our Fix
           </p>
           <h2
-            className="text-4xl font-bold tracking-tight text-[#3D3D3D] sm:text-5xl"
+            className="text-4xl font-bold tracking-tight text-[#252525] sm:text-5xl"
             style={{ fontFamily: 'var(--font-heading, serif)' }}
           >
             What we offer you
@@ -42,18 +75,17 @@ export function OfferSection() {
           {offers.map((offer, index) => (
             <div
               key={offer.id}
-              className={`group relative flex flex-col space-y-3 px-4 py-8 transition-all duration-500 ease-out motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-6 sm:px-8 ${index !== 0 ? "md:border-l border-[#E0E0E0] border-1px" : ""
+              className={`offer-reveal group relative flex flex-col space-y-3 px-4 py-8 transition-all duration-500 ease-out sm:px-8 ${index !== 0 ? "md:border-l border-[#E0E0E0] border-1px" : ""
                 }`}
-              style={{ animationDelay: `${index * 120}ms`, animationFillMode: "both" }}
             >
               <span className="text-4xl font-mono font-regular tracking-tighter text-[#E0E0E0] transition-all duration-500 group-hover:-translate-y-1 group-hover:text-[#B9B9B9] sm:text-6xl">
                 {offer.id}
               </span>
               <div className="space-y-2">
-                <h3 className="text-2xl font-bold text-[#3D3D3D] transition-colors duration-300 group-hover:text-black">
+                <h3 className="text-2xl font-bold text-[#252525] transition-colors duration-300 group-hover:text-black">
                   {offer.title}
                 </h3>
-                <p className="font-sans text-[15px] font-normal leading-relaxed text-zinc-500 transition-colors duration-300 group-hover:text-zinc-600">
+                <p className="font-sans text-[15px] font-normal leading-relaxed text-[#252525] transition-colors duration-300 group-hover:text-[#252525]">
                   {offer.description}
                 </p>
               </div>
@@ -62,8 +94,8 @@ export function OfferSection() {
         </div>
 
         {/* Footer Text */}
-        <div className="flex justify-center pt-4">
-          <p className="max-w-[450px] font-sans text-center text-sm font-medium text-zinc-400 leading-relaxed">
+        <div className="offer-reveal flex justify-center pt-4">
+          <p className="max-w-[450px] font-sans text-center text-sm font-medium text-[#8e8e8e] leading-relaxed">
             We don&apos;t do everything. We do two things with obsessive precision: The Flow and The View.
             We build onboarding that connects and dashboards that clarify.
             For teams ready to stop guessing and start scaling.
@@ -73,4 +105,3 @@ export function OfferSection() {
     </section>
   )
 }
-
