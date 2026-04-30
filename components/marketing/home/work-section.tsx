@@ -28,7 +28,7 @@ const projects = [
   {
     id: "03",
     title: "Solving Digital SME Bank Delays",
-    pills: ["Fintech", "Onboarding"],
+    pills: ["Fintech", "Dashboard"],
     image: "/fintech/Fintech_case_study_hero.webp",
     slug: "digital-sme-bank-delays",
   },
