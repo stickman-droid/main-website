@@ -166,6 +166,10 @@ export function WorkSection() {
         if (isLG) {
           if (i === 0 || i === 2) leftValue = "30%"
           if (i === 1 || i === 3) leftValue = "70%"
+        } else {
+          // XL and others above 640px
+          if (i === 0 || i === 2) leftValue = "32%"
+          if (i === 1 || i === 3) leftValue = "68%"
         }
 
         gsap.set(card, {
@@ -237,8 +241,8 @@ export function WorkSection() {
       const isLG = window.innerWidth >= 1024 && window.innerWidth < 1280
       const leftPos = isLG ? "30%" : "32%"
       const rightPos = isLG ? "70%" : "68%"
-      const qLeftPos = isLG ? "30%" : "44%"
-      const qRightPos = isLG ? "70%" : "56%"
+      const qLeftPos = isLG ? "30%" : "32%"
+      const qRightPos = isLG ? "70%" : "68%"
 
       tl.to(queueLeft, { xPercent: -50, yPercent: -50, left: qLeftPos, z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.0)
       tl.to(queueRight, { xPercent: -50, yPercent: -50, left: qRightPos, z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.05)
