@@ -16,7 +16,9 @@ export function buildPageMetadata({
   const url = `${siteConfig.url}${canonical}`;
 
   return {
-    title,
+    title: {
+      absolute: title,
+    },
     description,
     alternates: {
       canonical,
