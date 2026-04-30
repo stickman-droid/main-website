@@ -92,10 +92,10 @@ export function WorkSection() {
         scrollTrigger: {
           trigger: panelRef.current,
           start: "center center",
-          end: "+=400%",
+          end: "+=350%",
           pin: true,
           pinSpacing: true,
-          scrub: 0.65,
+          scrub: 0.8,
           anticipatePin: 1,
           fastScrollEnd: true,
           onUpdate: (self) => setProgress(self.progress),
@@ -109,8 +109,8 @@ export function WorkSection() {
       tl.to(expandBg, {
         scale: targetScale,
         borderRadius: 0,
-        duration: 1.0,
-        ease: "power1.inOut"
+        duration: 0.5,
+        ease: "power2.inOut"
       }, 0)
 
       tl.to(header, { opacity: 0.1, y: -20, duration: 0.4 }, 0.1)
@@ -121,9 +121,9 @@ export function WorkSection() {
         autoAlpha: 1,
         scale: 1,
         z: 0,
-        duration: 0.5,
-        ease: "back.out(1.4)"
-      }, 0.35)
+        duration: 0.4,
+        ease: "back.out(1.2)"
+      }, 0.25)
 
       cards.forEach((card, index) => {
         // Exit animation for current card
@@ -159,9 +159,17 @@ export function WorkSection() {
     mm.add("(min-width: 640px)", () => {
       const desktopTop = window.innerWidth >= 1024 ? "54%" : "50%"
 
-      cards.forEach((card) => {
+      cards.forEach((card, i) => {
+        const isLG = window.innerWidth >= 1024 && window.innerWidth < 1280
+        let leftValue = card.dataset.desktopLeft ?? "50%"
+        
+        if (isLG) {
+          if (i === 0 || i === 2) leftValue = "30%"
+          if (i === 1 || i === 3) leftValue = "70%"
+        }
+
         gsap.set(card, {
-          left: card.dataset.desktopLeft ?? "50%",
+          left: leftValue,
           top: desktopTop
         })
       })
@@ -170,10 +178,10 @@ export function WorkSection() {
         scrollTrigger: {
           trigger: panelRef.current,
           start: "center center",
-          end: "+=400%",
+          end: "+=350%",
           pin: true,
           pinSpacing: true,
-          scrub: 0.65,
+          scrub: 0.8,
           anticipatePin: 1,
           fastScrollEnd: true,
           onUpdate: (self) => setProgress(self.progress),
@@ -187,8 +195,8 @@ export function WorkSection() {
       tl.to(expandBg, {
         scale: targetScale,
         borderRadius: 0,
-        duration: 0.8,
-        ease: "power1.inOut"
+        duration: 0.5,
+        ease: "power2.inOut"
       }, 0)
 
       tl.to(header, { opacity: 0.1, y: -20, duration: 0.5 }, 0.1)
@@ -209,7 +217,7 @@ export function WorkSection() {
           z: 0,
           duration: 0.4
         },
-        0.5
+        0.25
       )
 
       tl.to(
@@ -225,9 +233,15 @@ export function WorkSection() {
         0.9
       )
 
-      // Bring queue cards forward
-      tl.to(queueLeft, { xPercent: -50, yPercent: -50, left: "32%", z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.0)
-      tl.to(queueRight, { xPercent: -50, yPercent: -50, left: "68%", z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.05)
+      // Bring queue cards forward with responsive positioning
+      const isLG = window.innerWidth >= 1024 && window.innerWidth < 1280
+      const leftPos = isLG ? "30%" : "32%"
+      const rightPos = isLG ? "70%" : "68%"
+      const qLeftPos = isLG ? "30%" : "44%"
+      const qRightPos = isLG ? "70%" : "56%"
+
+      tl.to(queueLeft, { xPercent: -50, yPercent: -50, left: qLeftPos, z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.0)
+      tl.to(queueRight, { xPercent: -50, yPercent: -50, left: qRightPos, z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.05)
 
       tl.to(
         [queueLeft, queueRight],
@@ -249,12 +263,12 @@ export function WorkSection() {
   return (
     <section ref={containerRef} className="relative min-h-screen w-full bg-background pt-12 sm:pt-6">
       <div className="work-header mx-auto flex w-full max-w-[820px] flex-col items-center gap-3 px-6 text-center sm:px-8">
-        <Mono className="text-[10px] font-bold tracking-[0.4em] text-zinc-400 uppercase">
+        <Mono className="text-[10px] font-bold tracking-[0.4em] text-[#8e8e8e] uppercase">
           Selected Work
         </Mono>
         <Heading
           as="h2"
-          className="max-w-[620px] text-3xl font-bold text-[#3D3D3D] sm:text-5xl"
+          className="max-w-[620px] text-3xl font-bold text-[#252525] sm:text-5xl"
           style={{ fontFamily: '"Fraunces", serif' }}
         >
           Problems we&apos;ve solved for others like you
@@ -275,7 +289,7 @@ export function WorkSection() {
           {/* Expanding Background Box */}
           <div
             ref={expandBgRef}
-            className="absolute z-0 bg-[#252525] h-[75vh] w-[calc(100vw-2rem)] max-w-[1280px] rounded-[12px] shadow-2xl sm:h-[70vh] sm:w-full sm:max-w-[1200px]"
+            className="absolute z-0 bg-[#252525] h-[75vh] w-[calc(100vw-2rem)] max-w-[1280px] lg:max-w-[980px] xl:max-w-[1200px] rounded-[12px] shadow-2xl sm:h-[70vh] sm:w-full sm:max-w-[1200px]"
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_42%)]" />
           </div>
@@ -288,7 +302,7 @@ export function WorkSection() {
                   <Link
                     key={project.id}
                     href={`/case-studies/${project.slug}`}
-                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[340px] h-[380px] lg:w-[500px] lg:h-[450px] overflow-hidden rounded-[22px] shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:left-auto`}
+                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[340px] h-[380px] lg:w-[360px] lg:h-[340px] xl:w-[500px] xl:h-[450px] overflow-hidden rounded-[22px] shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:left-auto`}
                     style={{ zIndex: projects.length - i }}
                     data-desktop-left={
                       i === 0 ? "32%" :
@@ -322,7 +336,7 @@ export function WorkSection() {
                         {project.pills.map((pill) => (
                           <span
                             key={pill}
-                            className="rounded-full bg-white px-2.5 py-1 text-[10px] font-semibold text-[#3D3D3D]"
+                            className="rounded-full bg-white px-2.5 py-1 text-[10px] font-semibold text-[#252525]"
                           >
                             {pill}
                           </span>
