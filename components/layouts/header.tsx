@@ -125,13 +125,9 @@ export function Header() {
               // Only Onboarding, Dashboards, and Case Studies for the moving section
               const tickerItems = navItems.filter(item => item.label !== "About Us");
 
-              // Offset items so each section starts with a different name
-              // tickerItems order: 0:Onboarding, 1:Dashboards, 2:Case Studies
-              const slotItems = i === 0
-                ? [tickerItems[0], tickerItems[1], tickerItems[2]] // Starts with Onboarding
-                : i === 1
-                  ? [tickerItems[1], tickerItems[2], tickerItems[0]] // Starts with Dashboards
-                  : [tickerItems[2], tickerItems[0], tickerItems[1]]; // Starts with Case Studies
+              // We want 1 specific link per column, repeated to form a seamless marquee
+              const item = tickerItems[i];
+              const slotItems = Array(6).fill(item);
 
               return (
                 <div
@@ -149,7 +145,7 @@ export function Header() {
                         animationDuration: "15s", // Uniform speed keeps them perfectly offset
                       }}
                     >
-                      {[...slotItems, ...slotItems].map((item, index) => (
+                      {slotItems.map((item, index) => (
                         <Link
                           key={`${item.href}-${i}-${index}`}
                           href={item.href}
