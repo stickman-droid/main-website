@@ -2,17 +2,50 @@
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
+
+gsap.registerPlugin(ScrollTrigger)
 
 export function GapSection() {
+  const containerRef = React.useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    if (!containerRef.current) return
+
+    const revealItems = gsap.utils.toArray<HTMLElement>(".gap-reveal")
+
+    revealItems.forEach((item, index) => {
+      gsap.fromTo(
+        item,
+        { opacity: 0, y: 24, filter: "blur(8px)" },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.9,
+          delay: index * 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 92%",
+            once: true,
+          }
+        }
+      )
+    })
+  }, { scope: containerRef })
+
   return (
-    <section className="flex w-full justify-center overflow-hidden bg-background py-8 sm:py-16">
+    <section ref={containerRef} className="flex w-full justify-center overflow-hidden bg-background py-8 sm:py-16">
       <div className="flex w-full max-w-[950px] flex-col gap-5 px-6">
-        <div className="mx-auto flex max-w-[720px] flex-col items-start gap-4 text-left">
-          <p className="text-[14px] font-mono font-bold tracking-[0.25em] text-zinc-400 uppercase">
+        <div className="gap-reveal mx-auto flex max-w-[720px] flex-col items-start gap-4 text-left w-full">
+          <p className="text-[14px] font-mono font-bold tracking-[0.25em] text-[#8e8e8e] uppercase">
             The Gap
           </p>
           <h2
-            className="text-4xl leading-[1.15] font-bold tracking-tight text-[#3D3D3D] sm:text-[38px] lg:text-[42px]"
+            className="text-4xl leading-[1.15] font-bold tracking-tight text-[#252525] sm:text-[38px] lg:text-[42px]"
             style={{ fontFamily: "var(--font-heading, serif)" }}
           >
             The biggest threat to growth isn&apos;t competition. It&apos;s confusion.
@@ -20,24 +53,24 @@ export function GapSection() {
         </div>
 
         <div className="flex w-full flex-col gap-10 lg:grid lg:grid-cols-[320px_minmax(0,1fr)] lg:items-center lg:gap-8">
-          <div className="flex items-center justify-center lg:justify-start">
+          <div className="gap-reveal flex items-center justify-center lg:justify-start">
             <BrokenBox />
           </div>
 
           <div className="flex flex-col justify-center">
             <div
-              className="max-w-[480px] space-y-6 text-[15px] leading-relaxed font-normal text-[#3D3D3D]/80"
+              className="max-w-[480px] space-y-6 text-[15px] leading-relaxed font-normal text-[#252525]/80"
               style={{ fontFamily: '"Inter", sans-serif' }}
             >
-              <p>
+              <p className="gap-reveal">
                 The distance between a loyal customer and a lost one is a single gap of confusion.
               </p>
-              <p>
+              <p className="gap-reveal">
                 It&apos;s not the competition that stalls your scale; it&apos;s the friction of a
                 fragmented experience. When a dashboard feels like a puzzle with missing pieces,
                 your users don&apos;t just get frustrated and they drift.
               </p>
-              <p>
+              <p className="gap-reveal">
                 We specialise in closing the clarity gap. We transform cluttered interfaces
                 into seamless pathways, turning &apos;Now what?&apos; into a clear road to ROI.
               </p>
@@ -120,7 +153,7 @@ function BrokenBox() {
               width="236.5"
               height="236.5"
               rx="0"
-              stroke="#3D3D3D"
+              stroke="#252525"
               strokeWidth="2.5"
             />
           </svg>
