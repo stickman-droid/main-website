@@ -49,19 +49,20 @@ export function FocusGridSection() {
       cards,
       {
         opacity: 0,
-        y: 40,
-        scale: 0.96
+        y: 28,
+        filter: "blur(6px)"
       },
       {
         opacity: 1,
         y: 0,
-        scale: 1,
+        filter: "blur(0px)",
         duration: 0.8,
-        stagger: 0.1,
+        stagger: 0.12,
         ease: "power2.out",
         scrollTrigger: {
           trigger: cardsRef.current,
           start: "top 85%",
+          once: true,
         },
       }
     )
@@ -82,11 +83,11 @@ export function FocusGridSection() {
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header Section - Centered as per request image */}
         <div className="mb-8 lg:mb-16 flex flex-col items-center text-center space-y-4">
-          <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
+          <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
             Our Focus
           </p>
           <h2
-            className="text-4xl font-bold tracking-tight text-[#3D3D3D] sm:text-5xl lg:text-[52px] leading-[1.1] max-w-[800px]"
+            className="text-4xl font-bold tracking-tight text-[#252525] sm:text-5xl lg:text-[52px] leading-[1.1] max-w-[800px]"
             style={{ fontFamily: 'var(--font-heading, serif)' }}
           >
             Giving every element its purpose
@@ -104,11 +105,12 @@ export function FocusGridSection() {
               radius={12}
               className="focus-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1px] transition-all duration-300"
               innerClassName="bg-background px-4 py-6 h-full flex flex-col space-y-1"
+              onPointerMove={handlePointerMove}
             >
-              <h3 className="text-lg sm:text-2xl font-bold text-[#3D3D3D] tracking-tight">
+              <h3 className="text-lg sm:text-2xl font-bold text-[#252525] tracking-tight">
                 {card.title}
               </h3>
-              <p className="text-[13px] sm:text-[15px] leading-relaxed text-zinc-500 font-medium">
+              <p className="text-[13px] sm:text-[15px] leading-relaxed text-[#252525] font-medium">
                 {card.desc}
               </p>
             </GlowCard>
@@ -125,4 +127,3 @@ export function FocusGridSection() {
     </section>
   )
 }
-
