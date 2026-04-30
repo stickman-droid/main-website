@@ -95,7 +95,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="px-2 text-sm font-medium text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
+                  className="px-2 text-sm font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
                 >
                   <OsmoUnderline>{item.label}</OsmoUnderline>
                 </Link>
@@ -153,7 +153,7 @@ export function Header() {
                         <Link
                           key={`${item.href}-${i}-${index}`}
                           href={item.href}
-                          className="shrink-0 pr-6 text-[13px] font-medium tracking-tight text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
+                          className="shrink-0 pr-6 text-[13px] font-medium tracking-tight text-[#252525] transition-colors hover:text-[#1C1C1C]"
                         >
                           {item.label}
                         </Link>
@@ -172,7 +172,7 @@ export function Header() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="size-10 shrink-0 text-[#3D3D3D] hover:bg-transparent"
+                    className="size-10 shrink-0 text-[#252525] hover:bg-transparent"
                   />
                 }
               >
@@ -196,7 +196,7 @@ export function Header() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="text-[#3D3D3D] hover:bg-black/5 hover:text-[#1C1C1C]"
+                          className="text-[#252525] hover:bg-black/5 hover:text-[#1C1C1C]"
                         />
                       }
                     >
@@ -213,7 +213,7 @@ export function Header() {
                         render={
                           <Link
                             href={item.href}
-                            className="text-xl font-medium text-[#3D3D3D] transition-colors hover:text-[#1C1C1C]"
+                            className="text-xl font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
                           />
                         }
                       >
