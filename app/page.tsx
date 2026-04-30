@@ -6,5 +6,9 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata(pageSeo.home);
 
 export default function HomePage() {
-  return <HomePageView />;
+  return (
+    <>
+      <HomePageView />
+    </>
+  );
 }
