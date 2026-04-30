@@ -1,7 +1,15 @@
+"use client"
+
+import * as React from "react"
 import NextLink from "next/link";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-type CaseStudy = {
+gsap.registerPlugin(ScrollTrigger);
+
+export type CaseStudy = {
   slug: string;
   title: string;
   heading: string;
@@ -38,26 +46,57 @@ export function CaseStudyDetailPageView({
 }: {
   caseStudy: CaseStudy;
 }) {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    const revealElements = gsap.utils.toArray<HTMLElement>(".reveal-item");
+
+    revealElements.forEach((el) => {
+      gsap.fromTo(
+        el,
+        {
+          opacity: 0,
+          y: 24,
+          filter: "blur(8px)",
+        },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.9,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 92%",
+            once: true,
+          },
+        }
+      );
+    });
+  }, { scope: containerRef });
+
   return (
-    <article className="min-h-screen bg-background text-[#3D3D3D] lg:pb-8">
+    <article ref={containerRef} className="min-h-screen bg-background text-[#252525] lg:pb-8">
       <div className="px-6 py-5 sm:py-10">
         <nav className="w-full lg:pl-15">
-          <div className="flex flex-wrap items-center justify-start gap-1.5 text-left text-[10px] lg:text-[11px] font-mono tracking-[0.2em] text-[#3D3D3D] uppercase sm:flex-nowrap">
+          <div className="flex flex-wrap items-center justify-start gap-1.5 text-left text-[10px] lg:text-[11px] font-mono tracking-[0.2em] text-[#252525] uppercase sm:flex-nowrap">
             <NextLink
               href="/"
-              className="whitespace-nowrap transition-colors hover:text-zinc-600"
+              className="whitespace-nowrap transition-colors hover:text-[#252525]"
             >
               Home
             </NextLink>
-            <span className="whitespace-nowrap text-[#3D3D3D]">.</span>
+            <span className="whitespace-nowrap text-[#252525]">.</span>
             <NextLink
               href="/case-studies"
-              className="whitespace-nowrap transition-colors hover:text-zinc-600"
+              className="whitespace-nowrap transition-colors hover:text-[#252525]"
             >
               Case Studies
             </NextLink>
-            <span className="whitespace-nowrap text-[#3D3D3D]">.</span>
-            <span className="text-[#3D3D3D]">{caseStudy.title}</span>
+            <span className="whitespace-nowrap text-[#252525]">.</span>
+            <span className="text-[#252525]">{caseStudy.title}</span>
           </div>
         </nav>
       </div>
@@ -65,8 +104,8 @@ export function CaseStudyDetailPageView({
       {/* Main article column */}
       <div className="mx-auto max-w-[1024px] px-6">
         {/* Centered Heading Section */}
-        <header className="flex flex-col items-center text-center space-y-3 pt-2 pb-12 sm:pt-4 sm:pb-16">
-          <p className="text-[11px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
+        <header className="reveal-item flex flex-col items-center text-center space-y-3 pt-2 pb-12 sm:pt-4 sm:pb-16">
+          <p className="text-[11px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
             {caseStudy.heroImage.eyebrow}
           </p>
 
@@ -81,7 +120,7 @@ export function CaseStudyDetailPageView({
             {caseStudy.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-black/8 bg-[#F8F8F8] px-4 py-1.5 text-[13px] font-medium text-zinc-500 transition-colors hover:bg-black/5"
+                className="rounded-full border border-black/8 bg-[#F8F8F8] px-4 py-1.5 text-[13px] font-medium text-[#252525] transition-colors hover:bg-black/5"
               >
                 {tag}
               </span>
@@ -90,7 +129,7 @@ export function CaseStudyDetailPageView({
         </header>
 
         {/* Hero Image */}
-        <div className="mb-20 -mx-3 overflow-hidden sm:-mx-8 lg:mx-0 xl:-mx-10">
+        <div className="reveal-item mb-20 -mx-3 overflow-hidden sm:-mx-8 lg:mx-0 xl:-mx-10">
           {caseStudy.heroImage.image ? (
             <div className="relative aspect-[21/8] w-full rounded-[24px] bg-zinc-50">
               <Image
@@ -111,13 +150,13 @@ export function CaseStudyDetailPageView({
         </div>
 
         {/* Dynamic Content Sections */}
-        <div className="mx-auto max-w-[620px] space-y-10">
+        <div className="mx-auto max-w-[620px] space-y-16 pb-20">
           {caseStudy.content.map((block, index) => {
             if (block.type === "description") {
               return (
-                <section key={index} className="space-y-3">
+                <section key={index} className="reveal-item space-y-3">
                   <div className="space-y-2">
-                    <p className="text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase">
+                    <p className="text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase">
                       {block.subtitle}
                     </p>
                     {block.title && (
@@ -130,7 +169,7 @@ export function CaseStudyDetailPageView({
                     )}
                   </div>
                   {block.points && block.points.length > 0 ? (
-                    <ul className="space-y-1 text-[16px] sm:text-[18px] leading-[1.6] text-zinc-600 font-medium marker:text-zinc-400 marker:text-sm marker:font-semibold">
+                    <ul className="space-y-1 text-[16px] sm:text-[18px] leading-[1.6] text-[#252525] font-medium marker:text-[#8e8e8e] marker:text-sm marker:font-semibold">
                       {block.points.map((point) => (
                         <li key={point} className="list-disc">
                           {point}
@@ -139,7 +178,7 @@ export function CaseStudyDetailPageView({
                     </ul>
                   ) : (
                     <div
-                      className="text-[16px] sm:text-[18px] leading-[1.7] text-zinc-600 font-medium whitespace-pre-wrap"
+                      className="text-[16px] sm:text-[18px] leading-[1.7] text-[#252525] font-medium whitespace-pre-wrap"
                     >
                       {block.description}
                     </div>
@@ -149,7 +188,7 @@ export function CaseStudyDetailPageView({
             }
 
             return (
-              <section key={index} className="space-y-2">
+              <section key={index} className="reveal-item space-y-2">
                 <div className="overflow-hidden rounded-[20px]">
                   {block.image ? (
                     <div className="relative aspect-[16/10] w-full">
@@ -169,10 +208,10 @@ export function CaseStudyDetailPageView({
                   )}
                 </div>
                 <div className="space-y-2">
-                  <p className="text-[11px] font-mono font-medium tracking-[0.1em] text-zinc-400 uppercase">
+                  <p className="text-[11px] font-mono font-medium tracking-[0.1em] text-[#8e8e8e] uppercase">
                     {block.eyebrow} — {block.title}
                   </p>
-                  <p className="text-sm italic text-zinc-400">
+                  <p className="text-sm italic text-[#8e8e8e]">
                     {block.caption}
                   </p>
                 </div>
@@ -184,4 +223,3 @@ export function CaseStudyDetailPageView({
     </article>
   );
 }
-
