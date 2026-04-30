@@ -14,7 +14,7 @@ export default function OnboardingPage() {
       <section className="relative w-full h-[90vh] overflow-hidden">
         <FluidBackground />
 
-        <div className="relative z-10 flex h-full flex-col px-4 pt-10 sm:px-6 lg:px-[48px] xl:px-[80px]">
+        <div className="relative z-10 flex h-full w-full flex-col px-6 pt-10 sm:px-12 lg:mx-auto lg:max-w-7xl xl:mx-0 xl:max-w-none xl:px-[80px]">
           {/* Breadcrumb - Aligned with Navbar content */}
           <div className="lg:mb-0 mb-8 flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase">
             <span>Home</span>
@@ -26,7 +26,7 @@ export default function OnboardingPage() {
           <div className="flex flex-1 flex-col items-center justify-center text-center pb-20">
             <div className="max-w-[820px] space-y-10">
               <h1
-                className="text-4xl lg:text-5xl font-bold tracking-tight text-[#3D3D3D] sm:text-6xl lg:text-[72px] leading-[1.05]"
+                className="text-4xl lg:text-5xl font-bold tracking-tight text-[#252525] sm:text-6xl lg:text-[72px] leading-[1.05]"
                 style={{ fontFamily: 'var(--font-heading, serif)' }}
               >
                 Where Clarity Flows,<br />Users Follow
