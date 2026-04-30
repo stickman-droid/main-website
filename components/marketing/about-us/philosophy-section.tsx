@@ -71,16 +71,16 @@ export function PhilosophySection() {
       <div className="mx-auto max-w-[1240px] px-6 sm:px-12">
         {/* Header */}
         <div className="mb-6 lg:mb-14 flex flex-col items-center text-center space-y-4">
-          <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
+          <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
             Philosophy
           </p>
           <h2
-            className="text-3xl font-bold tracking-tight text-[#3D3D3D] sm:text-5xl lg:text-6xl-tight max-w-[840px] leading-[1.1]"
+            className="text-3xl font-bold tracking-tight text-[#252525] sm:text-5xl lg:text-6xl-tight max-w-[840px] leading-[1.1]"
             style={{ fontFamily: 'var(--font-heading, serif)' }}
           >
             What we believe is who we are
           </h2>
-          <p className="max-w-[720px] text-[15px] lg:text-[17px] leading-relaxed text-zinc-500 font-medium pt-1">
+          <p className="max-w-[720px] text-[15px] lg:text-[17px] leading-relaxed text-[#252525] font-medium pt-1">
             Our work isn&apos;t driven by trends; it&apos;s driven by a few core convictions about how people and software should interact.
             We don&apos;t just &quot;design screens&quot;, we build the bridge between a user&apos;s intent and your product&apos;s value.
           </p>
@@ -95,10 +95,10 @@ export function PhilosophySection() {
               className="philosophy-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full"
               innerClassName="flex h-full flex-col space-y-1 bg-background p-4 lg:p-6"
             >
-              <h3 className="text-xl font-bold leading-snug tracking-tight text-[#3D3D3D] lg:text-2xl">
+              <h3 className="text-xl font-bold leading-snug tracking-tight text-[#252525] lg:text-2xl">
                 {item.title}
               </h3>
-              <p className="text-[14px] font-medium leading-relaxed text-zinc-500 lg:text-[16px]">
+              <p className="text-[14px] font-medium leading-relaxed text-[#252525] lg:text-[16px]">
                 {item.desc}
               </p>
             </GlowCard>
