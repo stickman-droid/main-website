@@ -87,6 +87,7 @@ export function WorkSection() {
 
     mm.add("(max-width: 639px)", () => {
       gsap.set(cards, { left: "50%", top: "50%" })
+      gsap.set(cards[0], { autoAlpha: 1, scale: 0.85, z: 0 })
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -113,17 +114,13 @@ export function WorkSection() {
         ease: "power2.inOut"
       }, 0)
 
-      tl.to(header, { opacity: 0.1, y: -20, duration: 0.4 }, 0.1)
-
-      // Stage 2: Immediate Card Reveal
-      // Make the first card appear almost immediately as expansion starts
       tl.to(cards[0], {
-        autoAlpha: 1,
         scale: 1,
-        z: 0,
-        duration: 0.4,
-        ease: "back.out(1.2)"
-      }, 0.25)
+        duration: 0.5,
+        ease: "power2.inOut"
+      }, 0)
+
+      tl.to(header, { opacity: 0.1, y: -20, duration: 0.4 }, 0.1)
 
       cards.forEach((card, index) => {
         // Exit animation for current card
@@ -178,6 +175,15 @@ export function WorkSection() {
         })
       })
 
+      const isLgScreen = window.innerWidth >= 1024 && window.innerWidth < 1280
+      const targetLeft0 = isLgScreen ? "30%" : "32%"
+      const targetLeft1 = isLgScreen ? "70%" : "68%"
+      const initialLeft0 = isLgScreen ? "calc(50% - 155px)" : "calc(50% - 215px)"
+      const initialLeft1 = isLgScreen ? "calc(50% + 155px)" : "calc(50% + 215px)"
+
+      gsap.set(cards[0], { autoAlpha: 1, scale: 0.8, z: 0, left: initialLeft0, top: "50%" })
+      gsap.set(cards[1], { autoAlpha: 1, scale: 0.8, z: 0, left: initialLeft1, top: "50%" })
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: panelRef.current,
@@ -203,26 +209,29 @@ export function WorkSection() {
         ease: "power2.inOut"
       }, 0)
 
+      tl.to(cards[0], {
+        scale: 1,
+        left: targetLeft0,
+        top: desktopTop,
+        duration: 0.5,
+        ease: "power2.inOut"
+      }, 0)
+
+      tl.to(cards[1], {
+        scale: 1,
+        left: targetLeft1,
+        top: desktopTop,
+        duration: 0.5,
+        ease: "power2.inOut"
+      }, 0)
+
       tl.to(header, { opacity: 0.1, y: -20, duration: 0.5 }, 0.1)
 
-      // Stage 2: Cards Stack (Reveal significantly earlier)
+      // Stage 2: Cards Stack
       const frontLeft = cards[0]
       const frontRight = cards[1]
       const queueLeft = cards[2]
       const queueRight = cards[3]
-
-      tl.to(
-        [frontLeft, frontRight],
-        {
-          xPercent: -50,
-          yPercent: -50,
-          autoAlpha: 1,
-          scale: 1,
-          z: 0,
-          duration: 0.4
-        },
-        0.25
-      )
 
       tl.to(
         [frontLeft, frontRight],
