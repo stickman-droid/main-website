@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CaseStudyDetailPageView } from "@/components/marketing/case-studies/case-study-detail-page-view";
+import {
+  CaseStudyDetailPageView,
+  type CaseStudy,
+} from "@/components/marketing/case-studies/case-study-detail-page-view";
 import {
   caseStudySlugs,
   getCaseStudyBySlug,
 } from "@/lib/case-studies-data";
+import { caseStudySeoBySlug } from "@/lib/page-seo";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
@@ -27,10 +31,12 @@ export async function generateMetadata(
     });
   }
 
+  const seoEntry = caseStudySeoBySlug[caseStudy.slug as keyof typeof caseStudySeoBySlug];
+
   return buildPageMetadata({
-    title: caseStudy.title,
-    description: caseStudy.description,
-    path: `/case-studies/${caseStudy.slug}`,
+    title: seoEntry?.title ?? caseStudy.title,
+    description: seoEntry?.description ?? caseStudy.description,
+    path: seoEntry?.path ?? `/case-studies/${caseStudy.slug}`,
   });
 }
 
@@ -44,5 +50,5 @@ export default async function CaseStudyDetailPage(
     notFound();
   }
 
-  return <CaseStudyDetailPageView caseStudy={caseStudy as any} />;
+  return <CaseStudyDetailPageView caseStudy={caseStudy as CaseStudy} />;
 }
