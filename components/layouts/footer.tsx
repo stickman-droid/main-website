@@ -12,9 +12,8 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { href: "https://www.linkedin.com", label: "LinkedIn", icon: LinkedInIcon },
-  { href: "https://www.instagram.com", label: "Instagram", icon: InstagramIcon },
-  { href: "https://www.youtube.com", label: "YouTube", icon: YouTubeIcon },
+  { href: "https://www.linkedin.com/company/stickman-design-services/", label: "LinkedIn", icon: LinkedInIcon },
+  { href: "https://youtube.com/@stickman.design?si=DEuyQryS8YBJH82M", label: "YouTube", icon: YouTubeIcon },
 ];
 
 export function Footer() {
@@ -138,13 +137,6 @@ function LinkedInIcon(props: ComponentProps<"svg">) {
   );
 }
 
-function InstagramIcon(props: ComponentProps<"svg">) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M7.75 3h8.5A4.75 4.75 0 0 1 21 7.75v8.5A4.75 4.75 0 0 1 16.25 21h-8.5A4.75 4.75 0 0 1 3 16.25v-8.5A4.75 4.75 0 0 1 7.75 3Zm0 1.75A3 3 0 0 0 4.75 7.75v8.5a3 3 0 0 0 3 3h8.5a3 3 0 0 0 3-3v-8.5a3 3 0 0 0-3-3h-8.5Zm8.88 1.31a1.06 1.06 0 1 1 0 2.12 1.06 1.06 0 0 1 0-2.12ZM12 7.25A4.75 4.75 0 1 1 7.25 12 4.75 4.75 0 0 1 12 7.25Zm0 1.75A3 3 0 1 0 15 12a3 3 0 0 0-3-3Z" />
-    </svg>
-  );
-}
 
 function YouTubeIcon(props: ComponentProps<"svg">) {
   return (
