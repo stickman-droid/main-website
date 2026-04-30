@@ -72,7 +72,7 @@ function ParticleModel() {
     geometry.setAttribute("position", new Float32BufferAttribute(originalPositions, 3))
 
     const material = new PointsMaterial({
-      color: "#3d3d3d",
+      color: "#252525",
       size: 1.35,
       sizeAttenuation: true,
       transparent: true,
