@@ -40,7 +40,7 @@ export function DashboardsPageView() {
 
         <div className="pointer-events-none relative z-10 flex h-full flex-col px-4 pt-4 sm:px-6 lg:px-[48px] xl:px-[80px]">
           {/* Breadcrumb - Aligned with Navbar content */}
-          <div className="lg:mb-18 mb-8 flex items-center gap-1.5 text-[11px] font-bold tracking-[0.2em] text-zinc-400 uppercase">
+          <div className="lg:mb-18 mb-8 flex items-center gap-1.5 text-[11px] font-bold tracking-[0.2em] text-[#8e8e8e] uppercase">
             <Mono>Home</Mono>
             <span className="text-zinc-200">.</span>
             <Mono>Dashboard</Mono>
@@ -51,7 +51,7 @@ export function DashboardsPageView() {
             <div className="max-w-[820px] space-y-10">
               <Heading
                 as="h1"
-                className="text-4xl font-bold text-[#3D3D3D] sm:text-5xl xl:text-[72px] leading-[1.05]"
+                className="text-4xl font-bold text-[#252525] sm:text-5xl xl:text-[72px] leading-[1.05]"
                 style={{ fontFamily: '"Fraunces", serif' }}
               >
                 Progress Happens
@@ -60,11 +60,11 @@ export function DashboardsPageView() {
               </Heading>
 
               <div className="flex flex-col items-center space-y-8">
-                <Text className="max-w-[680px] text-[13px] sm:text-[15px] text-zinc-500 text-left">
+                <Text className="max-w-[680px] text-[13px] sm:text-[15px] text-[#252525] text-left">
                   Dashboards aren&apos;t for admiring data. They&apos;re for humans making decisions, often fast and under pressure.
                   We cut the noise, surface what matters, and design every element to answer one question: what should I do next?
                 </Text>
-                <Text className="max-w-[680px] text-[13px] sm:text-[15px] text-zinc-500 text-left">
+                <Text className="max-w-[680px] text-[13px] sm:text-[15px] text-[#252525] text-left">
                   We align user needs with business goals so the interface doesn&apos;t just inform, it nudges action.
                   Less clutter, clearer thinking, better decisions and the kind of experience people actually come back to.
                 </Text>
