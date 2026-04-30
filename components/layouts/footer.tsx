@@ -20,7 +20,7 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="mt-auto w-full pb-0 pt-12 sm:pb-0">
-      <div className="flex w-full flex-col gap-6 bg-[#FCFCFC] px-4 pt-4 sm:py-8 text-[#3D3D3D] sm:px-6 lg:px-[80px]">
+      <div className="flex w-full flex-col gap-6 bg-[#FCFCFC] px-4 pt-4 sm:py-8 text-[#252525] sm:px-6 lg:px-[80px]">
 
         {/* Brand */}
         <div className="flex justify-center md:justify-start">
@@ -98,7 +98,7 @@ export function Footer() {
         <Separator className="bg-black/10" />
 
         {/* ── MOBILE copyright block ── */}
-        <div className="flex flex-col items-center gap-2 text-sm text-[#5A5A5A] md:hidden">
+        <div className="flex flex-col items-center gap-2 text-sm text-[#8e8e8e] md:hidden">
           <div className="font-mono">© 2026 Stickman.Design</div>
           <div className="flex items-center gap-1.5 font-mono">
             <Link href="/privacy" className="transition-colors hover:text-black">Privacy Policy</Link>
@@ -109,7 +109,7 @@ export function Footer() {
         </div>
 
         {/* ── DESKTOP copyright block ── */}
-        <div className="hidden flex-col gap-3 text-sm text-[#5A5A5A] md:flex md:flex-row md:items-center md:justify-between">
+        <div className="hidden flex-col gap-3 text-sm text-[#8e8e8e] md:flex md:flex-row md:items-center md:justify-between">
           <div className="font-mono">© 2026 Stickman.Design</div>
           <div className="flex items-center gap-1.5 text-left font-mono md:text-center">
             <Link href="/privacy" className="transition-colors hover:text-black">Privacy Policy</Link>
@@ -120,7 +120,7 @@ export function Footer() {
         </div>
 
         {/* Faded tagline
-        <div className="text-center text-sm font-medium text-[#3D3D3D]/20 md:text-left">
+        <div className="text-center text-sm font-medium text-[#252525]/20 md:text-left">
           Making Digital Products For Humans
         </div> */}
 
