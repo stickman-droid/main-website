@@ -48,11 +48,12 @@ export function FocusSection() {
         images,
         {
           opacity: 0,
-          x: -200,
-          y: -150,
-          rotate: -45,
-          scale: 0.8,
+          x: -120,
+          y: -80,
+          rotate: -20,
+          scale: 0.9,
           transformOrigin: "left top",
+          force3D: true,
         },
         {
           opacity: 1,
@@ -60,9 +61,9 @@ export function FocusSection() {
           y: 0,
           rotate: 0,
           scale: 1,
-          stagger: 0.25,
-          duration: 2,
-          ease: "back.out(1.5)",
+          stagger: 0.15,
+          duration: 1.2,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: imagesRef.current,
             start: "top 85%",
@@ -77,11 +78,12 @@ export function FocusSection() {
         images,
         {
           opacity: 0,
-          y: -100,
-          x: -100,
-          rotate: -35,
-          scale: 0.8,
-          transformOrigin: "left top"
+          y: -60,
+          x: -60,
+          rotate: -15,
+          scale: 0.9,
+          transformOrigin: "left top",
+          force3D: true,
         },
         {
           opacity: 1,
@@ -89,9 +91,9 @@ export function FocusSection() {
           x: 0,
           rotate: 0,
           scale: 1,
-          duration: 2.2,
-          stagger: 0.2,
-          ease: "back.out(1.6)",
+          duration: 1.2,
+          stagger: 0.15,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: imagesRef.current,
             start: "top 82%",
@@ -103,45 +105,24 @@ export function FocusSection() {
 
     const cards = gsap.utils.toArray<HTMLElement>(".focus-card")
 
-    mm.add("(max-width: 1023px)", () => {
-      cards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 92%",
-              once: true,
-            },
+    cards.forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 28, filter: "blur(6px)" },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.8,
+          delay: index * 0.04,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            once: true,
           }
-        )
-      })
-    })
-
-    mm.add("(min-width: 1024px)", () => {
-      cards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          { opacity: 0, x: 40, y: 20 },
-          {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 88%",
-              once: true,
-            },
-          }
-        )
-      })
+        }
+      )
     })
 
     return () => mm.revert()
@@ -162,11 +143,11 @@ export function FocusSection() {
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header Section */}
         <div className="mb-4 flex flex-col items-center text-center space-y-4 lg:items-start lg:text-left max-w-[640px] mx-auto lg:mx-0">
-          <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-zinc-400 uppercase">
+          <p className="text-[12px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
             Our Focus
           </p>
           <h2
-            className="text-4xl font-bold tracking-tight text-[#3D3D3D] sm:text-5xl lg:text-[52px] leading-[1.1]"
+            className="text-4xl font-bold tracking-tight text-[#252525] sm:text-5xl lg:text-[52px] leading-[1.1]"
             style={{ fontFamily: 'var(--font-heading, serif)' }}
           >
             We look beyond the UI to remove the friction that stalls adoption
@@ -259,10 +240,10 @@ export function FocusSection() {
                   card.style.setProperty("--y", `${e.clientY - rect.top}px`)
                 }}
               >
-                <h3 className="text-xl font-bold text-[#3D3D3D] tracking-tight">
+                <h3 className="text-xl font-bold text-[#252525] tracking-tight">
                   {card.title}
                 </h3>
-                <p className="text-[15px] leading-relaxed text-zinc-500 max-w-[480px]">
+                <p className="text-[15px] leading-relaxed text-[#252525] max-w-[480px]">
                   {card.desc}
                 </p>
               </GlowCard>
