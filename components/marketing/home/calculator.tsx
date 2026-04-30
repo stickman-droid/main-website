@@ -16,12 +16,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 export function Calculator() {
   const [users, setUsers] = React.useState<readonly number[] | number>([10000])
   const [crc, setCrc] = React.useState<readonly number[] | number>([120])
   const [dropoff, setDropoff] = React.useState<readonly number[] | number>([30])
-  const [tooltipOpen, setTooltipOpen] = React.useState(false)
 
   // Helper to ensure we always have a single number for calculations
   const getVal = (v: readonly number[] | number) => {
@@ -91,27 +95,44 @@ export function Calculator() {
               {formatCurrency(annualLoss)}
             </div>
           </div>
-          <TooltipProvider delay={0}>
-            <Tooltip open={tooltipOpen} onOpenChange={setTooltipOpen}>
-              <TooltipTrigger
-                onClick={(e) => {
-                  e.preventDefault()
-                  setTooltipOpen(!tooltipOpen)
-                }}
-                className="p-1 rounded-full cursor-help hover:bg-zinc-50 transition-colors border-none bg-transparent outline-none"
-              >
+          {/* Desktop Tooltip */}
+          <div className="hidden md:block">
+            <TooltipProvider delay={0}>
+              <Tooltip>
+                <TooltipTrigger>
+                  <div className="p-1 rounded-full cursor-help hover:bg-zinc-50 transition-colors">
+                    <div className="w-5 h-5 rounded-full border border-blue-500 flex items-center justify-center text-blue-500 text-[10px] font-bold">i</div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="left"
+                  className="max-w-[240px] p-4 bg-[#333] text-zinc-100 border-none rounded-xl text-xs leading-relaxed shadow-2xl z-50"
+                >
+                  <p>
+                    This reveals the annual revenue lost to interface friction. Good UX isn&apos;t just an aesthetic choice, it&apos;s the recovery of lost capital.
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+
+          {/* Mobile Popover */}
+          <div className="md:hidden">
+            <Popover>
+              <PopoverTrigger className="p-1 rounded-full cursor-help hover:bg-zinc-50 transition-colors border-none bg-transparent outline-none focus:outline-none touch-manipulation">
                 <div className="w-5 h-5 rounded-full border border-blue-500 flex items-center justify-center text-blue-500 text-[10px] font-bold">i</div>
-              </TooltipTrigger>
-              <TooltipContent
-                side="left"
-                className="max-w-[240px] p-4 bg-[#333] text-zinc-100 border-none rounded-xl text-xs leading-relaxed shadow-2xl"
+              </PopoverTrigger>
+              <PopoverContent
+                side="bottom"
+                align="end"
+                className="max-w-[240px] p-4 bg-[#333] text-zinc-100 border-none rounded-xl text-xs leading-relaxed shadow-2xl z-50"
               >
                 <p>
                   This reveals the annual revenue lost to interface friction. Good UX isn&apos;t just an aesthetic choice, it&apos;s the recovery of lost capital.
                 </p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
 
         {/* Graph Section */}
@@ -166,14 +187,14 @@ export function Calculator() {
         <div className="mt-auto space-y-4 pt-6">
           <div className="space-y-2.5">
             <div className="flex justify-between text-xs font-semibold">
-              <span className="text-[#252525]">Monthly Users:</span>
+              <span className="text-[#252525]">Monthly Sign-ups:</span>
               <span className="font-mono text-zinc-900">{usersVal.toLocaleString()}</span>
             </div>
             <Slider
               value={users}
               onValueChange={setUsers}
               min={100}
-              max={500000}
+              max={20000}
               step={100}
               className="py-2"
             />
