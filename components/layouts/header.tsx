@@ -20,7 +20,7 @@ const navItems = [
   { href: "/dashboards", label: "Dashboards" },
   { href: "/case-studies", label: "Case Studies" },
   { href: "/about-us", label: "About Us" },
-  { href: "mailto:savio@stickman.design", label: "Email Us", external: true },
+  { href: "mailto:savio@stickman.design", label: "Email", external: true },
 ];
 
 const navShadow =
