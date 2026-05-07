@@ -20,6 +20,7 @@ const navItems = [
   { href: "/dashboards", label: "Dashboards" },
   { href: "/case-studies", label: "Case Studies" },
   { href: "/about-us", label: "About Us" },
+  { href: "mailto:savio@stickman.design", label: "Email Us", external: true },
 ];
 
 const navShadow =
@@ -92,13 +93,23 @@ export function Header() {
           <div className="hidden items-center gap-1 lg:flex">
             <nav className="flex items-center gap-4">
               {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="px-2 text-sm font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
-                >
-                  <OsmoUnderline>{item.label}</OsmoUnderline>
-                </Link>
+                item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="px-2 text-sm font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
+                  >
+                    <OsmoUnderline>{item.label}</OsmoUnderline>
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="px-2 text-sm font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
+                  >
+                    <OsmoUnderline>{item.label}</OsmoUnderline>
+                  </Link>
+                )
               ))}
             </nav>
 
@@ -207,10 +218,17 @@ export function Header() {
                         key={item.href}
                         nativeButton={false}
                         render={
-                          <Link
-                            href={item.href}
-                            className="text-xl font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
-                          />
+                          item.external ? (
+                            <a
+                              href={item.href}
+                              className="text-xl font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
+                            />
+                          ) : (
+                            <Link
+                              href={item.href}
+                              className="text-xl font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
+                            />
+                          )
                         }
                       >
                         {item.label}
