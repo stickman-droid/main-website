@@ -7,45 +7,46 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 import { Heading, Mono } from "@/components/ui/typography"
+import { caseStudies } from "@/lib/case-studies-data"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const projects = [
-  {
-    id: "01",
-    title: "Speed Boost For The Logistics Titan",
-    pills: ["Supply Chain & Industrial Logistics", "Onboarding"],
-    image: "/logistics/Logistics_case_study_hero.webp",
-    slug: "more-speed-for-the-logistics-titan",
-  },
-  {
-    id: "02",
-    title: "ESG Compliance Fatigue",
-    pills: ["Legal-Tech / Sustainability", "Onboarding"],
-    image: "/sustainability/ESG_compliance_case_study_hero.webp",
-    slug: "esg-compliance-fatigue",
-  },
-  {
-    id: "03",
-    title: "Solving Digital SME Bank Delays",
-    pills: ["Fintech", "Dashboard"],
-    image: "/fintech/Fintech_case_study_hero.webp",
-    slug: "digital-sme-bank-delays",
-  },
-  {
-    id: "04",
-    title: "When risk is buried, decisions slow down",
-    pills: ["Fintech", "Dashboard"],
-    image: "/fintech/Wealthmanagement_case_study_hero.webp",
-    slug: "germany-risk-dashboard",
-  },
-]
+interface WorkSectionProps {
+  category?: "Onboarding" | "Dashboard"
+}
 
-export function WorkSection() {
+export function WorkSection({ category }: WorkSectionProps) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const panelRef = React.useRef<HTMLDivElement>(null)
   const expandBgRef = React.useRef<HTMLDivElement>(null)
   const progressRef = React.useRef<HTMLDivElement>(null)
+
+  const projects = React.useMemo(() => {
+    let list = caseStudies;
+    if (category === "Onboarding") {
+      list = caseStudies.filter(cs => cs.tags.includes("Onboarding"));
+    } else if (category === "Dashboard") {
+      list = caseStudies.filter(cs => cs.tags.includes("Dashboard"));
+    } else {
+      // Home page: use the original 4 selected slugs
+      const homeSlugs = [
+        "more-speed-for-the-logistics-titan",
+        "esg-compliance-fatigue",
+        "digital-sme-bank-delays",
+        "germany-risk-dashboard"
+      ];
+      list = caseStudies.filter(cs => homeSlugs.includes(cs.slug));
+      list.sort((a, b) => homeSlugs.indexOf(a.slug) - homeSlugs.indexOf(b.slug));
+    }
+
+    return list.map((cs, index) => ({
+      id: String(index + 1).padStart(2, "0"),
+      title: cs.title,
+      pills: cs.tags,
+      image: cs.heroImage.image,
+      slug: cs.slug,
+    }));
+  }, [category]);
 
   useGSAP(() => {
     if (!containerRef.current || !panelRef.current || !expandBgRef.current) return
@@ -86,14 +87,14 @@ export function WorkSection() {
     const mm = gsap.matchMedia()
 
     mm.add("(max-width: 639px)", () => {
-      gsap.set(cards, { left: "50%", top: "50%" })
-      gsap.set(cards[0], { autoAlpha: 1, scale: 0.85, z: 0 })
+      gsap.set(cards, { left: "50%", top: "50%", display: "none" })
+      gsap.set(cards[0], { autoAlpha: 1, scale: 0.85, z: 0, display: "block" })
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: panelRef.current,
           start: "center center",
-          end: "+=350%",
+          end: "+=450%",
           pin: true,
           pinSpacing: true,
           scrub: 0.8,
@@ -110,44 +111,47 @@ export function WorkSection() {
       tl.to(expandBg, {
         scale: targetScale,
         borderRadius: 0,
-        duration: 0.5,
+        duration: 0.8,
         ease: "power2.inOut"
       }, 0)
 
       tl.to(cards[0], {
         scale: 1,
-        duration: 0.5,
+        duration: 0.8,
         ease: "power2.inOut"
       }, 0)
 
-      tl.to(header, { opacity: 0.1, y: -20, duration: 0.4 }, 0.1)
+      tl.to(header, { opacity: 0.1, y: -20, duration: 0.6 }, 0.1)
 
       cards.forEach((card, index) => {
         // Exit animation for current card
-        tl.to(
-          card,
-          {
-            z: 600,
-            scale: 1.3,
-            autoAlpha: 0,
-            duration: 0.4,
-            ease: "power2.in",
-          },
-          1.0 + index * 0.5
-        )
-
-        // Enter animation for next card
         if (index < cards.length - 1) {
+          const tStart = 1.0 + index * 1.6
+          tl.to(
+            card,
+            {
+              z: 600,
+              scale: 1.3,
+              autoAlpha: 0,
+              display: "none",
+              duration: 0.6,
+              ease: "power2.in",
+            },
+            tStart
+          )
+
+          // Enter animation for next card
           tl.to(
             cards[index + 1],
             {
               autoAlpha: 1,
               scale: 1,
               z: 0,
-              duration: 0.5,
+              display: "block",
+              duration: 0.6,
               ease: "power2.out"
             },
-            1.2 + index * 0.5
+            tStart
           )
         }
       })
@@ -233,6 +237,8 @@ export function WorkSection() {
       const queueLeft = cards[2]
       const queueRight = cards[3]
 
+      tl.set([frontLeft, frontRight], { pointerEvents: "none" }, 0.9)
+
       tl.to(
         [frontLeft, frontRight],
         {
@@ -248,14 +254,13 @@ export function WorkSection() {
 
       // Bring queue cards forward with responsive positioning
       const isLG = window.innerWidth >= 1024 && window.innerWidth < 1280
-      const leftPos = isLG ? "30%" : "32%"
-      const rightPos = isLG ? "70%" : "68%"
       const qLeftPos = isLG ? "30%" : "32%"
       const qRightPos = isLG ? "70%" : "68%"
 
       tl.to(queueLeft, { xPercent: -50, yPercent: -50, left: qLeftPos, z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.0)
       tl.to(queueRight, { xPercent: -50, yPercent: -50, left: qRightPos, z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.05)
 
+      tl.set([queueLeft, queueRight], { pointerEvents: "none" }, 1.6)
       tl.to(
         [queueLeft, queueRight],
         {
@@ -271,12 +276,12 @@ export function WorkSection() {
     })
 
     return () => mm.revert()
-  }, { scope: containerRef })
+  }, { scope: containerRef, dependencies: [projects] })
 
   return (
     <section ref={containerRef} className="relative min-h-screen w-full bg-background pt-12 sm:pt-6">
       <div className="work-header mx-auto flex w-full max-w-[820px] flex-col items-center gap-3 px-6 text-center sm:px-8">
-        <Mono className="text-[10px] font-bold tracking-[0.4em] text-[#8e8e8e] uppercase">
+        <Mono className="text-[14px] font-bold tracking-[0.25em] text-[#8e8e8e] uppercase">
           Selected Work
         </Mono>
         <Heading
