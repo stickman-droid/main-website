@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -83,6 +84,7 @@ export function GapSection() {
 }
 
 function BrokenBox() {
+  const isMobile = useIsMobile()
   const [isHovered, setIsHovered] = React.useState(false)
   const [isInView, setIsInView] = React.useState(false)
   const boxRef = React.useRef<HTMLDivElement>(null)
@@ -104,15 +106,29 @@ function BrokenBox() {
     return () => observer.disconnect()
   }, [])
 
+  // Auto-animate on mobile when in view, toggling every 2 seconds
+  React.useEffect(() => {
+    if (!isMobile || !isInView) return
+
+    const interval = setInterval(() => {
+      setIsHovered((prev) => !prev)
+    }, 2000)
+
+    return () => clearInterval(interval)
+  }, [isMobile, isInView])
+
   return (
     <div
       ref={boxRef}
-      className="relative flex h-[350px] w-[350px] items-center justify-center cursor-pointer group touch-none select-none"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={() => setIsHovered(true)}
-      onTouchEnd={() => setIsHovered(false)}
-      onTouchCancel={() => setIsHovered(false)}
+      className={cn(
+        "relative flex h-[350px] w-[350px] items-center justify-center group touch-none select-none",
+        isMobile ? "cursor-default" : "cursor-pointer"
+      )}
+      onMouseEnter={isMobile ? undefined : () => setIsHovered(true)}
+      onMouseLeave={isMobile ? undefined : () => setIsHovered(false)}
+      onTouchStart={isMobile ? undefined : () => setIsHovered(true)}
+      onTouchEnd={isMobile ? undefined : () => setIsHovered(false)}
+      onTouchCancel={isMobile ? undefined : () => setIsHovered(false)}
     >
       <div className="wrapper relative h-[240px] w-[240px] transform-gpu">
         {/* Occluders (Corners) */}
