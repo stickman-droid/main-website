@@ -54,7 +54,7 @@ export default function OnboardingPage() {
       <ProcessSection />
 
       {/* Selected Work Section */}
-      <WorkSection />
+      <WorkSection category="Onboarding" />
 
       {/* Reused Contact CTA Section */}
       <ContactSection />
