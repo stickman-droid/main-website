@@ -82,7 +82,7 @@ export function DashboardsPageView() {
         title="Structured thinking. Clean execution"
       />
 
-      <WorkSection />
+      <WorkSection category="Dashboard" />
 
       <ContactSection />
     </main>
