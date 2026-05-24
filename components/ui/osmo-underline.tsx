@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 
 const svgVariants = [
   "M5 20.9999C26.7762 16.2245 49.5532 11.5572 71.7979 14.6666C84.9553 16.5057 97.0392 21.8432 109.987 24.3888C116.413 25.6523 123.012 25.5143 129.042 22.6388C135.981 19.3303 142.586 15.1422 150.092 13.3333C156.799 11.7168 161.702 14.6225 167.887 16.8333C181.562 21.7212 194.975 22.6234 209.252 21.3888C224.678 20.0548 239.912 17.991 255.42 18.3055C272.027 18.6422 288.409 18.867 305 17.9999",
@@ -13,42 +12,23 @@ const svgVariants = [
   "M5 29.8857C52.3147 26.9322 99.4329 21.6611 146.503 17.1775C151.753 16.6773 157.115 15.9515 162.415 15.6561C163.28 15.6079 165.074 15.4133 164.383 16.4285C161.704 20.3637 157.134 23.7561 153.95 27.4993C153.209 28.3712 148.194 33.4761 150.669 34.6615C153.638 36.0829 163.621 32.6073 165.039 32.2039C178.55 28.3618 191.49 23.5978 204.869 19.5414C231.903 11.3446 259.347 5.83354 288.793 5.12358C294.094 5.00576 299.722 4.82365 305 5.45125"
 ];
 
-let globalNextIndex = 0;
-
 interface OsmoUnderlineProps {
   children: React.ReactNode;
   className?: string;
+  active?: boolean;
 }
 
-export function OsmoUnderline({ children, className }: OsmoUnderlineProps) {
+export function OsmoUnderline({ children, className, active = false }: OsmoUnderlineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
+  const nextPathIndexRef = useRef(0);
   const [pathIndex, setPathIndex] = useState<number | null>(null);
 
   const enterTween = useRef<gsap.core.Tween | null>(null);
   const leaveTween = useRef<gsap.core.Tween | null>(null);
 
-  const { contextSafe } = useGSAP({ scope: containerRef });
-
-  const startEnterAnimation = contextSafe(() => {
-    if (pathRef.current) {
-      const length = pathRef.current.getTotalLength();
-      gsap.set(pathRef.current, {
-        strokeDasharray: length,
-        strokeDashoffset: length,
-      });
-      enterTween.current = gsap.to(pathRef.current, {
-        duration: 0.5,
-        strokeDashoffset: 0,
-        ease: "power2.inOut",
-        onComplete: () => {
-          enterTween.current = null;
-        },
-      });
-    }
-  });
-
-  const startLeaveAnimation = contextSafe(() => {
+  const startLeaveAnimation = () => {
+    if (active) return;
     if (pathRef.current) {
       const length = pathRef.current.getTotalLength();
       leaveTween.current = gsap.to(pathRef.current, {
@@ -61,43 +41,115 @@ export function OsmoUnderline({ children, className }: OsmoUnderlineProps) {
         },
       });
     }
-  });
+  };
 
-  const onMouseEnter = contextSafe(() => {
+  const onMouseEnter = () => {
+    if (active) return;
     if (enterTween.current && enterTween.current.isActive()) return;
     if (leaveTween.current && leaveTween.current.isActive()) {
       leaveTween.current.kill();
       leaveTween.current = null;
     }
 
-    setPathIndex(globalNextIndex);
-    globalNextIndex = (globalNextIndex + 1) % svgVariants.length;
-  });
+    setPathIndex(nextPathIndexRef.current);
+    nextPathIndexRef.current = (nextPathIndexRef.current + 1) % svgVariants.length;
+  };
 
-  const onMouseLeave = contextSafe(() => {
+  const onMouseLeave = () => {
+    if (active) return;
     if (enterTween.current && enterTween.current.isActive()) {
       enterTween.current.eventCallback("onComplete", startLeaveAnimation);
     } else {
       startLeaveAnimation();
     }
-  });
+  };
 
   useEffect(() => {
     if (pathIndex !== null) {
-      requestAnimationFrame(startEnterAnimation);
+      requestAnimationFrame(() => {
+        if (active || !pathRef.current) return;
+
+        const length = pathRef.current.getTotalLength();
+        gsap.set(pathRef.current, {
+          strokeDasharray: length,
+          strokeDashoffset: length,
+        });
+        enterTween.current = gsap.to(pathRef.current, {
+          duration: 0.5,
+          strokeDashoffset: 0,
+          ease: "power2.inOut",
+          onComplete: () => {
+            enterTween.current = null;
+          },
+        });
+      });
     }
-  }, [pathIndex]);
+  }, [active, pathIndex]);
+
+  useEffect(() => {
+    if (!active) {
+      // Reset hover pathIndex asynchronously when it becomes inactive
+      requestAnimationFrame(() => {
+        setPathIndex(null);
+      });
+
+      const el = pathRef.current;
+      if (el) {
+        gsap.killTweensOf(el);
+      }
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      const el = pathRef.current;
+      if (!el) return;
+
+      if (leaveTween.current) {
+        leaveTween.current.kill();
+        leaveTween.current = null;
+      }
+
+      const length = el.getTotalLength();
+      const wasHovered = pathIndex !== null;
+
+      gsap.killTweensOf(el);
+
+      // Only hide the line and draw it from scratch if it was NOT already hovered.
+      // If it was hovered, the draw animation is already underway or complete,
+      // so we just let it animate smoothly to completion without disappearing.
+      if (!wasHovered) {
+        gsap.set(el, {
+          strokeDasharray: length,
+          strokeDashoffset: length,
+        });
+      }
+
+      enterTween.current = gsap.to(el, {
+        duration: 0.5,
+        strokeDashoffset: 0,
+        ease: "power2.inOut",
+        onComplete: () => {
+          enterTween.current = null;
+        },
+      });
+    }, 50);
+
+    return () => clearTimeout(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
+
+  const renderedPathIndex = active ? (pathIndex ?? 0) : pathIndex;
 
   return (
     <div
       ref={containerRef}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`relative inline-block cursor-pointer ${className}`}
+      className={`relative inline-block ${active ? "" : "cursor-pointer"} ${className}`}
     >
       <span className="relative z-10">{children}</span>
       <div className="absolute top-[1.3em] left-0 h-[.625em] w-full pointer-events-none overflow-visible">
-        {pathIndex !== null && (
+        {renderedPathIndex !== null && (
           <svg
             viewBox="0 0 310 40"
             fill="none"
@@ -107,7 +159,7 @@ export function OsmoUnderline({ children, className }: OsmoUnderlineProps) {
           >
             <path
               ref={pathRef}
-              d={svgVariants[pathIndex]}
+              d={svgVariants[renderedPathIndex]}
               stroke="currentColor"
               strokeWidth="10"
               strokeLinecap="round"
