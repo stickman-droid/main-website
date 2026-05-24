@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,7 @@ const navItems = [
   { href: "/dashboards", label: "Dashboards" },
   { href: "/case-studies", label: "Case Studies" },
   { href: "/about-us", label: "About Us" },
-  { href: "mailto:savio@stickman.design", label: "Email", external: true },
+  { href: "mailto:shout@stickman.design", label: "Email", external: true },
 ];
 
 const navShadow =
@@ -35,6 +36,8 @@ const mobileBottomShadow =
 export function Header() {
   const topHeaderRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState(57);
+  const [pendingNavHref, setPendingNavHref] = useState<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const el = topHeaderRef.current;
@@ -45,6 +48,16 @@ export function Header() {
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  useEffect(() => {
+    setPendingNavHref(null);
+  }, [pathname]);
+
+  const isDesktopNavTransitioning =
+    pendingNavHref !== null && pendingNavHref !== pathname;
+
+  const isActiveNavItem = (href: string) =>
+    !isDesktopNavTransitioning && (pathname === href || pathname?.startsWith(`${href}/`));
 
   return (
     <>
@@ -105,9 +118,12 @@ export function Header() {
                   <Link
                     key={item.href}
                     href={item.href}
+                    onClick={() => setPendingNavHref(item.href)}
                     className="px-2 text-sm font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
                   >
-                    <OsmoUnderline>{item.label}</OsmoUnderline>
+                    <OsmoUnderline active={isActiveNavItem(item.href)}>
+                      {item.label}
+                    </OsmoUnderline>
                   </Link>
                 )
               ))}
