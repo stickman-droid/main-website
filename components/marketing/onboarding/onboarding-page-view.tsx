@@ -49,7 +49,7 @@ export function OnboardingPageView() {
 
       <ProcessSection />
 
-      <WorkSection />
+      <WorkSection category="Onboarding" />
 
       <ContactSection />
     </main>
