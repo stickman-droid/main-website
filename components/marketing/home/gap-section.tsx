@@ -121,7 +121,7 @@ function BrokenBox() {
     <div
       ref={boxRef}
       className={cn(
-        "relative flex h-[350px] w-[350px] items-center justify-center group touch-none select-none",
+        "relative flex h-[350px] w-[350px] items-center justify-center group select-none",
         isMobile ? "cursor-default" : "cursor-pointer"
       )}
       onMouseEnter={isMobile ? undefined : () => setIsHovered(true)}
