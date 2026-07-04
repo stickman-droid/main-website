@@ -194,7 +194,7 @@ export function Calculator() {
               value={users}
               onValueChange={setUsers}
               min={100}
-              max={20000}
+              max={10000}
               step={100}
               className="py-2"
             />
@@ -224,7 +224,7 @@ export function Calculator() {
               value={dropoff}
               onValueChange={setDropoff}
               min={0}
-              max={100}
+              max={80}
               step={1}
               className="py-2"
             />
