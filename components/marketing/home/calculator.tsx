@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/popover"
 
 export function Calculator() {
-  const [users, setUsers] = React.useState<readonly number[] | number>([10000])
+  const [users, setUsers] = React.useState<readonly number[] | number>([1700])
   const [crc, setCrc] = React.useState<readonly number[] | number>([120])
   const [dropoff, setDropoff] = React.useState<readonly number[] | number>([30])
 
