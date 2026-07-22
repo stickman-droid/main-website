@@ -157,15 +157,17 @@ export function Header() {
               const slotItems = Array(6).fill(item);
 
               return (
-                <div
+                <Link
                   key={i}
+                  href={item.href}
                   className={cn(
-                    "relative flex min-w-0 items-center justify-center border-r border-black/15",
+                    "relative flex min-w-0 items-center justify-center border-r border-black/15 transition-colors hover:text-[#1C1C1C]",
                     i === 2 && "border-r-0"
                   )}
                 >
+                  <span className="sr-only">{item.label}</span>
                   {/* Centralized clipping window for the marquee */}
-                  <div className="relative w-full max-w-[80%] overflow-hidden text-center">
+                  <div className="relative w-full max-w-[80%] overflow-hidden text-center" aria-hidden="true">
                     <div
                       className="mobile-nav-marquee flex min-w-max items-center py-1"
                       style={{
@@ -173,17 +175,16 @@ export function Header() {
                       }}
                     >
                       {slotItems.map((item, index) => (
-                        <Link
+                        <span
                           key={`${item.href}-${i}-${index}`}
-                          href={item.href}
-                          className="shrink-0 pr-6 text-[13px] font-medium tracking-tight text-[#252525] transition-colors hover:text-[#1C1C1C]"
+                          className="shrink-0 pr-6 text-[13px] font-medium tracking-tight text-[#252525]"
                         >
                           {item.label}
-                        </Link>
+                        </span>
                       ))}
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

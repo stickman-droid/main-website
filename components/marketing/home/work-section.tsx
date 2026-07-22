@@ -20,6 +20,8 @@ export function WorkSection({ category }: WorkSectionProps) {
   const panelRef = React.useRef<HTMLDivElement>(null)
   const expandBgRef = React.useRef<HTMLDivElement>(null)
   const progressRef = React.useRef<HTMLDivElement>(null)
+  const trackRef = React.useRef<HTMLDivElement>(null)
+  const clipperRef = React.useRef<HTMLDivElement>(null)
 
   const projects = React.useMemo(() => {
     let list = caseStudies;
@@ -30,10 +32,10 @@ export function WorkSection({ category }: WorkSectionProps) {
     } else {
       // Home page: use the original 4 selected slugs
       const homeSlugs = [
-        "more-speed-for-the-logistics-titan",
-        "esg-compliance-fatigue",
+        "germany-risk-dashboard",
         "digital-sme-bank-delays",
-        "germany-risk-dashboard"
+        "esg-compliance-fatigue",
+        "more-speed-for-the-logistics-titan"
       ];
       list = caseStudies.filter(cs => homeSlugs.includes(cs.slug));
       list.sort((a, b) => homeSlugs.indexOf(a.slug) - homeSlugs.indexOf(b.slug));
@@ -49,237 +51,158 @@ export function WorkSection({ category }: WorkSectionProps) {
   }, [category]);
 
   useGSAP(() => {
-    if (!containerRef.current || !panelRef.current || !expandBgRef.current) return
+    if (!containerRef.current || !panelRef.current || !expandBgRef.current || !trackRef.current || !clipperRef.current) return
 
-    const cards = gsap.utils.toArray<HTMLElement>(".project-card")
+    const track = trackRef.current
     const header = containerRef.current.querySelector(".work-header")
     const progressBar = progressRef.current
     const expandBg = expandBgRef.current
+    const clipper = clipperRef.current
 
-    if (!header || !progressBar || cards.length < 4) return
+    if (!header || !progressBar) return
 
     const setProgress = gsap.quickTo(progressBar, "scaleX", {
       duration: 0.12,
       ease: "none",
     })
 
-    // Initial states
-    gsap.set(cards, {
-      transformPerspective: 1400,
-      transformOrigin: "50% 50%",
-      force3D: true,
-      autoAlpha: 0,
-      scale: 0.8,
-      z: -100,
-      xPercent: -50,
-      yPercent: -50,
-      top: "50%"
-    })
+    const getInset = () => {
+      const H = window.innerHeight
+      const W = window.innerWidth
+      const isMobile = W < 640
+      
+      const boxH = H * (isMobile ? 0.75 : 0.70)
+      const boxW = isMobile ? (W - 32) : Math.min(W - 32, 1200)
+      
+      const top = (H - boxH) / 2
+      const left = (W - boxW) / 2
+      
+      return `inset(${top}px ${left}px ${top}px ${left}px round 12px)`
+    }
+
+    const cards = track.querySelectorAll(".project-card")
+    const cta = track.querySelector(".cta-container")
+
+    // Set initial states
     gsap.set(progressBar, { scaleX: 0, transformOrigin: "left center" })
+    
+    // First 2 cards are visible initially, next 2 are hidden
+    if (cards[2]) gsap.set(cards[2], { opacity: 0, y: 30 })
+    if (cards[3]) gsap.set(cards[3], { opacity: 0, y: 30 })
+    if (cta) gsap.set(cta, { opacity: 0, y: 30 })
 
-    // Calculate scale to fill screen
-    const rect = expandBg.getBoundingClientRect()
-    const targetScale = Math.max(
-      window.innerWidth / rect.width,
-      window.innerHeight / rect.height
-    ) * 1.1 // Add margin to be safe
-
-    const mm = gsap.matchMedia()
-
-    mm.add("(max-width: 639px)", () => {
-      gsap.set(cards, { left: "50%", top: "50%", display: "none" })
-      gsap.set(cards[0], { autoAlpha: 1, scale: 0.85, z: 0, display: "block" })
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: panelRef.current,
-          start: "center center",
-          end: "+=450%",
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.8,
-          anticipatePin: 1,
-          fastScrollEnd: true,
-          onUpdate: (self) => setProgress(self.progress),
-        },
-        defaults: {
-          ease: "power2.out",
-        },
-      })
-
-      // Stage 1: Expand Background (responsive speed)
-      tl.to(expandBg, {
-        scale: targetScale,
-        borderRadius: 0,
-        duration: 0.8,
-        ease: "power2.inOut"
-      }, 0)
-
-      tl.to(cards[0], {
-        scale: 1,
-        duration: 0.8,
-        ease: "power2.inOut"
-      }, 0)
-
-      tl.to(header, { opacity: 0.1, y: -20, duration: 0.6 }, 0.1)
-
-      cards.forEach((card, index) => {
-        // Exit animation for current card
-        if (index < cards.length - 1) {
-          const tStart = 1.0 + index * 1.6
-          tl.to(
-            card,
-            {
-              z: 600,
-              scale: 1.3,
-              autoAlpha: 0,
-              display: "none",
-              duration: 0.6,
-              ease: "power2.in",
-            },
-            tStart
-          )
-
-          // Enter animation for next card
-          tl.to(
-            cards[index + 1],
-            {
-              autoAlpha: 1,
-              scale: 1,
-              z: 0,
-              display: "block",
-              duration: 0.6,
-              ease: "power2.out"
-            },
-            tStart
-          )
-        }
-      })
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: panelRef.current,
+        start: "center center",
+        end: "+=450%", // Slightly shorter scroll distance for snappier experience
+        pin: true,
+        pinSpacing: true,
+        scrub: 1.5,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => setProgress(self.progress),
+      },
     })
 
-    mm.add("(min-width: 640px)", () => {
-      const desktopTop = window.innerWidth >= 1024 ? "54%" : "50%"
+    // 1. Expand Background Box & Clipper
+    tl.fromTo([expandBg, clipper], {
+      clipPath: () => getInset(),
+    }, {
+      clipPath: "inset(0px 0px 0px 0px round 0px)",
+      duration: 0.6,
+      ease: "power2.inOut",
+    }, 0)
 
-      cards.forEach((card, i) => {
-        const isLG = window.innerWidth >= 1024 && window.innerWidth < 1280
-        let leftValue = card.dataset.desktopLeft ?? "50%"
-        
-        if (isLG) {
-          if (i === 0 || i === 2) leftValue = "30%"
-          if (i === 1 || i === 3) leftValue = "70%"
-        } else {
-          // XL and others above 640px
-          if (i === 0 || i === 2) leftValue = "32%"
-          if (i === 1 || i === 3) leftValue = "68%"
+    // Fade out header
+    tl.to(header, {
+      opacity: 0,
+      y: -30,
+      duration: 0.5,
+      ease: "power2.inOut",
+    }, 0.1)
+
+    // 2. Scroll the track vertically (align bottom of track with bottom of screen)
+    tl.fromTo(track,
+      {
+        y: () => {
+          const H = panelRef.current?.offsetHeight || window.innerHeight
+          const firstCard = track.querySelector(".project-card")
+          const firstRowCenter = firstCard 
+            ? (firstCard as HTMLElement).offsetTop + ((firstCard as HTMLElement).offsetHeight / 2)
+            : 200
+          return (H / 2) - firstRowCenter
         }
-
-        gsap.set(card, {
-          left: leftValue,
-          top: desktopTop
-        })
-      })
-
-      const isLgScreen = window.innerWidth >= 1024 && window.innerWidth < 1280
-      const targetLeft0 = isLgScreen ? "30%" : "32%"
-      const targetLeft1 = isLgScreen ? "70%" : "68%"
-      const initialLeft0 = isLgScreen ? "calc(50% - 155px)" : "calc(50% - 215px)"
-      const initialLeft1 = isLgScreen ? "calc(50% + 155px)" : "calc(50% + 215px)"
-
-      gsap.set(cards[0], { autoAlpha: 1, scale: 0.8, z: 0, left: initialLeft0, top: "50%" })
-      gsap.set(cards[1], { autoAlpha: 1, scale: 0.8, z: 0, left: initialLeft1, top: "50%" })
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: panelRef.current,
-          start: "center center",
-          end: "+=350%",
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.8,
-          anticipatePin: 1,
-          fastScrollEnd: true,
-          onUpdate: (self) => setProgress(self.progress),
+      },
+      {
+        y: () => {
+          const T = track.offsetHeight
+          const H = panelRef.current?.offsetHeight || window.innerHeight
+          // Scroll further down so the bottom of the track aligns near the bottom of the screen (leaving 48px padding)
+          const yStart = (H / 2) - (track.querySelector(".project-card") ? (track.querySelector(".project-card") as HTMLElement).offsetTop + ((track.querySelector(".project-card") as HTMLElement).offsetHeight / 2) : 200)
+          const yEnd = H - T + 48
+          return Math.min(yStart, yEnd)
         },
-        defaults: {
-          ease: "power2.out",
-        },
-      })
+        duration: 1.8,
+        ease: "none",
+      },
+      0.5
+    )
 
-      // Stage 1: Expand Background (Slightly faster)
-      tl.to(expandBg, {
-        scale: targetScale,
-        borderRadius: 0,
+    // Reveal next set of cards in the middle of scroll
+    if (cards[2] || cards[3]) {
+      tl.to([cards[2], cards[3]].filter(Boolean), {
+        opacity: 1,
+        y: 0,
         duration: 0.5,
-        ease: "power2.inOut"
-      }, 0)
+        stagger: 0.1,
+        ease: "power2.out"
+      }, 0.9)
+    }
 
-      tl.to(cards[0], {
-        scale: 1,
-        left: targetLeft0,
-        top: desktopTop,
+    // Reveal CTA near the end of scroll
+    if (cta) {
+      tl.to(cta, {
+        opacity: 1,
+        y: 0,
         duration: 0.5,
-        ease: "power2.inOut"
-      }, 0)
+        ease: "power2.out"
+      }, 1.4)
+    }
 
-      tl.to(cards[1], {
-        scale: 1,
-        left: targetLeft1,
-        top: desktopTop,
-        duration: 0.5,
-        ease: "power2.inOut"
-      }, 0)
+    // 3. Shrink Background Box & Clipper back to initial state immediately
+    tl.to([expandBg, clipper], {
+      clipPath: () => getInset(),
+      duration: 0.6,
+      ease: "power2.inOut",
+    }, 2.3)
 
-      tl.to(header, { opacity: 0.1, y: -20, duration: 0.5 }, 0.1)
+    // Simultaneously slide the track up so its bottom matches the contracted box bottom
+    tl.to(track, {
+      y: () => {
+        const T = track.offsetHeight
+        const H = panelRef.current?.offsetHeight || window.innerHeight
+        const isMobile = window.innerWidth < 640
+        const boxH = H * (isMobile ? 0.75 : 0.70)
+        const bottomOfBox = H - ((H - boxH) / 2)
+        return bottomOfBox - T
+      },
+      duration: 0.6,
+      ease: "power2.inOut",
+    }, 2.3)
 
-      // Stage 2: Cards Stack
-      const frontLeft = cards[0]
-      const frontRight = cards[1]
-      const queueLeft = cards[2]
-      const queueRight = cards[3]
+    // Fade header back in
+    tl.to(header, {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      ease: "power2.out",
+    }, 2.4)
 
-      tl.set([frontLeft, frontRight], { pointerEvents: "none" }, 0.9)
-
-      tl.to(
-        [frontLeft, frontRight],
-        {
-          z: 560,
-          scale: 1.28,
-          autoAlpha: 0,
-          duration: 0.34,
-          stagger: 0.035,
-          ease: "power2.inOut",
-        },
-        0.9
-      )
-
-      // Bring queue cards forward with responsive positioning
-      const isLG = window.innerWidth >= 1024 && window.innerWidth < 1280
-      const qLeftPos = isLG ? "30%" : "32%"
-      const qRightPos = isLG ? "70%" : "68%"
-
-      tl.to(queueLeft, { xPercent: -50, yPercent: -50, left: qLeftPos, z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.0)
-      tl.to(queueRight, { xPercent: -50, yPercent: -50, left: qRightPos, z: 0, scale: 1, autoAlpha: 1, duration: 0.34, ease: "power2.out" }, 1.05)
-
-      tl.set([queueLeft, queueRight], { pointerEvents: "none" }, 1.6)
-      tl.to(
-        [queueLeft, queueRight],
-        {
-          z: 520,
-          scale: 1.24,
-          autoAlpha: 0,
-          duration: 0.32,
-          stagger: 0.035,
-          ease: "power2.in",
-        },
-        1.6
-      )
-    })
-
-    return () => mm.revert()
   }, { scope: containerRef, dependencies: [projects] })
 
   return (
-    <section ref={containerRef} className="relative min-h-screen w-full bg-background pt-12 sm:pt-6">
+    <section ref={containerRef} className="relative min-h-screen w-full bg-background pt-12 sm:pt-6 -mb-16 sm:-mb-28">
       <div className="work-header mx-auto flex w-full max-w-[820px] flex-col items-center gap-3 px-6 text-center sm:px-8">
         <Mono className="text-[14px] font-bold tracking-[0.25em] text-[#8e8e8e] uppercase">
           Selected Work
@@ -307,29 +230,26 @@ export function WorkSection({ category }: WorkSectionProps) {
           {/* Expanding Background Box */}
           <div
             ref={expandBgRef}
-            className="absolute z-0 bg-[#252525] h-[75vh] w-[calc(100vw-2rem)] max-w-[1280px] lg:max-w-[980px] xl:max-w-[1200px] rounded-[12px] shadow-2xl sm:h-[70vh] sm:w-full sm:max-w-[1200px]"
+            className="absolute inset-0 bg-[#252525] shadow-2xl z-0"
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_42%)]" />
           </div>
 
-          {/* Cards Content (Absolute Over Expansion) */}
-          <div className="absolute inset-0 z-10 w-full h-full perspective-[2000px]">
-            <div className="absolute inset-0 transform-style-3d">
-              <div className="relative h-full w-full transform-style-3d">
+          {/* Cards Content (Absolute Over Expansion with Clipper) */}
+          <div
+            ref={clipperRef}
+            className="absolute inset-0 z-10 overflow-hidden flex flex-col justify-start items-center"
+          >
+            <div ref={trackRef} className="w-full flex flex-col items-center gap-8 sm:gap-12 pt-16 pb-8 sm:pt-24 sm:pb-12 px-4 md:px-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-[1100px] w-full justify-items-center">
                 {projects.map((project, i) => (
                   <Link
                     key={project.id}
                     href={`/case-studies/${project.slug}`}
-                    className={`project-card card-${i} absolute top-1/2 left-1/2 w-[340px] h-[380px] lg:w-[360px] lg:h-[340px] xl:w-[500px] xl:h-[450px] overflow-hidden rounded-[22px] shadow-[0_38px_70px_-24px_rgba(0,0,0,0.45)] transform-style-3d will-change-transform sm:left-auto`}
-                    style={{ zIndex: projects.length - i }}
-                    data-desktop-left={
-                      i === 0 ? "32%" :
-                        i === 1 ? "68%" :
-                          i === 2 ? "44%" : "56%"
-                    }
+                    className="project-card group relative block w-full max-w-[340px] h-[300px] xs:w-[360px] xs:h-[320px] md:max-w-[420px] md:h-[340px] xl:max-w-[480px] xl:h-[380px] overflow-hidden rounded-[22px] border border-white shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 hover:shadow-[0_30px_60px_rgba(0,0,0,0.45)] transition-all duration-300 bg-[#1e1e1e]"
                   >
                     {/* Full-bleed image */}
-                    <div className="relative h-full w-full bg-zinc-200">
+                    <div className="relative h-full w-full bg-zinc-800">
                       <Image
                         src={project.image}
                         alt={project.title}
@@ -340,7 +260,7 @@ export function WorkSection({ category }: WorkSectionProps) {
 
                     {/* Bottom overlay */}
                     <div
-                      className="absolute inset-x-0 bottom-0 space-y-2.5 px-4 py-4"
+                      className="absolute inset-x-0 bottom-0 space-y-2.5 px-5 py-5"
                       style={{
                         backdropFilter: "blur(4px)",
                         WebkitBackdropFilter: "blur(4px)",
@@ -363,6 +283,16 @@ export function WorkSection({ category }: WorkSectionProps) {
                     </div>
                   </Link>
                 ))}
+              </div>
+
+              {/* View Case Studies CTA Container */}
+              <div className="pt-6 cta-container">
+                <Link
+                  href="/case-studies"
+                  className="inline-flex h-12 items-center justify-center rounded-[8px] bg-white px-8 text-sm font-semibold text-black hover:bg-zinc-200 transition-colors shadow-lg"
+                >
+                  View Case Studies
+                </Link>
               </div>
             </div>
           </div>

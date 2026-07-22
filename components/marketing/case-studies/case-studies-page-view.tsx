@@ -83,7 +83,7 @@ export function CaseStudiesPageView() {
       <section className="overflow-x-clip pb-16 sm:pb-20 lg:pb-0 xl:pb-8">
         <div className="mx-auto w-full px-6 lg:px-12 xl:px-20">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12 xl:mx-auto xl:max-w-[1080px] xl:gap-8">
-            {caseStudies.map((caseStudy, index) => (
+            {[...caseStudies].reverse().map((caseStudy, index) => (
               <Link
                 key={caseStudy.slug}
                 href={`/case-studies/${caseStudy.slug}`}
