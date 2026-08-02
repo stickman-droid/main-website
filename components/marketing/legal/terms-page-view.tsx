@@ -2,17 +2,20 @@ import Link from "next/link";
 
 export function TermsPageView() {
   return (
-    <main className="min-h-screen bg-background text-[#252525]">
+    <div className="min-h-screen bg-background text-[#252525]">
       <section className="w-full py-12 lg:py-24">
         <div className="mx-auto w-full max-w-4xl px-6 lg:px-12">
           {/* Breadcrumb */}
-          <div className="flex items-center justify-start gap-1.5 text-left text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase">
+          <nav
+            className="flex items-center justify-start gap-1.5 text-left text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase"
+            aria-label="Breadcrumb"
+          >
             <Link href="/" className="transition-colors hover:text-[#252525]">
               Home
             </Link>
             <span className="text-zinc-200">.</span>
             <span className="text-[#252525]">Terms of Service</span>
-          </div>
+          </nav>
 
           <header className="mt-8 space-y-4">
             <h1
@@ -81,18 +84,18 @@ export function TermsPageView() {
               <p>
                 We reserve the right to revise these terms of service at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.
               </p>
-              {/* <p className="mt-4">
+              <p className="mt-4">
                 If you have questions about these terms, please contact:
                 <br />
-                <span className="font-bold text-blue-600 block mt-2">
-                  {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "admin.stickman@gmail.com"}
-                </span>
-              </p> */}
+                <a className="font-bold text-blue-600 block mt-2" href="mailto:shout@stickman.design">
+                  shout@stickman.design
+                </a>
+              </p>
             </section>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 
