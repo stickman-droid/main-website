@@ -1,8 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces, Kode_Mono } from "next/font/google";
 import { Footer } from "@/components/layouts/footer";
 import { Header } from "@/components/layouts/header";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import {
+  JsonLd,
+  buildOrganizationJsonLd,
+  buildWebsiteJsonLd,
+} from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
@@ -33,8 +38,16 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "UX Design",
   alternates: {
     canonical: "/",
+    languages: {
+      "en-US": "/",
+      "x-default": "/",
+    },
   },
   openGraph: {
     type: "website",
@@ -43,11 +56,20 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} social preview`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
+    images: ["/twitter-image"],
   },
   robots: {
     index: true,
@@ -64,6 +86,15 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.name,
+    statusBarStyle: "default",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -89,7 +120,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col pb-28 lg:pb-0">
         <TooltipProvider>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <JsonLd data={[buildOrganizationJsonLd(), buildWebsiteJsonLd()]} />
+            {children}
+          </main>
           <Footer />
         </TooltipProvider>
       </body>
