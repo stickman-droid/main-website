@@ -240,6 +240,7 @@ export function WarpField() {
     <div className="pointer-events-auto absolute inset-0">
       <canvas
         ref={canvasRef}
+        aria-hidden="true"
         className="h-full w-full touch-none"
       />
     </div>

@@ -314,6 +314,7 @@ export function FluidBackground() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className="absolute inset-0 pointer-events-none"
       style={{ zIndex: 0 }}
     />

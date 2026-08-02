@@ -19,7 +19,7 @@ export function OfferSection() {
     {
       id: "02",
       title: "Retention",
-      description: "We simplify (without loosing depth) and improve your dashboard experience so users always know where they are, what to do next, and why your product matters to their day."
+      description: "We simplify (without losing depth) and improve your dashboard experience so users always know where they are, what to do next, and why your product matters to their day."
     },
     {
       id: "03",

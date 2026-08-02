@@ -2,17 +2,20 @@ import Link from "next/link";
 
 export function PrivacyPageView() {
   return (
-    <main className="min-h-screen bg-background text-[#252525]">
+    <div className="min-h-screen bg-background text-[#252525]">
       <section className="w-full py-12 lg:py-24">
         <div className="mx-auto w-full max-w-4xl px-6 lg:px-12">
           {/* Breadcrumb */}
-          <div className="flex items-center justify-start gap-1.5 text-left text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase">
+          <nav
+            className="flex items-center justify-start gap-1.5 text-left text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase"
+            aria-label="Breadcrumb"
+          >
             <Link href="/" className="transition-colors hover:text-[#252525]">
               Home
             </Link>
             <span className="text-zinc-200">.</span>
             <span className="text-[#252525]">Privacy Policy</span>
-          </div>
+          </nav>
 
           <header className="mt-8 space-y-4">
             <h1
@@ -75,20 +78,20 @@ export function PrivacyPageView() {
               </p>
             </section>
 
-            {/* <section className="space-y-4 pt-8 border-t border-zinc-100">
+            <section className="space-y-4 pt-8 border-t border-zinc-100">
               <h2 className="text-xl font-bold text-[#252525] tracking-tight">Contact Us</h2>
               <p>
                 If you have any questions about this Privacy Policy, please contact us at:
                 <br />
-                <span className="font-bold text-blue-600 block mt-2">
-                  {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "admin.stickman@gmail.com"}
-                </span>
+                <a className="font-bold text-blue-600 block mt-2" href="mailto:shout@stickman.design">
+                  shout@stickman.design
+                </a>
               </p>
-            </section> */}
+            </section>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

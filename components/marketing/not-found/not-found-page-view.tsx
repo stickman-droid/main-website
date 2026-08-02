@@ -1,8 +1,9 @@
-"use client"
+
 
 import Image from "next/image"
 import Link from "next/link"
-import { NoiseAnimation } from "./noise-animation"
+import dynamic from "next/dynamic"
+const NoiseAnimation = dynamic(() => import("./noise-animation").then(mod => mod.NoiseAnimation))
 
 export function NotFoundPageView() {
   return (

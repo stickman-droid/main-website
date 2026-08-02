@@ -71,7 +71,7 @@ export function NoiseAnimation({
         className="h-full w-full"
         style={{ opacity }}
       />
-      <canvas ref={canvasRef} className="hidden" />
+      <canvas ref={canvasRef} aria-hidden="true" className="hidden" />
     </div>
   )
 }

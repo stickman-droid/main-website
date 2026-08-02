@@ -8,11 +8,16 @@ import {
   Float32BufferAttribute,
   Group,
   Mesh,
+  Object3D,
   Points,
   PointsMaterial,
 } from "three"
-// @ts-ignore
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js"
+
+function jitter(index: number, axis: number) {
+  const value = Math.sin(index * 12.9898 + axis * 78.233) * 43758.5453
+  return (value - Math.floor(value) - 0.5) * 0.22
+}
 
 function ParticleModel() {
   const pointsRef = useRef<Points<BufferGeometry, PointsMaterial> | null>(null)
@@ -22,7 +27,7 @@ function ParticleModel() {
     if (!obj) return null
 
     const basePositions: number[] = []
-    obj.traverse((child: any) => {
+    obj.traverse((child: Object3D) => {
       if (!(child instanceof Mesh)) return
 
       const pos = child.geometry.attributes.position
@@ -55,9 +60,9 @@ function ParticleModel() {
       const bz = basePositions[b + 2]
 
       positions.push(
-        ax * 0.67 + bx * 0.33 + (Math.random() - 0.5) * 0.22,
-        ay * 0.67 + by * 0.33 + (Math.random() - 0.5) * 0.22,
-        az * 0.67 + bz * 0.33 + (Math.random() - 0.5) * 0.22,
+        ax * 0.67 + bx * 0.33 + jitter(i, 0),
+        ay * 0.67 + by * 0.33 + jitter(i, 1),
+        az * 0.67 + bz * 0.33 + jitter(i, 2),
       )
 
     }

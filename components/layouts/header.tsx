@@ -36,8 +36,11 @@ const mobileBottomShadow =
 export function Header() {
   const topHeaderRef = useRef<HTMLDivElement>(null);
   const [headerHeight, setHeaderHeight] = useState(57);
-  const [pendingNavHref, setPendingNavHref] = useState<string | null>(null);
   const pathname = usePathname();
+  const [pendingNav, setPendingNav] = useState<{
+    href: string;
+    fromPath: string;
+  } | null>(null);
 
   useEffect(() => {
     const el = topHeaderRef.current;
@@ -49,12 +52,10 @@ export function Header() {
     return () => ro.disconnect();
   }, []);
 
-  useEffect(() => {
-    setPendingNavHref(null);
-  }, [pathname]);
-
   const isDesktopNavTransitioning =
-    pendingNavHref !== null && pendingNavHref !== pathname;
+    pendingNav !== null &&
+    pendingNav.fromPath === pathname &&
+    pendingNav.href !== pathname;
 
   const isActiveNavItem = (href: string) =>
     !isDesktopNavTransitioning && (pathname === href || pathname?.startsWith(`${href}/`));
@@ -77,6 +78,7 @@ export function Header() {
               width={212}
               height={24}
               priority
+              style={{ width: "auto", height: "auto" }}
               className="h-auto w-[180px] sm:w-[200px]"
             />
           </Link>
@@ -99,6 +101,7 @@ export function Header() {
               width={180}
               height={20}
               priority
+              style={{ width: "auto", height: "auto" }}
               className="h-auto w-[160px] lg:w-[180px]"
             />
           </Link>
@@ -118,7 +121,9 @@ export function Header() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    onClick={() => setPendingNavHref(item.href)}
+                    onClick={() =>
+                      setPendingNav({ href: item.href, fromPath: pathname ?? "" })
+                    }
                     className="px-2 text-sm font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
                   >
                     <OsmoUnderline active={isActiveNavItem(item.href)}>
