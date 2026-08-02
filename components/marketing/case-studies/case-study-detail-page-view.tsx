@@ -136,6 +136,7 @@ export function CaseStudyDetailPageView({
                 src={caseStudy.heroImage.image}
                 alt={caseStudy.heroImage.title}
                 fill
+                sizes="100vw"
                 className="object-cover"
                 priority
               />
@@ -194,8 +195,13 @@ export function CaseStudyDetailPageView({
                     <div className="relative aspect-[16/10] w-full">
                       <Image
                         src={block.image}
-                        alt={block.title}
+                        alt={
+                          block.title ||
+                          block.caption ||
+                          `${caseStudy.title} interface screenshot ${index + 1}`
+                        }
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 800px"
                         className="object-contain"
                       />
                     </div>
