@@ -9,18 +9,21 @@ import { WorkSection } from "@/components/marketing/home/work-section"
 
 export default function OnboardingPage() {
   return (
-    <main className="relative min-h-screen bg-background selection:bg-black/5 selection:text-black">
+    <div className="relative min-h-screen bg-background selection:bg-black/5 selection:text-black">
       {/* Hero Section with Fluid Background */}
       <section className="relative w-full h-[90vh] overflow-hidden">
         <FluidBackground />
 
         <div className="relative z-10 flex h-full w-full flex-col px-6 pt-10 sm:px-12 lg:mx-auto lg:max-w-7xl xl:mx-0 xl:max-w-none xl:px-[80px]">
           {/* Breadcrumb - Aligned with Navbar content */}
-          <div className="lg:mb-0 mb-8 flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase">
+          <nav
+            className="lg:mb-0 mb-8 flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-400 uppercase"
+            aria-label="Breadcrumb"
+          >
             <span>Home</span>
             <span className="text-zinc-200">.</span>
             <span>Onboarding</span>
-          </div>
+          </nav>
 
           {/* Centered Content Section */}
           <div className="flex flex-1 flex-col items-center justify-center text-center pb-20">
@@ -58,7 +61,7 @@ export default function OnboardingPage() {
 
       {/* Reused Contact CTA Section */}
       <ContactSection />
-    </main>
+    </div>
   )
 }
 

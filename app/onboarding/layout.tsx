@@ -1,4 +1,10 @@
 import type { Metadata } from "next";
+import {
+  JsonLd,
+  buildBreadcrumbJsonLd,
+  buildServiceJsonLd,
+  buildWebPageJsonLd,
+} from "@/lib/json-ld";
 import { pageSeo } from "@/lib/page-seo";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -9,5 +15,23 @@ export default function OnboardingLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={[
+          buildWebPageJsonLd(pageSeo.onboarding),
+          buildServiceJsonLd({
+            name: "SaaS Onboarding UX Redesign",
+            description: pageSeo.onboarding.description,
+            path: pageSeo.onboarding.path,
+          }),
+          buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Onboarding", path: "/onboarding" },
+          ]),
+        ]}
+      />
+      {children}
+    </>
+  );
 }
