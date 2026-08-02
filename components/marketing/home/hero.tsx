@@ -6,7 +6,6 @@ import { Calculator } from "./calculator"
 import { InteractiveDotGrid } from "@/components/utility/interactive-dot-grid"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
-import { Heading, Text } from "@/components/ui/typography"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -72,7 +71,7 @@ export function Hero() {
               <Link
                 href="https://cal.eu/savio"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex h-[54px] cursor-pointer items-center justify-center rounded-[6px] bg-zinc-900 px-8 text-base font-semibold text-zinc-100 shadow-xl shadow-zinc-900/10 transition-all hover:scale-[1.02] hover:bg-[#3775E9] active:scale-[0.98]"
               >
                 Book Your Free Call

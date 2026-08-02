@@ -69,7 +69,7 @@ export function ContactSection() {
           </p>
 
           <div className="flex flex-wrap items-start content-start gap-3">
-            {pills.map((pill, i) => (
+            {pills.map((pill) => (
               <span
                 key={pill}
                 className="contact-reveal rounded-full bg-[#F5F5F5] px-5 py-2.5 text-[12px] font-semibold text-[#252525] whitespace-nowrap"
@@ -84,7 +84,7 @@ export function ContactSection() {
           <Link
                 href="https://cal.eu/savio"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex h-[48px] cursor-pointer items-center justify-center rounded-[6px] bg-zinc-900 px-6 text-base font-semibold text-zinc-100 shadow-xl shadow-zinc-900/10 transition-all hover:scale-[1.02] hover:bg-[#3775E9] active:scale-[0.98]"
               >
                 Book Your Free Call
