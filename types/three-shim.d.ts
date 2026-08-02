@@ -64,8 +64,8 @@ declare module "three" {
 }
 
 declare module "three/examples/jsm/loaders/MTLLoader.js" {
-  export namespace MTLLoader {
-    interface MaterialCreator {}
+export namespace MTLLoader {
+    type MaterialCreator = object
   }
 }
 
