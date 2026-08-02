@@ -1,64 +1,12 @@
-"use client";
-
-import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ContactSection } from "@/components/marketing/home/contact-section";
 import { caseStudies } from "@/lib/case-studies-data";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { CaseStudiesClient } from "./case-studies-client";
 
 export function CaseStudiesPageView() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    if (!containerRef.current) return;
-
-    const cards = gsap.utils.toArray<HTMLElement>(".case-study-card");
-
-    cards.forEach((card, index) => {
-      if (index < 2) {
-        // Premium entrance for the first two cards on page load
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 24, filter: "blur(8px)" },
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.8,
-            delay: 0.1 + index * 0.1,
-            ease: "power2.out",
-          }
-        );
-      } else {
-        // Standard reveal on scroll for the rest
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 28, filter: "blur(6px)" },
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.8,
-            delay: (index % 2) * 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 90%",
-              once: true,
-            },
-          }
-        );
-      }
-    });
-  }, { scope: containerRef });
-
   return (
-    <main ref={containerRef} className="min-h-screen overflow-x-clip bg-background text-[#252525]">
+    <CaseStudiesClient>
       <section className="w-full py-8 sm:py-10 lg:py-12">
         <div className="mx-auto w-full px-6 lg:px-12 xl:px-20">
           <div className="flex items-center justify-start gap-1.5 text-left text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase">
@@ -83,7 +31,7 @@ export function CaseStudiesPageView() {
       <section className="overflow-x-clip pb-16 sm:pb-20 lg:pb-0 xl:pb-8">
         <div className="mx-auto w-full px-6 lg:px-12 xl:px-20">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12 xl:mx-auto xl:max-w-[1080px] xl:gap-8">
-            {[...caseStudies].reverse().map((caseStudy, index) => (
+            {[...caseStudies].reverse().map((caseStudy) => (
               <Link
                 key={caseStudy.slug}
                 href={`/case-studies/${caseStudy.slug}`}
@@ -96,6 +44,7 @@ export function CaseStudiesPageView() {
                       src={caseStudy.heroImage.image}
                       alt={caseStudy.heroImage.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover"
                     />
                   ) : (
@@ -138,6 +87,6 @@ export function CaseStudiesPageView() {
       </section>
 
       <ContactSection />
-    </main>
+    </CaseStudiesClient>
   );
 }
