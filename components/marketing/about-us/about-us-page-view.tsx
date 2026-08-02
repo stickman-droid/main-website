@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { ContactSection } from "@/components/marketing/home/contact-section"
 import { AboutUsHero } from "@/components/marketing/about-us/about-us-hero"
@@ -8,7 +6,7 @@ import { FounderSection } from "@/components/marketing/about-us/founder-section"
 
 export function AboutUsPageView() {
   return (
-    <main className="relative min-h-screen bg-background selection:bg-black/5 selection:text-black">
+    <div className="relative min-h-screen bg-background selection:bg-black/5 selection:text-black">
       {/* Hero Section */}
       <div>
         <AboutUsHero />
@@ -28,7 +26,7 @@ export function AboutUsPageView() {
       <div className="-mt-14 lg:-mt-22">
         <ContactSection />
       </div>
-    </main>
+    </div>
   )
 }
 

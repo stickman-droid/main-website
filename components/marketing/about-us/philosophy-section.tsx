@@ -57,15 +57,6 @@ export function PhilosophySection() {
     })
   }, { scope: containerRef })
 
-  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    const card = event.currentTarget
-    const rect = card.getBoundingClientRect()
-    const x = event.clientX - rect.left
-    const y = event.clientY - rect.top
-    card.style.setProperty("--x", `${x}px`)
-    card.style.setProperty("--y", `${y}px`)
-  }
-
   return (
     <section ref={containerRef} className="relative w-full bg-background py-12 lg:py-32 overflow-hidden">
       <div className="mx-auto max-w-[1240px] px-6 sm:px-12">
