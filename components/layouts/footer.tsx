@@ -29,6 +29,7 @@ export function Footer() {
               alt="Stickman Design"
               width={200}
               height={22}
+              style={{ width: "auto", height: "auto" }}
               className="h-auto w-[180px] sm:w-[200px]"
             />
           </Link>
