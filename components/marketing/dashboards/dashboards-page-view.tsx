@@ -1,7 +1,8 @@
-"use client"
+
 
 import * as React from "react"
-import { WarpField } from "./warp-field"
+import dynamic from "next/dynamic"
+const WarpField = dynamic(() => import("./warp-field").then(mod => mod.WarpField))
 import { FocusGridSection } from "./focus-grid-section"
 import { ProcessSection } from "@/components/marketing/onboarding/process-section"
 import { WorkSection } from "@/components/marketing/home/work-section"
