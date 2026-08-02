@@ -1,6 +1,6 @@
-"use client"
-
-import { FluidBackground } from "./fluid-background"
+import * as React from "react"
+import dynamic from "next/dynamic"
+const FluidBackground = dynamic(() => import("./fluid-background").then(mod => mod.FluidBackground))
 import { FocusSection } from "./focus-section"
 import { ProcessSection } from "./process-section"
 import { WorkSection } from "@/components/marketing/home/work-section"
@@ -8,7 +8,7 @@ import { ContactSection } from "@/components/marketing/home/contact-section"
 
 export function OnboardingPageView() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background">
+    <div className="relative min-h-screen overflow-hidden bg-background">
       <section className="relative w-full overflow-hidden py-8 xl:min-h-[90vh]">
         <FluidBackground />
 
@@ -52,6 +52,6 @@ export function OnboardingPageView() {
       <WorkSection category="Onboarding" />
 
       <ContactSection />
-    </main>
+    </div>
   )
 }

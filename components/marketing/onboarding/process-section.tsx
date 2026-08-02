@@ -119,25 +119,25 @@ export function ProcessSection({
               {/* Arrows at North, East, South, West */}
               {/* Arrow North (pointing right-ish) */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2 bg-background">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="rotate-0 text-black">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="rotate-0 text-black" aria-hidden="true">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               {/* Arrow East (pointing down-ish) */}
               <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 p-2 bg-background">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="rotate-90 text-black">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="rotate-90 text-black" aria-hidden="true">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               {/* Arrow South (pointing left-ish) */}
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 p-2 bg-background">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="rotate-180 text-black">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="rotate-180 text-black" aria-hidden="true">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               {/* Arrow West (pointing up-ish) */}
               <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 p-2 bg-background">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="-rotate-90 text-black">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="-rotate-90 text-black" aria-hidden="true">
                   <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>

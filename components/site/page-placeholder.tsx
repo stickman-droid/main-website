@@ -12,7 +12,7 @@ export function PagePlaceholder({
   nextSteps,
 }: PagePlaceholderProps) {
   return (
-    <main className="flex flex-1 bg-zinc-50">
+    <div className="flex flex-1 bg-zinc-50">
       <section className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 px-6 py-20 sm:px-10 lg:px-12">
         <div className="space-y-4">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-zinc-500">
@@ -39,7 +39,7 @@ export function PagePlaceholder({
           </ul>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

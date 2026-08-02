@@ -128,16 +128,6 @@ export function FocusSection() {
     return () => mm.revert()
   }, { scope: containerRef })
 
-  // Spotlight Effect Logic
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const card = e.currentTarget
-    const rect = card.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    card.style.setProperty("--x", `${x}px`)
-    card.style.setProperty("--y", `${y}px`)
-  }
-
   return (
     <section ref={containerRef} className="relative w-full bg-background pt-4 pb-12 sm:py-12 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
@@ -166,7 +156,7 @@ export function FocusSection() {
                 <div className="focus-image absolute left-0 top-[-20px] z-0 w-[160px]">
                   <Image
                     src="/onboarding1.svg"
-                    alt="Onboarding Screen 1"
+                    alt="Welcome step in a SaaS onboarding flow"
                     width={300}
                     height={600}
                     className="rounded-[24px] w-full h-auto"
@@ -175,7 +165,7 @@ export function FocusSection() {
                 <div className="focus-image absolute left-[75px] top-[28px] z-10 w-[160px]">
                   <Image
                     src="/onboarding2.svg"
-                    alt="Onboarding Screen 2"
+                    alt="Guided setup step in a SaaS onboarding flow"
                     width={300}
                     height={600}
                     className="rounded-[24px] w-full h-auto"
@@ -184,7 +174,7 @@ export function FocusSection() {
                 <div className="focus-image absolute left-[150px] top-[40px] z-20 w-[160px]">
                   <Image
                     src="/onboarding3.svg"
-                    alt="Onboarding Screen 3"
+                    alt="Activation checklist in a SaaS onboarding flow"
                     width={300}
                     height={600}
                     className="rounded-[24px] w-full h-auto"
@@ -197,7 +187,7 @@ export function FocusSection() {
                 <div className="focus-image absolute top-4 z-0 w-[280px]">
                   <Image
                     src="/onboarding1.svg"
-                    alt="Onboarding Screen 1"
+                    alt="Welcome step in a SaaS onboarding flow"
                     width={300}
                     height={600}
                     className="rounded-[32px]"
@@ -206,7 +196,7 @@ export function FocusSection() {
                 <div className="focus-image absolute left-[20%] top-24 z-10 w-[280px]">
                   <Image
                     src="/onboarding2.svg"
-                    alt="Onboarding Screen 2"
+                    alt="Guided setup step in a SaaS onboarding flow"
                     width={300}
                     height={600}
                     className="rounded-[32px]"
@@ -215,7 +205,7 @@ export function FocusSection() {
                 <div className="focus-image absolute left-[40%] top-28 z-20 w-[280px]">
                   <Image
                     src="/onboarding3.svg"
-                    alt="Onboarding Screen 3"
+                    alt="Activation checklist in a SaaS onboarding flow"
                     width={300}
                     height={600}
                     className="rounded-[32px]"
