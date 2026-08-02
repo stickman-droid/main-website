@@ -70,13 +70,13 @@ export function WorkSection({ category }: WorkSectionProps) {
       const H = window.innerHeight
       const W = window.innerWidth
       const isMobile = W < 640
-      
+
       const boxH = H * (isMobile ? 0.75 : 0.70)
       const boxW = isMobile ? (W - 32) : Math.min(W - 32, 1200)
-      
+
       const top = (H - boxH) / 2
       const left = (W - boxW) / 2
-      
+
       return `inset(${top}px ${left}px ${top}px ${left}px round 12px)`
     }
 
@@ -85,7 +85,7 @@ export function WorkSection({ category }: WorkSectionProps) {
 
     // Set initial states
     gsap.set(progressBar, { scaleX: 0, transformOrigin: "left center" })
-    
+
     // First 2 cards are visible initially, next 2 are hidden
     if (cards[2]) gsap.set(cards[2], { opacity: 0, y: 30 })
     if (cards[3]) gsap.set(cards[3], { opacity: 0, y: 30 })
@@ -95,7 +95,7 @@ export function WorkSection({ category }: WorkSectionProps) {
       scrollTrigger: {
         trigger: panelRef.current,
         start: "center center",
-        end: "+=450%", // Slightly shorter scroll distance for snappier experience
+        end: "+=250%", // Slightly shorter scroll distance for snappier experience
         pin: true,
         pinSpacing: true,
         scrub: 1.5,
@@ -128,7 +128,7 @@ export function WorkSection({ category }: WorkSectionProps) {
         y: () => {
           const H = panelRef.current?.offsetHeight || window.innerHeight
           const firstCard = track.querySelector(".project-card")
-          const firstRowCenter = firstCard 
+          const firstRowCenter = firstCard
             ? (firstCard as HTMLElement).offsetTop + ((firstCard as HTMLElement).offsetHeight / 2)
             : 200
           return (H / 2) - firstRowCenter
@@ -242,7 +242,7 @@ export function WorkSection({ category }: WorkSectionProps) {
           >
             <div ref={trackRef} className="w-full flex flex-col items-center gap-8 sm:gap-12 pt-16 pb-8 sm:pt-24 sm:pb-12 px-4 md:px-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-[1100px] w-full justify-items-center">
-                {projects.map((project, i) => (
+                {projects.map((project) => (
                   <Link
                     key={project.id}
                     href={`/case-studies/${project.slug}`}
