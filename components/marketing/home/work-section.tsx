@@ -3,6 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
+import posthog from "posthog-js"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -246,6 +247,7 @@ export function WorkSection({ category }: WorkSectionProps) {
                   <Link
                     key={project.id}
                     href={`/case-studies/${project.slug}`}
+                    onClick={() => posthog.capture("case_study_selected", { case_study_slug: project.slug, category: category ?? "home" })}
                     className="project-card group relative block w-full max-w-[340px] h-[300px] xs:w-[360px] xs:h-[320px] md:max-w-[420px] md:h-[340px] xl:max-w-[480px] xl:h-[380px] overflow-hidden rounded-[22px] border border-white shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 hover:shadow-[0_30px_60px_rgba(0,0,0,0.45)] transition-all duration-300 bg-[#1e1e1e]"
                   >
                     {/* Full-bleed image */}
@@ -289,6 +291,7 @@ export function WorkSection({ category }: WorkSectionProps) {
               <div className="pt-6 cta-container">
                 <Link
                   href="/case-studies"
+                  onClick={() => posthog.capture("case_studies_listing_opened", { placement: "selected_work" })}
                   className="inline-flex h-12 items-center justify-center rounded-[8px] bg-white px-8 text-sm font-semibold text-black hover:bg-zinc-200 transition-colors shadow-lg"
                 >
                   View Case Studies
