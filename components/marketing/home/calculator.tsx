@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import posthog from "posthog-js"
 import {
   Area,
   AreaChart,
@@ -59,6 +60,16 @@ export function Calculator() {
       }
     })
   }, [annualLoss])
+
+  const captureCalculatorAdjustment = (input: "monthly_signups" | "acquisition_cost" | "dropoff_rate") => {
+    posthog.capture("revenue_loss_calculator_adjusted", {
+      input,
+      monthly_signups: usersVal,
+      acquisition_cost: crcVal,
+      dropoff_rate: dropoffVal,
+      estimated_annual_loss: Math.round(annualLoss),
+    })
+  }
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -193,6 +204,7 @@ export function Calculator() {
             <Slider
               value={users}
               onValueChange={setUsers}
+              onValueCommitted={() => captureCalculatorAdjustment("monthly_signups")}
               min={100}
               max={10000}
               step={100}
@@ -208,6 +220,7 @@ export function Calculator() {
             <Slider
               value={crc}
               onValueChange={setCrc}
+              onValueCommitted={() => captureCalculatorAdjustment("acquisition_cost")}
               min={5}
               max={1000}
               step={5}
@@ -223,6 +236,7 @@ export function Calculator() {
             <Slider
               value={dropoff}
               onValueChange={setDropoff}
+              onValueCommitted={() => captureCalculatorAdjustment("dropoff_rate")}
               min={0}
               max={80}
               step={1}

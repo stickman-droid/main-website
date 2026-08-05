@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import posthog from "posthog-js"
 import { Calculator } from "./calculator"
 import { InteractiveDotGrid } from "@/components/utility/interactive-dot-grid"
 import { Button } from "@/components/ui/button"
@@ -72,6 +73,7 @@ export function Hero() {
                 href="https://cal.eu/savio"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => posthog.capture("consultation_booking_started", { placement: "hero" })}
                 className="inline-flex h-[54px] cursor-pointer items-center justify-center rounded-[6px] bg-zinc-900 px-8 text-base font-semibold text-zinc-100 shadow-xl shadow-zinc-900/10 transition-all hover:scale-[1.02] hover:bg-[#3775E9] active:scale-[0.98]"
               >
                 Book Your Free Call
@@ -81,7 +83,10 @@ export function Hero() {
                 size="lg"
                 nativeButton={false}
                 render={
-                  <Link href="/case-studies" />
+                  <Link
+                    href="/case-studies"
+                    onClick={() => posthog.capture("case_studies_listing_opened", { placement: "hero" })}
+                  />
                 }
                 className="flex h-[54px] gap-2 rounded-[6px] border border-[#D1D1D1] px-8 text-base font-semibold text-[#252525] transition-all hover:scale-[1.02] hover:bg-zinc-50 active:scale-[0.98]"
               >
