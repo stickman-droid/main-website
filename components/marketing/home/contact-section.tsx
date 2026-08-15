@@ -47,7 +47,7 @@ export function ContactSection() {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="flex w-full justify-center bg-background lg:py-8 mt-16 lg:mt-18">
+    <section ref={containerRef} data-analytics-section="contact" className="flex w-full justify-center bg-background lg:py-8 mt-16 lg:mt-18">
       <div className="flex w-full max-w-[950px] flex-col px-6">
         <div className="contact-reveal mb-8 flex w-full max-w-[640px] flex-col space-y-4 text-left">
           <p className="text-[12px] font-mono font-bold tracking-[0.25em] text-[#8e8e8e] uppercase">
