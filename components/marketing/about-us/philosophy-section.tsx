@@ -58,7 +58,7 @@ export function PhilosophySection() {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="relative w-full bg-background py-12 lg:py-32 overflow-hidden">
+    <section ref={containerRef} data-analytics-section="about_philosophy" className="relative w-full bg-background py-12 lg:py-32 overflow-hidden">
       <div className="mx-auto max-w-[1240px] px-6 sm:px-12">
         {/* Header */}
         <div className="mb-6 lg:mb-14 flex flex-col items-center text-center space-y-4">
@@ -82,6 +82,7 @@ export function PhilosophySection() {
           {philosophyItems.map((item, i) => (
             <GlowCard
               key={i}
+              data-analytics-card={`philosophy_${i + 1}`}
               radius={12}
               className="philosophy-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full"
               innerClassName="flex h-full flex-col space-y-1 bg-background p-4 lg:p-6"
