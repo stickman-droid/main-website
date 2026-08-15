@@ -36,17 +36,17 @@ export function CaseStudiesPageView() {
                 key={caseStudy.slug}
                 href={`/case-studies/${caseStudy.slug}`}
                 data-analytics-card={`case_study_${caseStudy.slug}`}
-                className="case-study-card opacity-0 group relative overflow-hidden rounded-[24px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.18)] bg-zinc-50"
+                className="case-study-card opacity-0 group relative overflow-hidden rounded-[24px] border border-black/5 bg-zinc-50 transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-black/15 hover:shadow-[0_24px_60px_-12px_rgba(0,0,0,0.18)]"
               >
-                {/* Image Container */}
-                <div className="relative min-h-[300px] w-full sm:min-h-[360px] lg:min-h-[400px] xl:min-h-[340px]">
+                {/* Image Container with Subtle Smooth Zoom */}
+                <div className="relative min-h-[300px] w-full overflow-hidden sm:min-h-[360px] lg:min-h-[400px] xl:min-h-[340px]">
                   {caseStudy.heroImage.image ? (
                     <Image
                       src={caseStudy.heroImage.image}
                       alt={caseStudy.heroImage.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-zinc-100">
@@ -57,13 +57,13 @@ export function CaseStudiesPageView() {
                   )}
                 </div>
 
-                {/* Bottom overlay — blur + gradient */}
+                {/* Bottom Overlay — Blur + Gradient */}
                 <div
-                  className="absolute inset-x-0 bottom-0 space-y-3 px-5 py-5"
+                  className="absolute inset-x-0 bottom-0 space-y-3 px-6 py-6 transition-all duration-300"
                   style={{
-                    backdropFilter: "blur(4px)",
-                    WebkitBackdropFilter: "blur(4px)",
-                    background: "linear-gradient(180deg, rgba(0,0,0,0.4) 0%, #000000 100%)",
+                    backdropFilter: "blur(6px)",
+                    WebkitBackdropFilter: "blur(6px)",
+                    background: "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%)",
                   }}
                 >
                   <h2 className="text-xl font-semibold tracking-[-0.02em] text-white sm:text-2xl">
@@ -74,7 +74,7 @@ export function CaseStudiesPageView() {
                     {caseStudy.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-white px-3 py-1.5 text-[11px] font-semibold text-[#252525]"
+                        className="rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-semibold text-[#252525]"
                       >
                         {tag}
                       </span>
