@@ -5,6 +5,7 @@ import { GlowCard } from "@/components/ui/glow-card"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
+import { useTrackVisualEngagement } from "@/analytics/hooks"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -38,6 +39,10 @@ const focusCards = [
 export function FocusGridSection() {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const cardsRef = React.useRef<HTMLDivElement>(null)
+  const trackFocusCardEngagement = useTrackVisualEngagement({
+    visualId: "dashboards_focus_cards",
+    sectionId: "dashboards_focus",
+  })
 
   useGSAP(() => {
     if (!containerRef.current) return
@@ -69,17 +74,25 @@ export function FocusGridSection() {
   }, { scope: containerRef })
 
   // Spotlight Effect Logic
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const card = e.currentTarget
-    const rect = card.getBoundingClientRect()
+  const handlePointerMove = (
+    e: React.PointerEvent<HTMLDivElement>,
+    card: (typeof focusCards)[number],
+    index: number
+  ) => {
+    trackFocusCardEngagement("card_pointer_move", {
+      card_title: card.title,
+      card_position: index + 1,
+    })
+    const element = e.currentTarget
+    const rect = element.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
-    card.style.setProperty("--x", `${x}px`)
-    card.style.setProperty("--y", `${y}px`)
+    element.style.setProperty("--x", `${x}px`)
+    element.style.setProperty("--y", `${y}px`)
   }
 
   return (
-    <section ref={containerRef} className="relative w-full bg-background py-4 lg:py-10 overflow-hidden">
+    <section ref={containerRef} data-analytics-section="dashboards_focus" className="relative w-full bg-background py-4 lg:py-10 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header Section - Centered as per request image */}
         <div className="mb-8 lg:mb-16 flex flex-col items-center text-center space-y-4">
@@ -102,10 +115,11 @@ export function FocusGridSection() {
           {focusCards.map((card, i) => (
             <GlowCard
               key={i}
+              data-analytics-card={`dashboard_focus_${card.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
               radius={12}
               className="focus-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1px] transition-all duration-300"
               innerClassName="bg-background px-4 py-6 h-full flex flex-col space-y-1"
-              onPointerMove={handlePointerMove}
+              onPointerMove={(event) => handlePointerMove(event, card, i)}
             >
               <h3 className="text-lg sm:text-2xl font-bold text-[#252525] tracking-tight">
                 {card.title}
