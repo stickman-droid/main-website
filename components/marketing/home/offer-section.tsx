@@ -55,7 +55,7 @@ export function OfferSection() {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="flex w-full justify-center bg-background py-12 sm:py-8">
+    <section ref={containerRef} data-analytics-section="home_offer" className="flex w-full justify-center bg-background py-12 sm:py-8">
       <div className="flex w-full max-w-[1150px] flex-col space-y-5 px-6 lg:h-[480px]">
         {/* Header */}
         <div className="offer-reveal flex flex-col items-center text-center space-y-4">
@@ -75,6 +75,7 @@ export function OfferSection() {
           {offers.map((offer, index) => (
             <div
               key={offer.id}
+              data-analytics-card={`offer_${offer.title.toLowerCase().replace(/\s+/g, "_")}`}
               className={`offer-reveal group relative flex flex-col space-y-3 px-4 py-8 transition-all duration-500 ease-out sm:px-8 ${index !== 0 ? "md:border-l border-[#E0E0E0] border-1px" : ""
                 }`}
             >
