@@ -292,7 +292,7 @@ export function WorkSection({ category }: WorkSectionProps) {
                 <Link
                   href="/case-studies"
                   onClick={() => posthog.capture("case_studies_listing_opened", { placement: "selected_work" })}
-                  className="inline-flex h-12 items-center justify-center rounded-[8px] bg-white px-8 text-sm font-semibold text-black hover:bg-zinc-200 transition-colors shadow-lg"
+                  className="inline-flex h-12 cursor-pointer items-center justify-center rounded-[8px] bg-white px-8 text-sm font-semibold text-black shadow-lg transition-all hover:scale-[1.02] hover:bg-[#3775E9] hover:text-white active:scale-[0.98]"
                 >
                   View Case Studies
                 </Link>
