@@ -11,7 +11,7 @@ export default function OnboardingPage() {
   return (
     <div className="relative min-h-screen bg-background selection:bg-black/5 selection:text-black">
       {/* Hero Section with Fluid Background */}
-      <section className="relative w-full h-[90vh] overflow-hidden">
+      <section data-analytics-section="onboarding_hero" className="relative w-full h-[90vh] overflow-hidden">
         <FluidBackground />
 
         <div className="relative z-10 flex h-full w-full flex-col px-6 pt-10 sm:px-12 lg:mx-auto lg:max-w-7xl xl:mx-0 xl:max-w-none xl:px-[80px]">
