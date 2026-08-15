@@ -3,7 +3,7 @@ import Link from "next/link";
 export function TermsPageView() {
   return (
     <div className="min-h-screen bg-background text-[#252525]">
-      <section className="w-full py-12 lg:py-24">
+      <section data-analytics-section="terms_content" className="w-full py-12 lg:py-24">
         <div className="mx-auto w-full max-w-4xl px-6 lg:px-12">
           {/* Breadcrumb */}
           <nav
