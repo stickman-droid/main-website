@@ -1,0 +1,59 @@
+Setup report
+The agent wrote this report about the run it just finished.
+
+PostHog setup report
+PostHog browser analytics, anonymous marketing-event capture, browser error tracking, and a starter dashboard were set up for this Next.js App Router site.
+
+Installed and initialized
+Installed posthog-js 1.411.0 using the detected pnpm package manager; package.json declares ^1.411.0 and pnpm-lock.yaml was updated.
+No server routes were found, so posthog-node and server-side capture were not added.
+Created root instrumentation-client.ts as the single browser initialization path, using the default posthog-js singleton.
+Initialization is guarded by NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN and NEXT_PUBLIC_POSTHOG_HOST; missing configuration produces development-only errors while production remains a no-op.
+Created .env.example with placeholders and configured both public PostHog variables in the local .env through the wizard tools. No reverse proxy or Content-Security-Policy changes were made; no CSP was found.
+
+Events instrumented
+Event	What it measures	File(s)
+consultation_booking_started	Visitor selects a call-booking CTA, with placement available for conversion analysis.	components/marketing/home/hero.tsx; components/marketing/home/contact-section.tsx; components/layouts/header.tsx
+case_study_selected	Visitor opens a specific case study from the selected-work showcase.	components/marketing/home/work-section.tsx
+case_studies_listing_opened	Visitor selects the CTA to view the full case-study collection.	components/marketing/home/work-section.tsx
+revenue_loss_calculator_adjusted	Visitor commits a calculator-input change with non-PII numeric estimate inputs.	components/marketing/home/calculator.tsx
+The capture step verified that these calls exist in their intended live Link or Slider handlers and that their properties are non-PII. It did not observe any event arriving in PostHog, so delivery and property values remain unconfirmed.
+
+Identification
+Identification was intentionally skipped. The reviewed site is a marketing site with no application user, authentication, registration, session persistence, or logout boundary. Captures and automatically captured browser errors therefore remain anonymous by design. No DISTINCT_ID placeholders were introduced.
+
+Follow-up issue — future identity boundary: If authentication or registration is added later, add posthog.identify at successful login/registration using a stable non-PII identifier and call posthog.reset at logout. Without this, authenticated returning activity will remain anonymous and cannot be reliably connected to a person.
+
+Error tracking
+Browser-side uncaught-error and unhandled-rejection capture is enabled centrally through capture_exceptions: true in instrumentation-client.ts. No per-component wrappers or manual uncaught-error capture paths were added. Server-side error tracking was not added because no server route handlers were found and posthog-node was not installed.
+
+This configuration was source-reviewed only; no browser error was triggered and no error was observed arriving in PostHog.
+
+Dashboard
+Created Analytics basics (wizard) with five saved, wizard-tagged insights:
+
+Consultation booking intent by CTA placement
+Case-study selections by slug
+Case-study listing opens
+Revenue-loss calculator engagement by input
+Listing-to-case-study-selection funnel
+The dashboard definitions were created successfully, but they will populate only after browser events are delivered.
+
+Validation and build conflict
+Source review passed for minimality, unrelated changes, established codebase patterns, and reference-example shapes. The configured public environment keys were confirmed present, and the manifest and lockfile agree on posthog-js 1.411.0.
+
+Build and lint did not run. pnpm install, pnpm build, and pnpm lint stopped at pnpm ERR_PNPM_IGNORED_BUILDS before build or lint execution because existing ignored build scripts were reported for core-js, msw, sharp, and unrs-resolver. No PostHog source failure was observed, but compilation, linting, testing, and event delivery remain unconfirmed.
+
+Before you merge
+
+Resolve the pnpm ignored-build-scripts preflight, then run the production build; inspect package.json at its build script and instrumentation-client.ts at the guarded posthog.init block. The run did not record source line numbers.
+
+Run the test suite and update any affected mocks or fixtures; inspect the event-handler call sites in components/marketing/home/hero.tsx, components/marketing/home/contact-section.tsx, components/layouts/header.tsx, components/marketing/home/work-section.tsx, and components/marketing/home/calculator.tsx. The run did not record source line numbers.
+
+Set NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN and NEXT_PUBLIC_POSTHOG_HOST in every deployment environment; inspect their documented entries in .env.example. The run did not record source line numbers.
+
+In a real, non-automated browser session, exercise each action above and confirm the four events and their expected properties arrive in PostHog; inspect the corresponding capture call sites listed in the events table. The run did not record source line numbers.
+
+Trigger a safe uncaught browser error in a non-production verification environment and confirm it appears in Error Tracking; inspect instrumentation-client.ts at capture_exceptions: true. The run did not record source line numbers.
+
+If production ships minified browser bundles, configure source-map upload in CI so Error Tracking stack traces de-minify: https://posthog.com/docs/error-tracking/source-maps
