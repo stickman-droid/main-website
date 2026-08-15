@@ -124,7 +124,7 @@ export function FocusGridSection() {
               <h3 className="text-lg sm:text-2xl font-bold text-[#252525] tracking-tight">
                 {card.title}
               </h3>
-              <p className="text-[13px] sm:text-[15px] leading-relaxed text-[#252525] font-medium">
+              <p className="text-[13px] sm:text-[15px] leading-relaxed text-zinc-500 font-medium">
                 {card.desc}
               </p>
             </GlowCard>
