@@ -61,11 +61,11 @@ export function DashboardsPageView() {
               </Heading>
 
               <div className="flex flex-col items-center space-y-8">
-                <Text className="max-w-[680px] text-[13px] sm:text-[15px] text-[#252525] text-left">
+                <Text className="max-w-[680px] text-[18px] leading-relaxed text-zinc-500 font-medium text-left">
                   Dashboards aren&apos;t for admiring data. They&apos;re for humans making decisions, often fast and under pressure.
                   We cut the noise, surface what matters, and design every element to answer one question: what should I do next?
                 </Text>
-                <Text className="max-w-[680px] text-[13px] sm:text-[15px] text-[#252525] text-left">
+                <Text className="max-w-[680px] text-[18px] leading-relaxed text-zinc-500 font-medium text-left">
                   We align user needs with business goals so the interface doesn&apos;t just inform, it nudges action.
                   Less clutter, clearer thinking, better decisions and the kind of experience people actually come back to.
                 </Text>
