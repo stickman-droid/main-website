@@ -61,7 +61,7 @@ export function GapSection() {
 
           <div className="flex flex-col justify-center">
             <div
-              className="max-w-[480px] space-y-6 text-[15px] leading-relaxed font-normal text-[#252525]/80"
+              className="max-w-[480px] space-y-6 text-[15px] leading-relaxed text-zinc-500 font-medium"
               style={{ fontFamily: '"Inter", sans-serif' }}
             >
               <p className="gap-reveal">
