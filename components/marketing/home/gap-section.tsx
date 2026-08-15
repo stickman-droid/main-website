@@ -6,6 +6,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { useTrackVisualEngagement } from "@/analytics/hooks"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -39,7 +40,7 @@ export function GapSection() {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="flex w-full justify-center overflow-hidden bg-background py-8 sm:py-16">
+    <section ref={containerRef} data-analytics-section="home_gap" className="flex w-full justify-center overflow-hidden bg-background py-8 sm:py-16">
       <div className="flex w-full max-w-[950px] flex-col gap-5 px-6">
         <div className="gap-reveal mx-auto flex max-w-[720px] flex-col items-start gap-4 text-left w-full">
           <p className="text-[14px] font-mono font-bold tracking-[0.25em] text-[#8e8e8e] uppercase">
@@ -88,6 +89,10 @@ function BrokenBox() {
   const [isHovered, setIsHovered] = React.useState(false)
   const [isInView, setIsInView] = React.useState(false)
   const boxRef = React.useRef<HTMLDivElement>(null)
+  const trackVisualEngagement = useTrackVisualEngagement({
+    visualId: "broken_box",
+    sectionId: "home_gap",
+  })
 
   React.useEffect(() => {
     if (!boxRef.current) return
@@ -109,13 +114,19 @@ function BrokenBox() {
   // Auto-animate on mobile when in view, toggling every 2 seconds
   React.useEffect(() => {
     if (!isMobile || !isInView) return
+    trackVisualEngagement("auto_in_view")
 
     const interval = setInterval(() => {
       setIsHovered((prev) => !prev)
     }, 2000)
 
     return () => clearInterval(interval)
-  }, [isMobile, isInView])
+  }, [isMobile, isInView, trackVisualEngagement])
+
+  const handleDesktopEnter = () => {
+    setIsHovered(true)
+    trackVisualEngagement("hover")
+  }
 
   return (
     <div
@@ -124,7 +135,7 @@ function BrokenBox() {
         "relative flex h-[350px] w-[350px] items-center justify-center group select-none",
         isMobile ? "cursor-default" : "cursor-pointer"
       )}
-      onMouseEnter={isMobile ? undefined : () => setIsHovered(true)}
+      onMouseEnter={isMobile ? undefined : handleDesktopEnter}
       onMouseLeave={isMobile ? undefined : () => setIsHovered(false)}
       onTouchStart={isMobile ? undefined : () => setIsHovered(true)}
       onTouchEnd={isMobile ? undefined : () => setIsHovered(false)}
