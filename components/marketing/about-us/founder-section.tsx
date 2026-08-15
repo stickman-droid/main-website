@@ -69,7 +69,7 @@ export function FounderSection() {
           </div>
 
           {/* Content  */}
-          <div className="max-w-[820px] space-y-6 lg:space-y-8 text-left text-[16px] font-medium leading-relaxed text-[#252525] lg:text-[17px]">
+          <div className="max-w-[820px] space-y-6 lg:space-y-8 text-left text-[16px] font-medium leading-relaxed text-zinc-500 lg:text-[17px]">
             <p className="founder-paragraph">
               My name is Savio and I started my career in marketing before moving into design, which means I think about products from both sides. How they are built and how they need to perform in the real world.
             </p>

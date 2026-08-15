@@ -150,30 +150,40 @@ export function ProcessSection({
 
           {/* Steps Content Grid */}
           <div ref={cardsRef} className="relative z-10 grid grid-cols-2 gap-x-4 gap-y-6 px-0 sm:grid-cols-2 sm:gap-x-24 sm:gap-y-32 sm:px-4 lg:gap-x-48">
-            {steps.map((step, i) => (
-              <div
-                key={step.num}
-                data-analytics-card={`process_${step.num}_${step.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
-                className={`process-card flex flex-col space-y-3 rounded-[18px] bg-background p-3 sm:space-y-6 sm:rounded-none sm:bg-transparent sm:p-0 ${i % 2 === 1 ? "sm:items-start text-left" : "sm:items-start text-left"
-                  }`}
-                style={{ perspective: "1000px" }}
-              >
-                <div className="relative pb-2 sm:pb-0">
-                  <span
-                    className="block text-5xl leading-none font-black text-zinc-200 select-none sm:text-7xl"
-                    style={{ fontFamily: 'var(--font-mono, "Kode Mono", monospace)' }}
-                  >
-                    {step.num}
-                  </span>
-                  <h3 className="absolute bottom-[-14px] left-0 text-lg font-bold text-[#252525] sm:bottom-[-18px] sm:text-2xl lg:bottom-[-22px]">
-                    {step.title}
-                  </h3>
+            {steps.map((step, i) => {
+              const gridPlacement =
+                i === 0
+                  ? "col-start-1 row-start-1"
+                  : i === 1
+                  ? "col-start-2 row-start-1"
+                  : i === 2
+                  ? "col-start-2 row-start-2"
+                  : "col-start-1 row-start-2"
+
+              return (
+                <div
+                  key={step.num}
+                  data-analytics-card={`process_${step.num}_${step.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
+                  className={`process-card ${gridPlacement} flex flex-col space-y-3 rounded-[18px] bg-background p-3 sm:space-y-6 sm:rounded-none sm:bg-transparent sm:p-0 sm:items-start text-left`}
+                  style={{ perspective: "1000px" }}
+                >
+                  <div className="relative pb-2 sm:pb-0">
+                    <span
+                      className="block text-5xl leading-none font-black text-zinc-200 select-none sm:text-7xl"
+                      style={{ fontFamily: 'var(--font-mono, "Kode Mono", monospace)' }}
+                    >
+                      {step.num}
+                    </span>
+                    <h3 className="absolute bottom-[-14px] left-0 text-lg font-bold text-[#252525] sm:bottom-[-18px] sm:text-2xl lg:bottom-[-22px]">
+                      {step.title}
+                    </h3>
+                  </div>
+                  <p className="max-w-[340px] text-[13px] leading-relaxed text-zinc-500 font-medium sm:text-[15px]">
+                    {step.desc}
+                  </p>
                 </div>
-                <p className="max-w-[340px] text-[13px] leading-relaxed text-[#252525] sm:text-[15px]">
-                  {step.desc}
-                </p>
-              </div>
-            ))}
+              )
+            })}
           </div>
 
         </div>

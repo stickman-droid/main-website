@@ -86,7 +86,7 @@ export function OfferSection() {
                 <h3 className="text-2xl font-bold text-[#252525] transition-colors duration-300 group-hover:text-black">
                   {offer.title}
                 </h3>
-                <p className="font-sans text-[15px] font-normal leading-relaxed text-[#252525] transition-colors duration-300 group-hover:text-[#252525]">
+                <p className="font-sans text-[15px] leading-relaxed text-zinc-500 font-medium transition-colors duration-300">
                   {offer.description}
                 </p>
               </div>
@@ -96,7 +96,7 @@ export function OfferSection() {
 
         {/* Footer Text */}
         <div className="offer-reveal flex justify-center pt-4">
-          <p className="max-w-[450px] font-sans text-center text-sm font-medium text-[#8e8e8e] leading-relaxed">
+          <p className="max-w-[450px] font-sans text-center text-sm leading-relaxed text-zinc-500 font-medium">
             We don&apos;t do everything. We do two things with obsessive precision: The Flow and The View.
             We build onboarding that connects and dashboards that clarify.
             For teams ready to stop guessing and start scaling.

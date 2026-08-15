@@ -243,7 +243,7 @@ export function FocusSection() {
                 <h3 className="text-xl font-bold text-[#252525] tracking-tight">
                   {card.title}
                 </h3>
-                <p className="text-[15px] leading-relaxed text-[#252525] max-w-[480px]">
+                <p className="text-[15px] leading-relaxed text-zinc-500 font-medium max-w-[480px]">
                   {card.desc}
                 </p>
               </GlowCard>

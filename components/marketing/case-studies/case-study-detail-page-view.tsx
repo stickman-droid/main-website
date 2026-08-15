@@ -41,12 +41,48 @@ export type CaseStudy = {
   >;
 };
 
+function renderFormattedText(text?: string) {
+  if (!text) return null;
+  if (!text.includes("**")) return text;
+
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={index} className="font-bold text-[#1C1C1C]">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return part;
+  });
+}
+
 export function CaseStudyDetailPageView({
   caseStudy,
 }: {
   caseStudy: CaseStudy;
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const [selectedImage, setSelectedImage] = React.useState<{ src: string; alt: string } | null>(null);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedImage(null);
+      }
+    };
+
+    if (selectedImage) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [selectedImage]);
 
   useGSAP(() => {
     if (!containerRef.current) return;
@@ -131,18 +167,26 @@ export function CaseStudyDetailPageView({
         {/* Hero Image */}
         <div data-analytics-section="case_study_hero_image" className="reveal-item mb-20 -mx-3 overflow-hidden sm:-mx-8 lg:mx-0 xl:-mx-10">
           {caseStudy.heroImage.image ? (
-            <div className="relative aspect-[21/8] w-full rounded-[24px] bg-zinc-50">
+            <div
+              className="group cursor-zoom-in relative aspect-[21/8] w-full overflow-hidden bg-zinc-50"
+              onClick={() =>
+                setSelectedImage({
+                  src: caseStudy.heroImage.image!,
+                  alt: caseStudy.heroImage.title || caseStudy.title,
+                })
+              }
+            >
               <Image
                 src={caseStudy.heroImage.image}
                 alt={caseStudy.heroImage.title}
                 fill
                 sizes="100vw"
-                className="object-cover"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                 priority
               />
             </div>
           ) : (
-            <div className="flex aspect-[21/8] items-center justify-center rounded-[24px] bg-zinc-50">
+            <div className="flex aspect-[21/8] items-center justify-center bg-zinc-50">
               <span className="text-[11px] font-mono font-bold tracking-[0.2em] text-zinc-300 uppercase">
                 Hero Visual Placeholder
               </span>
@@ -169,20 +213,21 @@ export function CaseStudyDetailPageView({
                       </h2>
                     )}
                   </div>
-                  {block.points && block.points.length > 0 ? (
-                    <ul className="space-y-1 text-[16px] sm:text-[18px] leading-[1.6] text-[#252525] font-medium marker:text-[#8e8e8e] marker:text-sm marker:font-semibold">
-                      {block.points.map((point) => (
-                        <li key={point} className="list-disc">
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
+                  {block.description && (
                     <div
                       className="text-[16px] sm:text-[18px] leading-[1.7] text-[#252525] font-medium whitespace-pre-wrap"
                     >
-                      {block.description}
+                      {renderFormattedText(block.description)}
                     </div>
+                  )}
+                  {block.points && block.points.length > 0 && (
+                    <ul className="space-y-3 text-[16px] sm:text-[18px] leading-[1.6] text-[#252525] font-medium marker:text-[#8e8e8e] marker:text-sm marker:font-semibold pt-1">
+                      {block.points.map((point) => (
+                        <li key={point} className="list-disc pl-1">
+                          {renderFormattedText(point)}
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </section>
               );
@@ -190,19 +235,25 @@ export function CaseStudyDetailPageView({
 
             return (
               <section key={index} data-analytics-section={`case_study_block_${index + 1}`} className="reveal-item space-y-2">
-                <div className="overflow-hidden rounded-[20px]">
+                <div className="w-full overflow-hidden rounded-[20px]">
                   {block.image ? (
-                    <div className="relative aspect-[16/10] w-full">
-                      <Image
+                    <div
+                      className="group cursor-zoom-in overflow-hidden rounded-[20px] w-full"
+                      onClick={() =>
+                        setSelectedImage({
+                          src: block.image!,
+                          alt: block.title || block.caption || `${caseStudy.title} interface screenshot ${index + 1}`,
+                        })
+                      }
+                    >
+                      <img
                         src={block.image}
                         alt={
                           block.title ||
                           block.caption ||
                           `${caseStudy.title} interface screenshot ${index + 1}`
                         }
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 800px"
-                        className="object-contain"
+                        className="w-full h-auto rounded-[20px] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                       />
                     </div>
                   ) : (
@@ -226,6 +277,35 @@ export function CaseStudyDetailPageView({
           })}
         </div>
       </div>
+
+      {/* Lightbox / Modal for Body Content Images */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 sm:p-8 transition-all duration-300"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-6 right-6 z-50 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none"
+            aria-label="Close modal"
+          >
+            <svg className="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <div
+            className="relative max-w-full max-h-full flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={selectedImage.src}
+              alt={selectedImage.alt}
+              className="max-h-[85vh] max-w-[90vw] w-auto h-auto rounded-xl object-contain shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
     </article>
   );
 }

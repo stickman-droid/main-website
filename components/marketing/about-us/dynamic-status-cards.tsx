@@ -90,26 +90,26 @@ export function DynamicStatusCards() {
   }, [])
 
   return (
-    <div data-analytics-section="about_status_cards" className="grid grid-cols-2 gap-5 sm:gap-6 items-stretch lg:pl-4 xl:pl-0">
+    <div data-analytics-section="about_status_cards" className="flex flex-col gap-4 sm:gap-5 w-full">
       {/* Card 1: Headquarters */}
       <GlowCard
         radius={12}
         data-analytics-card="about_status_headquarters"
-        className="rounded-[22px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full sm:min-h-[150px]"
-        innerClassName="bg-background p-4 xl:p-6 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
+        className="rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full"
+        innerClassName="rounded-[11px] bg-background p-4 sm:p-5 lg:p-6 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
       >
-        <div className="space-y-3 sm:space-y-4">
+        <div className="space-y-2.5 sm:space-y-3">
           <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
             Headquarters
           </p>
           <div className="space-y-1">
-            <p className="text-[14px] sm:text-[16px] font-bold text-[#252525]">Goa, India</p>
-            <p className="text-2xl sm:text-4xl font-bold text-[#252525] tabular-nums tracking-tighter">
+            <p className="text-[14px] sm:text-[15px] font-bold text-[#252525]">Goa, India</p>
+            <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#252525] tabular-nums tracking-tighter">
               {time || "00:00:00"}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-[#252525] font-medium text-[12px] sm:text-[13px] pt-4">
+        <div className="flex items-center gap-2 text-[#252525] font-medium text-[12px] sm:text-[13px] pt-3">
           <Cloud className="size-4 text-[#8e8e8e]" />
           <span>{weather.temp}°C / Humidity: {weather.humidity}%</span>
         </div>
@@ -119,42 +119,41 @@ export function DynamicStatusCards() {
       <GlowCard
         radius={12}
         data-analytics-card="about_status_bandwidth"
-        className="rounded-[22px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full"
-        innerClassName="bg-background p-4 xl:p-6 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
+        className="rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full"
+        innerClassName="rounded-[11px] bg-background p-4 sm:p-5 lg:p-6 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
       >
-        <div className="space-y-4 sm:space-y-6">
+        <div className="space-y-3 sm:space-y-4">
           <p className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
             Work Bandwidth
           </p>
-          <div className="space-y-4">
-            <div className="space-y-1">
-              <p className="text-[14px] sm:text-[16px] font-bold text-[#252525]">Consumed Capacity</p>
-              <p className="text-2xl sm:text-4xl font-bold text-[#252525]">
+          <div className="space-y-2.5">
+            <p className="text-[14px] sm:text-[15px] font-bold text-[#252525]">Current Capacity</p>
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 sm:gap-6">
+              <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#252525] tabular-nums shrink-0">
                 {bandwidthPercentage.toFixed(2)}%
               </p>
-            </div>
-            {/* Custom Styled Progress Bar */}
-            <div className="w-full">
-              <div className="h-3 sm:h-4 w-full bg-[#EDEDED] overflow-hidden" style={{ borderRadius: '12px' }}>
-                <div
-                  className="h-full transition-all duration-300"
-                  style={{
-                    width: `${bandwidthPercentage}%`,
-                    borderRadius: '12px',
-                    background: 'linear-gradient(90deg, #3775E9 0%, #87B1FF 100%)'
-                  }}
-                />
+              {/* Custom Styled Progress Bar */}
+              <div className="flex-1 min-w-[140px]">
+                <div className="h-3 sm:h-3.5 w-full bg-[#EDEDED] overflow-hidden rounded-[12px]">
+                  <div
+                    className="h-full transition-all duration-300 rounded-[12px]"
+                    style={{
+                      width: `${bandwidthPercentage}%`,
+                      background: 'linear-gradient(90deg, #3775E9 0%, #87B1FF 100%)'
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex flex-col space-y-2 pt-4 sm:pt-6 border-t border-zinc-50 text-[11px] sm:text-[12px] font-medium text-[#252525]">
-          <div className="flex items-center justify-between">
-            <span>Active Engagements:</span>
+        <div className="flex flex-wrap items-center justify-between gap-1.5 sm:gap-0 pt-3 sm:pt-4 border-t border-zinc-50 text-[11px] sm:text-[12px] font-medium text-[#252525]">
+          <div>
+            <span>Active Engagements: </span>
             <span className="text-[#252525] font-bold">{activeEngagements} / 3</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span>Next Sprint:</span>
+          <div>
+            <span>Next Sprint: </span>
             <span className="text-[#252525] font-bold">{days} days</span>
           </div>
         </div>
