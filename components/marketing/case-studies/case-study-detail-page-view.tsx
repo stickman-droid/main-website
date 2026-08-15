@@ -104,7 +104,7 @@ export function CaseStudyDetailPageView({
       {/* Main article column */}
       <div className="mx-auto max-w-[1024px] px-6">
         {/* Centered Heading Section */}
-        <header className="reveal-item flex flex-col items-center text-center space-y-3 pt-2 pb-12 sm:pt-4 sm:pb-16">
+        <header data-analytics-section="case_study_header" className="reveal-item flex flex-col items-center text-center space-y-3 pt-2 pb-12 sm:pt-4 sm:pb-16">
           <p className="text-[11px] font-mono font-bold tracking-[0.3em] text-[#8e8e8e] uppercase">
             {caseStudy.heroImage.eyebrow}
           </p>
@@ -129,7 +129,7 @@ export function CaseStudyDetailPageView({
         </header>
 
         {/* Hero Image */}
-        <div className="reveal-item mb-20 -mx-3 overflow-hidden sm:-mx-8 lg:mx-0 xl:-mx-10">
+        <div data-analytics-section="case_study_hero_image" className="reveal-item mb-20 -mx-3 overflow-hidden sm:-mx-8 lg:mx-0 xl:-mx-10">
           {caseStudy.heroImage.image ? (
             <div className="relative aspect-[21/8] w-full rounded-[24px] bg-zinc-50">
               <Image
@@ -155,7 +155,7 @@ export function CaseStudyDetailPageView({
           {caseStudy.content.map((block, index) => {
             if (block.type === "description") {
               return (
-                <section key={index} className="reveal-item space-y-3">
+                <section key={index} data-analytics-section={`case_study_block_${index + 1}`} className="reveal-item space-y-3">
                   <div className="space-y-2">
                     <p className="text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase">
                       {block.subtitle}
@@ -189,7 +189,7 @@ export function CaseStudyDetailPageView({
             }
 
             return (
-              <section key={index} className="reveal-item space-y-2">
+              <section key={index} data-analytics-section={`case_study_block_${index + 1}`} className="reveal-item space-y-2">
                 <div className="overflow-hidden rounded-[20px]">
                   {block.image ? (
                     <div className="relative aspect-[16/10] w-full">
