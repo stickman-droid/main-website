@@ -60,7 +60,7 @@ export function Hero() {
               </h1>
 
               <p
-                className="hero-reveal mx-auto max-w-[520px] text-[15px] font-normal text-[#252525] sm:text-base lg:mx-0 lg:text-lg leading-relaxed"
+                className="hero-reveal mx-auto max-w-[520px] text-[15px] sm:text-base lg:mx-0 lg:text-lg leading-relaxed text-zinc-500 font-medium"
                 style={{ fontFamily: '"Inter", sans-serif' }}
               >
                 We help SaaS teams fix onboarding and dashboard experience problems
@@ -78,21 +78,14 @@ export function Hero() {
               >
                 Book Your Free Call
               </Link>
-              <Button
-                variant="outline"
-                size="lg"
-                nativeButton={false}
-                render={
-                  <Link
-                    href="/case-studies"
-                    onClick={() => posthog.capture("case_studies_listing_opened", { placement: "hero" })}
-                  />
-                }
-                className="flex h-[54px] gap-2 rounded-[6px] border border-[#D1D1D1] px-8 text-base font-semibold text-[#252525] transition-all hover:scale-[1.02] hover:bg-zinc-50 active:scale-[0.98]"
+              <Link
+                href="/case-studies"
+                onClick={() => posthog.capture("case_studies_listing_opened", { placement: "hero" })}
+                className="group inline-flex h-[54px] cursor-pointer items-center justify-center gap-2 rounded-[6px] border border-[#D1D1D1] bg-transparent px-8 text-base font-semibold text-[#252525] transition-all hover:scale-[1.02] hover:bg-[#3775E9] hover:text-white hover:border-[#3775E9] active:scale-[0.98]"
               >
-                See What We Made
-                <ChevronRight className="w-4 h-4" />
-              </Button>
+                <span>See What We Made</span>
+                <ChevronRight className="w-4 h-4 text-[#252525] transition-colors group-hover:text-white" />
+              </Link>
             </div>
           </div>
 
