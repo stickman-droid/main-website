@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTrackVisualEngagement } from "@/analytics/hooks"
 
 type Star = {
   x: number
@@ -33,6 +34,10 @@ function createStars(count: number, spreadX: number, spreadY: number, depth: num
 
 export function WarpField() {
   const canvasRef = React.useRef<HTMLCanvasElement>(null)
+  const trackVisualEngagement = useTrackVisualEngagement({
+    visualId: "dashboard_warp_field",
+    sectionId: "dashboards_hero",
+  })
 
   React.useEffect(() => {
     const canvas = canvasRef.current
@@ -164,6 +169,7 @@ export function WarpField() {
     }
 
     const onPointerDown = (event: PointerEvent) => {
+      trackVisualEngagement("pointer_down")
       canvas.setPointerCapture(event.pointerId)
       pointerDown = true
       pointerActive = true
@@ -173,6 +179,7 @@ export function WarpField() {
 
     const onPointerMove = (event: PointerEvent) => {
       if (!pointerDown) return
+      trackVisualEngagement("drag")
       const deltaX = event.clientX - lastPointerX
       lastPointerX = event.clientX
       // Clicking and dragging turns the animation left or right
@@ -190,6 +197,7 @@ export function WarpField() {
 
     const onWheel = (event: WheelEvent) => {
       if (!inView) return
+      trackVisualEngagement("wheel")
       // On scroll animation plays with speed of mousewheel
       const delta = Math.min(200, Math.abs(event.deltaY))
       targetSpeed = Math.max(targetSpeed, 15 + delta * 2.2)
@@ -234,7 +242,7 @@ export function WarpField() {
       canvas.removeEventListener("pointerleave", endPointer)
       window.removeEventListener("wheel", onWheel)
     }
-  }, [])
+  }, [trackVisualEngagement])
 
   return (
     <div className="pointer-events-auto absolute inset-0">

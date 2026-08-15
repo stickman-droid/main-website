@@ -14,6 +14,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { analyticsEvents } from "@/analytics/events";
+import { capture } from "@/analytics/capture";
 import { cn } from "@/lib/utils";
 import { OsmoUnderline } from "@/components/ui/osmo-underline";
 
@@ -61,6 +63,21 @@ export function Header() {
   const isActiveNavItem = (href: string) =>
     !isDesktopNavTransitioning && (pathname === href || pathname?.startsWith(`${href}/`));
 
+  const trackMobileMenuOpened = () => {
+    capture(analyticsEvents.mobileMenuOpened, {
+      nav_location: "mobile_bottom",
+    });
+  };
+
+  const trackMobileMenuClosed = (
+    method: "close_button" | "nav_click" | "cta_click"
+  ) => {
+    capture(analyticsEvents.mobileMenuClosed, {
+      method,
+      nav_location: "mobile_sheet",
+    });
+  };
+
   return (
     <>
       {/* Mobile top brand bar */}
@@ -107,7 +124,7 @@ export function Header() {
             />
           </Link>
 
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center gap-6 lg:flex">
             <nav className="flex items-center gap-4">
               {navItems.map((item) => (
                 item.external ? (
@@ -203,6 +220,7 @@ export function Header() {
                   <Button
                     variant="ghost"
                     size="icon"
+                    onClick={trackMobileMenuOpened}
                     className="size-10 shrink-0 text-[#252525] hover:bg-transparent"
                   />
                 }
@@ -227,6 +245,7 @@ export function Header() {
                         <Button
                           variant="ghost"
                           size="icon"
+                          onClick={() => trackMobileMenuClosed("close_button")}
                           className="text-[#252525] hover:bg-black/5 hover:text-[#1C1C1C]"
                         />
                       }
@@ -245,11 +264,13 @@ export function Header() {
                           item.external ? (
                             <a
                               href={item.href}
+                              onClick={() => trackMobileMenuClosed("nav_click")}
                               className="text-xl font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
                             />
                           ) : (
                             <Link
                               href={item.href}
+                              onClick={() => trackMobileMenuClosed("nav_click")}
                               className="text-xl font-medium text-[#252525] transition-colors hover:text-[#1C1C1C]"
                             />
                           )

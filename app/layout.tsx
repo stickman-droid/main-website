@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces, Kode_Mono } from "next/font/google";
 import { Footer } from "@/components/layouts/footer";
 import { Header } from "@/components/layouts/header";
+import { AnalyticsRoot } from "@/analytics/provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import {
   JsonLd,
@@ -119,6 +120,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col pb-28 lg:pb-0">
         <TooltipProvider>
+          <AnalyticsRoot />
           <Header />
           <main className="flex-1">
             <JsonLd data={[buildOrganizationJsonLd(), buildWebsiteJsonLd()]} />

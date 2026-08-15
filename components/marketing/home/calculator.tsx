@@ -22,6 +22,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { useTrackCalculator } from "@/analytics/hooks"
 
 export function Calculator() {
   const [users, setUsers] = React.useState<readonly number[] | number>([1700])
@@ -39,6 +40,47 @@ export function Calculator() {
   const dropoffVal = getVal(dropoff)
 
   const annualLoss = (usersVal * (dropoffVal / 100)) * crcVal * 12
+  const {
+    ref: analyticsRef,
+    trackInputChange,
+    trackTooltipOpened,
+    trackPopoverOpened,
+  } = useTrackCalculator({
+    users: usersVal,
+    cac: crcVal,
+    dropoff: dropoffVal,
+    annualLoss,
+  })
+
+  const buildCalculatorState = (
+    nextUsers = usersVal,
+    nextCac = crcVal,
+    nextDropoff = dropoffVal
+  ) => ({
+    users: nextUsers,
+    cac: nextCac,
+    dropoff: nextDropoff,
+    annual_loss: (nextUsers * (nextDropoff / 100)) * nextCac * 12,
+  })
+
+  const handleUsersChange = (value: readonly number[] | number) => {
+    const nextUsers = getVal(value)
+    setUsers(value)
+    trackInputChange("monthly_signups", nextUsers, buildCalculatorState(nextUsers))
+  }
+
+  const handleCacChange = (value: readonly number[] | number) => {
+    const nextCac = getVal(value)
+    setCrc(value)
+    trackInputChange("acquisition_cost", nextCac, buildCalculatorState(usersVal, nextCac))
+  }
+
+  const handleDropoffChange = (value: readonly number[] | number) => {
+    const nextDropoff = getVal(value)
+    setDropoff(value)
+    trackInputChange("dropoff_rate", nextDropoff, buildCalculatorState(usersVal, crcVal, nextDropoff))
+  }
+
   const chartMax = React.useMemo(() => {
     const rawMax = Math.max(annualLoss, 1000)
     const magnitude = 10 ** Math.floor(Math.log10(rawMax))
@@ -92,7 +134,7 @@ export function Calculator() {
   }
 
   return (
-    <Card className="h-[470px] w-full max-w-[400px] overflow-visible rounded-2xl border-none bg-background shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] transition-all duration-700 hover:shadow-[0_48px_80px_-20px_rgba(0,0,0,0.15)]">
+    <Card ref={analyticsRef} className="h-[470px] w-full max-w-[400px] overflow-visible rounded-2xl border-none bg-background shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] transition-all duration-700 hover:shadow-[0_48px_80px_-20px_rgba(0,0,0,0.15)]">
       <CardContent className="flex h-full flex-col px-8 py-2">
         <div className="flex justify-between items-start">
           <div className="space-y-1">
@@ -110,7 +152,10 @@ export function Calculator() {
           <div className="hidden md:block">
             <TooltipProvider delay={0}>
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger
+                  onFocus={trackTooltipOpened}
+                  onPointerEnter={trackTooltipOpened}
+                >
                   <div className="p-1 rounded-full cursor-help hover:bg-zinc-50 transition-colors">
                     <div className="w-5 h-5 rounded-full border border-blue-500 flex items-center justify-center text-blue-500 text-[10px] font-bold">i</div>
                   </div>
@@ -130,7 +175,10 @@ export function Calculator() {
           {/* Mobile Popover */}
           <div className="md:hidden">
             <Popover>
-              <PopoverTrigger className="p-1 rounded-full cursor-help hover:bg-zinc-50 transition-colors border-none bg-transparent outline-none focus:outline-none touch-manipulation">
+              <PopoverTrigger
+                className="p-1 rounded-full cursor-help hover:bg-zinc-50 transition-colors border-none bg-transparent outline-none focus:outline-none touch-manipulation"
+                onClick={trackPopoverOpened}
+              >
                 <div className="w-5 h-5 rounded-full border border-blue-500 flex items-center justify-center text-blue-500 text-[10px] font-bold">i</div>
               </PopoverTrigger>
               <PopoverContent

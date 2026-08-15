@@ -3,7 +3,7 @@ import { DynamicStatusCards } from "./dynamic-status-cards"
 
 export function AboutUsHero() {
   return (
-    <section className="relative w-full overflow-hidden bg-background py-6 lg:py-14">
+    <section data-analytics-section="about_hero" className="relative w-full overflow-hidden bg-background py-6 lg:py-14">
       <div className="mx-auto w-full px-6 lg:px-12 xl:px-[80px]">
         {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase mb-14">

@@ -7,7 +7,7 @@ import { CaseStudiesClient } from "./case-studies-client";
 export function CaseStudiesPageView() {
   return (
     <CaseStudiesClient>
-      <section className="w-full py-8 sm:py-10 lg:py-12">
+      <section data-analytics-section="case_studies_hero" className="w-full py-8 sm:py-10 lg:py-12">
         <div className="mx-auto w-full px-6 lg:px-12 xl:px-20">
           <div className="flex items-center justify-start gap-1.5 text-left text-[11px] font-mono font-bold tracking-[0.2em] text-[#8e8e8e] uppercase">
             <span>Home</span>
@@ -28,13 +28,14 @@ export function CaseStudiesPageView() {
         </div>
       </section>
 
-      <section className="overflow-x-clip pb-16 sm:pb-20 lg:pb-0 xl:pb-8">
+      <section data-analytics-section="case_studies_grid" className="overflow-x-clip pb-16 sm:pb-20 lg:pb-0 xl:pb-8">
         <div className="mx-auto w-full px-6 lg:px-12 xl:px-20">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12 xl:mx-auto xl:max-w-[1080px] xl:gap-8">
             {[...caseStudies].reverse().map((caseStudy) => (
               <Link
                 key={caseStudy.slug}
                 href={`/case-studies/${caseStudy.slug}`}
+                data-analytics-card={`case_study_${caseStudy.slug}`}
                 className="case-study-card opacity-0 group relative overflow-hidden rounded-[24px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(0,0,0,0.18)] bg-zinc-50"
               >
                 {/* Image Container */}

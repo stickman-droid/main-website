@@ -36,7 +36,7 @@ import { Heading, Text, Mono } from "@/components/ui/typography"
 export function DashboardsPageView() {
   return (
     <main className="relative min-h-screen bg-background">
-      <section className="relative w-full overflow-hidden py-8 xl:min-h-[90vh]">
+      <section data-analytics-section="dashboards_hero" className="relative w-full overflow-hidden py-8 xl:min-h-[90vh]">
         <WarpField />
 
         <div className="pointer-events-none relative z-10 flex h-full flex-col px-4 pt-4 sm:px-6 lg:px-[48px] xl:px-[80px]">

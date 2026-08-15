@@ -90,10 +90,11 @@ export function DynamicStatusCards() {
   }, [])
 
   return (
-    <div className="grid grid-cols-2 gap-5 sm:gap-6 items-stretch lg:pl-4 xl:pl-0">
+    <div data-analytics-section="about_status_cards" className="grid grid-cols-2 gap-5 sm:gap-6 items-stretch lg:pl-4 xl:pl-0">
       {/* Card 1: Headquarters */}
       <GlowCard
         radius={12}
+        data-analytics-card="about_status_headquarters"
         className="rounded-[22px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full sm:min-h-[150px]"
         innerClassName="bg-background p-4 xl:p-6 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
       >
@@ -117,6 +118,7 @@ export function DynamicStatusCards() {
       {/* Card 2: Work Bandwidth */}
       <GlowCard
         radius={12}
+        data-analytics-card="about_status_bandwidth"
         className="rounded-[22px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300 h-full"
         innerClassName="bg-background p-4 xl:p-6 shadow-[0_8px_32px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between h-full"
       >
