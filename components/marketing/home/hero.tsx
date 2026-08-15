@@ -42,8 +42,8 @@ export function Hero() {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="relative flex min-h-[calc(100dvh-81px)] w-full items-center justify-center overflow-hidden bg-background lg:h-[calc(100dvh-81px)] lg:min-h-0">
-      <InteractiveDotGrid className="pointer-events-none absolute inset-0 z-0" />
+    <section ref={containerRef} data-analytics-section="home_hero" className="relative flex min-h-[calc(100dvh-81px)] w-full items-center justify-center overflow-hidden bg-background lg:h-[calc(100dvh-81px)] lg:min-h-0">
+      <InteractiveDotGrid className="hero-background pointer-events-none absolute inset-0 z-0" />
 
       <div className="relative z-10 mx-auto flex w-full lg:max-w-7xl xl:max-w-[900px] items-center justify-center px-6 py-12 sm:px-12 lg:py-0">
         <div className="grid w-full grid-cols-1 items-center justify-center gap-12 lg:grid-cols-[1.2fr_0.8fr] xl:grid-cols-[580px_400px] lg:gap-16 xl:gap-14">
