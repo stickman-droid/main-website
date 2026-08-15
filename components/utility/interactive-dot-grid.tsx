@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTrackVisualEngagement } from "@/analytics/hooks";
 
 type Dot = {
   baseX: number;
@@ -16,6 +17,8 @@ type Dot = {
 
 type InteractiveDotGridProps = {
   className?: string;
+  sectionId?: string;
+  visualId?: string;
 };
 
 const MAX_DOT_PUSH = 16;
@@ -23,8 +26,11 @@ const INFLUENCE_RADIUS = 120;
 
 export function InteractiveDotGrid({
   className,
+  sectionId = "home_hero",
+  visualId = "home_hero_dot_grid",
 }: InteractiveDotGridProps) {
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
+  const trackVisualEngagement = useTrackVisualEngagement({ sectionId, visualId });
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -110,6 +116,7 @@ export function InteractiveDotGrid({
     };
 
     const onPointerMove = (event: PointerEvent) => {
+      trackVisualEngagement("pointer_move");
       updatePointer(event.clientX, event.clientY);
     };
 
@@ -169,7 +176,7 @@ export function InteractiveDotGrid({
       parent.removeEventListener("pointermove", onPointerMove);
       parent.removeEventListener("pointerleave", onPointerLeave);
     };
-  }, []);
+  }, [trackVisualEngagement]);
 
   return (
     <canvas
