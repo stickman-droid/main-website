@@ -202,7 +202,7 @@ export function WorkSection({ category }: WorkSectionProps) {
   }, { scope: containerRef, dependencies: [projects] })
 
   return (
-    <section ref={containerRef} className="relative min-h-screen w-full bg-background pt-12 sm:pt-6 -mb-16 sm:-mb-28">
+    <section ref={containerRef} data-analytics-section="selected_work" className="relative min-h-screen w-full bg-background pt-12 sm:pt-6 -mb-16 sm:-mb-28">
       <div className="work-header mx-auto flex w-full max-w-[820px] flex-col items-center gap-3 px-6 text-center sm:px-8">
         <Mono className="text-[14px] font-bold tracking-[0.25em] text-[#8e8e8e] uppercase">
           Selected Work
@@ -246,6 +246,7 @@ export function WorkSection({ category }: WorkSectionProps) {
                   <Link
                     key={project.id}
                     href={`/case-studies/${project.slug}`}
+                    data-analytics-card={`case_study_${project.slug}`}
                     className="project-card group relative block w-full max-w-[340px] h-[300px] xs:w-[360px] xs:h-[320px] md:max-w-[420px] md:h-[340px] xl:max-w-[480px] xl:h-[380px] overflow-hidden rounded-[22px] border border-white shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 hover:shadow-[0_30px_60px_rgba(0,0,0,0.45)] transition-all duration-300 bg-[#1e1e1e]"
                   >
                     {/* Full-bleed image */}
