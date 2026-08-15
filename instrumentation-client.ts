@@ -1,20 +1,25 @@
-import posthog from "posthog-js";
+import posthog from "posthog-js"
 
-if (
-  typeof window !== "undefined" &&
-  process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN
-) {
-  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN, {
-    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com",
-    defaults: "2026-05-30",
-    capture_pageview: false,
+const projectToken = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN
+const host = process.env.NEXT_PUBLIC_POSTHOG_HOST
+
+if (!projectToken) {
+  if (process.env.NODE_ENV === "development") {
+    throw new Error(
+      "NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN is configured"
+    )
+  }
+} else if (!host) {
+  if (process.env.NODE_ENV === "development") {
+    throw new Error(
+      "NEXT_PUBLIC_POSTHOG_HOST variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once NEXT_PUBLIC_POSTHOG_HOST is configured"
+    )
+  }
+} else {
+  posthog.init(projectToken, {
+    api_host: host,
+    defaults: "2026-01-30",
     capture_exceptions: true,
-    autocapture: true,
-    person_profiles: "identified_only",
-    loaded: (posthogInstance) => {
-      if (process.env.NODE_ENV === "development") {
-        posthogInstance.debug();
-      }
-    },
-  });
+    debug: process.env.NODE_ENV === "development",
+  })
 }

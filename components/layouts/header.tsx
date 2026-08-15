@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import posthog from "posthog-js";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
@@ -155,7 +156,8 @@ export function Header() {
               href="https://cal.eu/savio"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-9 cursor-pointer items-center justify-center rounded-[6px] bg-[#1C1C1C] px-5 text-sm font-medium text-white transition-colors hover:bg-[#3775E9]"
+              onClick={() => posthog.capture("consultation_booking_started", { placement: "header" })}
+              className="ml-2 inline-flex h-9 cursor-pointer items-center justify-center rounded-[6px] bg-[#1C1C1C] px-5 text-sm font-medium text-white transition-colors hover:bg-[#3775E9]"
             >
               Book Your Free Call
             </Link>
@@ -285,7 +287,7 @@ export function Header() {
                           href="https://cal.eu/savio"
                           target="_blank"
                           rel="noreferrer"
-                          onClick={() => trackMobileMenuClosed("cta_click")}
+                          onClick={() => posthog.capture("consultation_booking_started", { placement: "mobile_menu" })}
                           className="mt-2 inline-flex h-9 min-w-[220px] cursor-pointer items-center justify-center rounded-[6px] bg-[#1C1C1C] px-8 text-sm font-medium text-white transition-colors hover:bg-[#3775E9]"
                         />
                       }

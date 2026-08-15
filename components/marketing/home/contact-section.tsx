@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import posthog from "posthog-js"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
@@ -85,6 +86,7 @@ export function ContactSection() {
                 href="https://cal.eu/savio"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => posthog.capture("consultation_booking_started", { placement: "contact_section" })}
                 className="inline-flex h-[48px] cursor-pointer items-center justify-center rounded-[6px] bg-zinc-900 px-6 text-base font-semibold text-zinc-100 shadow-xl shadow-zinc-900/10 transition-all hover:scale-[1.02] hover:bg-[#3775E9] active:scale-[0.98]"
               >
                 Book Your Free Call
