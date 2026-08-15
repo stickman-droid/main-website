@@ -71,7 +71,7 @@ export function PhilosophySection() {
           >
             What we believe is who we are
           </h2>
-          <p className="max-w-[720px] text-[15px] lg:text-[17px] leading-relaxed text-[#252525] font-medium pt-1">
+          <p className="max-w-[720px] text-[15px] lg:text-[17px] leading-relaxed text-zinc-500 font-medium pt-1">
             Our work isn&apos;t driven by trends; it&apos;s driven by a few core convictions about how people and software should interact.
             We don&apos;t just &quot;design screens&quot;, we build the bridge between a user&apos;s intent and your product&apos;s value.
           </p>
@@ -90,7 +90,7 @@ export function PhilosophySection() {
               <h3 className="text-xl font-bold leading-snug tracking-tight text-[#252525] lg:text-2xl">
                 {item.title}
               </h3>
-              <p className="text-[14px] font-medium leading-relaxed text-[#252525] lg:text-[16px]">
+              <p className="text-[14px] font-medium leading-relaxed text-zinc-500 lg:text-[16px]">
                 {item.desc}
               </p>
             </GlowCard>
