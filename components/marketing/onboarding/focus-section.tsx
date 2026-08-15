@@ -6,6 +6,7 @@ import { GlowCard } from "@/components/ui/glow-card"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
+import { useTrackVisualEngagement } from "@/analytics/hooks"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -36,6 +37,10 @@ export function FocusSection() {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const cardsRef = React.useRef<HTMLDivElement>(null)
   const imagesRef = React.useRef<HTMLDivElement>(null)
+  const trackFocusCardEngagement = useTrackVisualEngagement({
+    visualId: "onboarding_focus_cards",
+    sectionId: "onboarding_focus",
+  })
 
   useGSAP(() => {
     if (!containerRef.current) return
@@ -129,7 +134,7 @@ export function FocusSection() {
   }, { scope: containerRef })
 
   return (
-    <section ref={containerRef} className="relative w-full bg-background pt-4 pb-12 sm:py-12 overflow-hidden">
+    <section ref={containerRef} data-analytics-section="onboarding_focus" className="relative w-full bg-background pt-4 pb-12 sm:py-12 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header Section */}
         <div className="mb-4 flex flex-col items-center text-center space-y-4 lg:items-start lg:text-left max-w-[640px] mx-auto lg:mx-0">
@@ -221,13 +226,18 @@ export function FocusSection() {
             {focusCards.map((card, i) => (
               <GlowCard
                 key={i}
+                data-analytics-card={`onboarding_focus_${card.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
                 className="focus-card rounded-[12px] border border-[#E0E0E0] bg-zinc-100/50 p-[1.5px] transition-all duration-300"
                 innerClassName="bg-background px-5 py-4 flex flex-col space-y-1"
                 onPointerMove={(e) => {
-                  const card = e.currentTarget
-                  const rect = card.getBoundingClientRect()
-                  card.style.setProperty("--x", `${e.clientX - rect.left}px`)
-                  card.style.setProperty("--y", `${e.clientY - rect.top}px`)
+                  trackFocusCardEngagement("card_pointer_move", {
+                    card_title: card.title,
+                    card_position: i + 1,
+                  })
+                  const cardElement = e.currentTarget
+                  const rect = cardElement.getBoundingClientRect()
+                  cardElement.style.setProperty("--x", `${e.clientX - rect.left}px`)
+                  cardElement.style.setProperty("--y", `${e.clientY - rect.top}px`)
                 }}
               >
                 <h3 className="text-xl font-bold text-[#252525] tracking-tight">
