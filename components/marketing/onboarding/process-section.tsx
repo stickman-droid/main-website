@@ -91,8 +91,12 @@ export function ProcessSection({
     return () => mm.revert()
   }, { scope: containerRef })
 
+  const sectionId = title.toLowerCase().includes("dashboard") || title.toLowerCase().includes("clean execution")
+    ? "dashboards_process"
+    : "onboarding_process";
+
   return (
-    <section ref={containerRef} className="relative w-full overflow-hidden bg-background py-16 sm:py-32">
+    <section ref={containerRef} data-analytics-section={sectionId} className="relative w-full overflow-hidden bg-background py-16 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 sm:px-12">
         {/* Header */}
         <div className="mb-10 flex flex-col items-center space-y-4 text-center sm:mb-20">
@@ -149,6 +153,7 @@ export function ProcessSection({
             {steps.map((step, i) => (
               <div
                 key={step.num}
+                data-analytics-card={`process_${step.num}_${step.title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}`}
                 className={`process-card flex flex-col space-y-3 rounded-[18px] bg-background p-3 sm:space-y-6 sm:rounded-none sm:bg-transparent sm:p-0 ${i % 2 === 1 ? "sm:items-start text-left" : "sm:items-start text-left"
                   }`}
                 style={{ perspective: "1000px" }}
