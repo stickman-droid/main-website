@@ -203,7 +203,7 @@ export function WorkSection({ category }: WorkSectionProps) {
   }, { scope: containerRef, dependencies: [projects] })
 
   return (
-    <section ref={containerRef} data-analytics-section="selected_work" className="relative min-h-screen w-full bg-background pt-12 sm:pt-6 -mb-16 sm:-mb-28">
+    <section ref={containerRef} data-analytics-section="selected_work" className="relative min-h-screen w-full bg-background pt-0 sm:pt-6 -mb-16 sm:-mb-28">
       <div className="work-header mx-auto flex w-full max-w-[820px] flex-col items-center gap-3 px-6 text-center sm:px-8">
         <Mono className="text-[14px] font-bold tracking-[0.25em] text-[#8e8e8e] uppercase">
           Selected Work

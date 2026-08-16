@@ -66,6 +66,8 @@ export function WarpField() {
     let pointerActive = false
     let lastPointerX = 0
     let wheelTimeout = 0
+    let lastTouchY = 0
+    let touchScrollTimeout = 0
 
     let bgStars: Star[] = []
     let stars: Star[] = []
@@ -211,6 +213,29 @@ export function WarpField() {
       }, 180)
     }
 
+    const onTouchStart = (event: TouchEvent) => {
+      if (event.touches.length > 0) {
+        lastTouchY = event.touches[0]!.clientY
+      }
+    }
+
+    const onTouchMove = (event: TouchEvent) => {
+      if (!inView || event.touches.length === 0) return
+      const currentY = event.touches[0]!.clientY
+      const deltaY = Math.abs(lastTouchY - currentY)
+      lastTouchY = currentY
+      // Mirror wheel behaviour: boost targetSpeed proportional to swipe velocity
+      const delta = Math.min(200, deltaY * 3)
+      if (delta > 1) {
+        targetSpeed = Math.max(targetSpeed, 15 + delta * 2.2)
+        pointerActive = true
+        window.clearTimeout(touchScrollTimeout)
+        touchScrollTimeout = window.setTimeout(() => {
+          pointerActive = false
+        }, 300)
+      }
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         inView = entry?.isIntersecting ?? false
@@ -231,10 +256,13 @@ export function WarpField() {
     canvas.addEventListener("pointercancel", endPointer)
     canvas.addEventListener("pointerleave", endPointer)
     window.addEventListener("wheel", onWheel, { passive: true })
+    window.addEventListener("touchstart", onTouchStart, { passive: true })
+    window.addEventListener("touchmove", onTouchMove, { passive: true })
 
     return () => {
       window.cancelAnimationFrame(raf)
       window.clearTimeout(wheelTimeout)
+      window.clearTimeout(touchScrollTimeout)
       resizeObserver.disconnect()
       observer.disconnect()
       canvas.removeEventListener("pointerdown", onPointerDown)
@@ -243,6 +271,8 @@ export function WarpField() {
       canvas.removeEventListener("pointercancel", endPointer)
       canvas.removeEventListener("pointerleave", endPointer)
       window.removeEventListener("wheel", onWheel)
+      window.removeEventListener("touchstart", onTouchStart)
+      window.removeEventListener("touchmove", onTouchMove)
     }
   }, [trackVisualEngagement])
 
