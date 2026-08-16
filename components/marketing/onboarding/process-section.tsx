@@ -153,12 +153,12 @@ export function ProcessSection({
             {steps.map((step, i) => {
               const gridPlacement =
                 i === 0
-                  ? "col-start-1 row-start-1"
+                  ? "sm:order-1"
                   : i === 1
-                  ? "col-start-2 row-start-1"
+                  ? "sm:order-2"
                   : i === 2
-                  ? "col-start-2 row-start-2"
-                  : "col-start-1 row-start-2"
+                  ? "sm:order-4"
+                  : "sm:order-3"
 
               return (
                 <div
