@@ -128,9 +128,20 @@ export function WorkSection({ category }: WorkSectionProps) {
       {
         y: () => {
           const H = panelRef.current?.offsetHeight || window.innerHeight
+          const W = window.innerWidth
+          const isMobile = W < 640
           const firstCard = track.querySelector(".project-card")
+          const firstCardTop = firstCard ? (firstCard as HTMLElement).offsetTop : 0
+
+          if (isMobile) {
+            // On mobile: align first card near the top of the visible dark box
+            const boxH = H * 0.75
+            const topInset = (H - boxH) / 2
+            return topInset + 20 - firstCardTop
+          }
+
           const firstRowCenter = firstCard
-            ? (firstCard as HTMLElement).offsetTop + ((firstCard as HTMLElement).offsetHeight / 2)
+            ? firstCardTop + ((firstCard as HTMLElement).offsetHeight / 2)
             : 200
           return (H / 2) - firstRowCenter
         }
@@ -149,6 +160,7 @@ export function WorkSection({ category }: WorkSectionProps) {
       },
       0.5
     )
+
 
     // Reveal next set of cards in the middle of scroll
     if (cards[2] || cards[3]) {
