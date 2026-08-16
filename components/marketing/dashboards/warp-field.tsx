@@ -169,6 +169,8 @@ export function WarpField() {
     }
 
     const onPointerDown = (event: PointerEvent) => {
+      // Skip touch events so native scroll is not interrupted on mobile
+      if (event.pointerType === "touch") return
       trackVisualEngagement("pointer_down")
       canvas.setPointerCapture(event.pointerId)
       pointerDown = true
