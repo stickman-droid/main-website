@@ -251,7 +251,7 @@ export function WarpField() {
       <canvas
         ref={canvasRef}
         aria-hidden="true"
-        className="h-full w-full touch-none"
+        className="h-full w-full"
       />
     </div>
   )
