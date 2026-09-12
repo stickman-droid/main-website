@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces, Kode_Mono } from "next/font/google";
 import { Footer } from "@/components/layouts/footer";
 import { Header } from "@/components/layouts/header";
+import { CookieBanner } from "@/components/layouts/cookie-banner";
 import { AnalyticsRoot } from "@/analytics/provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import {
@@ -127,6 +128,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <CookieBanner />
         </TooltipProvider>
       </body>
     </html>
