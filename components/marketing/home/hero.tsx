@@ -5,7 +5,6 @@ import Link from "next/link"
 import posthog from "posthog-js"
 import { Calculator } from "./calculator"
 import { InteractiveDotGrid } from "@/components/utility/interactive-dot-grid"
-import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -13,13 +12,23 @@ import { useGSAP } from "@gsap/react"
 
 gsap.registerPlugin(ScrollTrigger)
 
+const heroRevealClass =
+  "hero-reveal opacity-0 translate-y-6 blur-sm [will-change:opacity,transform,filter]"
+
 export function Hero() {
   const containerRef = React.useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
     if (!containerRef.current) return
 
-    const revealItems = gsap.utils.toArray<HTMLElement>(".hero-reveal")
+    const revealItems = gsap.utils.toArray<HTMLElement>(
+      containerRef.current.querySelectorAll(".hero-reveal")
+    )
+
+    if (revealItems.length === 0) {
+      window.dispatchEvent(new Event("stickman:home-hero-revealed"))
+      return
+    }
 
     revealItems.forEach((item, index) => {
       gsap.fromTo(
@@ -36,7 +45,12 @@ export function Hero() {
             trigger: item,
             start: "top 95%",
             once: true,
-          }
+          },
+          onComplete: () => {
+            if (index === revealItems.length - 1) {
+              window.dispatchEvent(new Event("stickman:home-hero-revealed"))
+            }
+          },
         }
       )
     })
@@ -53,14 +67,14 @@ export function Hero() {
           <div className="order-1 flex w-full max-w-[580px] flex-col justify-center space-y-8 text-center lg:h-[270px] lg:text-left">
             <div className="space-y-5">
               <h1
-                className="hero-reveal text-[50px] lg:text-[56px] leading-[1.02] font-bold tracking-tight text-[#252525]"
+                className={`${heroRevealClass} text-[50px] lg:text-[56px] leading-[1.02] font-bold tracking-tight text-[#252525]`}
                 style={{ fontFamily: '"Fraunces", serif' }}
               >
                 Design With Purpose For Human Intelligence
               </h1>
 
               <p
-                className="hero-reveal mx-auto max-w-[520px] text-[15px] sm:text-base lg:mx-0 lg:text-lg leading-relaxed text-zinc-500 font-medium"
+                className={`${heroRevealClass} mx-auto max-w-[520px] text-[15px] sm:text-base lg:mx-0 lg:text-lg leading-relaxed text-zinc-500 font-medium`}
                 style={{ fontFamily: '"Inter", sans-serif' }}
               >
                 We help SaaS teams fix onboarding and dashboard experience problems
@@ -68,7 +82,7 @@ export function Hero() {
               </p>
             </div>
 
-            <div className="hero-reveal flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+            <div className={`${heroRevealClass} flex flex-col justify-center gap-4 sm:flex-row lg:justify-start`}>
               <Link
                 href="https://cal.eu/savio"
                 target="_blank"
@@ -90,7 +104,7 @@ export function Hero() {
           </div>
 
           {/* Right Content: Calculator */}
-          <div className="hero-reveal order-2 flex items-center justify-center">
+          <div className={`${heroRevealClass} order-2 flex items-center justify-center`}>
             <div className="relative w-full max-w-[400px]">
               <div className="absolute -inset-4 bg-zinc-100/50 rounded-[2.5rem] blur-2xl -z-10" />
               <Calculator />
