@@ -5,6 +5,10 @@ import { Cloud } from "lucide-react"
 import { GlowCard } from "@/components/ui/glow-card"
 
 const SPRINT_LENGTH_DAYS = 14
+const MAX_ENGAGEMENTS = 3
+// Most engagements we ever run at once — new clients sign on at the start
+// of a sprint, then we wind engagements down as it closes out.
+const PEAK_ACTIVE_ENGAGEMENTS = 2
 
 function getSprintMetrics(now: Date) {
   const dayPart = new Intl.DateTimeFormat("en-GB", {
@@ -17,8 +21,13 @@ function getSprintMetrics(now: Date) {
   const dayIndex = (dayOfMonth - 1) % SPRINT_LENGTH_DAYS
   const daysRemaining = Math.max(1, SPRINT_LENGTH_DAYS - dayIndex)
 
-  const activeEngagements = daysRemaining > 6 ? 2 : 1
-  const bandwidthPercentage = (daysRemaining / SPRINT_LENGTH_DAYS) * 100
+  const activeEngagements = daysRemaining > 6 ? PEAK_ACTIVE_ENGAGEMENTS : PEAK_ACTIVE_ENGAGEMENTS - 1
+  // Capacity is active engagements out of the full MAX_ENGAGEMENTS slots
+  // (so it never reaches 100%, since we never fill all MAX_ENGAGEMENTS slots),
+  // scaled down further by how much of the sprint is left — it ticks down
+  // daily even while activeEngagements holds steady within a phase.
+  const bandwidthPercentage =
+    (activeEngagements / MAX_ENGAGEMENTS) * (daysRemaining / SPRINT_LENGTH_DAYS) * 100
 
   return {
     daysRemaining,
@@ -30,8 +39,10 @@ function getSprintMetrics(now: Date) {
 export function DynamicStatusCards() {
   const [time, setTime] = React.useState("")
   const [days, setDays] = React.useState(14)
-  const [activeEngagements, setActiveEngagements] = React.useState(2)
-  const [bandwidthPercentage, setBandwidthPercentage] = React.useState(100)
+  const [activeEngagements, setActiveEngagements] = React.useState(PEAK_ACTIVE_ENGAGEMENTS)
+  const [bandwidthPercentage, setBandwidthPercentage] = React.useState(
+    (PEAK_ACTIVE_ENGAGEMENTS / MAX_ENGAGEMENTS) * 100
+  )
   const [weather, setWeather] = React.useState({ temp: 29, humidity: 69 })
 
   React.useEffect(() => {
@@ -150,7 +161,7 @@ export function DynamicStatusCards() {
         <div className="flex flex-wrap items-center justify-between gap-1.5 sm:gap-0 pt-3 sm:pt-4 border-t border-zinc-50 text-[11px] sm:text-[12px] font-medium text-[#252525]">
           <div>
             <span>Active Engagements: </span>
-            <span className="text-[#252525] font-bold">{activeEngagements} / 3</span>
+            <span className="text-[#252525] font-bold">{activeEngagements} / {MAX_ENGAGEMENTS}</span>
           </div>
           <div>
             <span>Next Sprint: </span>

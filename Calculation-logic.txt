@@ -1,0 +1,26 @@
+How "Current Capacity" is worked out:
+
+  Think of it as two things multiplied together:
+
+  1. How busy we are (engagement load)
+  We can run at most 2 active client engagements out of 3 possible slots at a time. So being at our busiest gives us a "load score" of 2 out of 3 (about
+  67%).
+
+  2. How much of the sprint is left
+  Each sprint runs 14 days. If there are 9 days left, that's 9 out of 14 of the sprint remaining (about 64%).
+
+  Multiply the two together:
+  "How busy we are" × "How much sprint time is left" = Current Capacity
+
+  Example — 2 active engagements, 9 days left in the sprint:
+  - Busy score: 2 out of 3 ≈ 67%
+  - Time-left score: 9 out of 14 ≈ 64%
+  - 67% × 64% ≈ 43% capacity
+
+  Why it's shaped this way:
+  - It's never 100%, because we never actually fill all 3 possible slots.
+  - It's highest right when a new sprint starts with fresh engagements, and it steadily ticks down day by day as the sprint runs out — even if the number of
+    active engagements hasn't changed yet.
+  - It drops again (a bigger step) whenever an engagement wraps up and the active count itself goes from 2 down to 1.
+
+  So the number reflects both "how much work we're carrying" and "how much runway is left to take on more" — not just one or the other.

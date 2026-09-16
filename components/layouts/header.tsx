@@ -55,6 +55,10 @@ export function Header() {
     return () => ro.disconnect();
   }, []);
 
+  useEffect(() => {
+    setPendingNav(null);
+  }, [pathname]);
+
   const isDesktopNavTransitioning =
     pendingNav !== null &&
     pendingNav.fromPath === pathname &&
