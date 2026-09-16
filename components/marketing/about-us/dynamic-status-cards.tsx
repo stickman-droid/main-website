@@ -22,10 +22,12 @@ function getSprintMetrics(now: Date) {
   const daysRemaining = Math.max(1, SPRINT_LENGTH_DAYS - dayIndex)
 
   const activeEngagements = daysRemaining > 6 ? PEAK_ACTIVE_ENGAGEMENTS : PEAK_ACTIVE_ENGAGEMENTS - 1
-  // Capacity is active engagements out of the full MAX_ENGAGEMENTS slots, so it
-  // rises when new engagements sign on and tapers as they close — and since we
-  // never actually fill all MAX_ENGAGEMENTS slots, it never reaches 100%.
-  const bandwidthPercentage = (activeEngagements / MAX_ENGAGEMENTS) * 100
+  // Capacity is active engagements out of the full MAX_ENGAGEMENTS slots
+  // (so it never reaches 100%, since we never fill all MAX_ENGAGEMENTS slots),
+  // scaled down further by how much of the sprint is left — it ticks down
+  // daily even while activeEngagements holds steady within a phase.
+  const bandwidthPercentage =
+    (activeEngagements / MAX_ENGAGEMENTS) * (daysRemaining / SPRINT_LENGTH_DAYS) * 100
 
   return {
     daysRemaining,
