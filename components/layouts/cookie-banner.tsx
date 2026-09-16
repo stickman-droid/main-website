@@ -36,46 +36,38 @@ export function CookieBanner() {
   return (
     <aside
       aria-label="Privacy-friendly analytics notice"
-      className="cookie-banner fixed inset-x-0 bottom-0 z-[70] w-full rounded-t-[16px] border border-[#d9d9d9] bg-white px-6 pb-[calc(env(safe-area-inset-bottom)+60px)] pt-14 text-center opacity-100 shadow-[0_12px_35px_rgba(0,0,0,0.18)] lg:inset-x-auto lg:right-6 lg:bottom-6 lg:h-[312px] lg:w-[542.6322021484375px] lg:rounded-[16px] lg:py-12 lg:text-left"
+      className="cookie-banner fixed inset-x-0 bottom-0 z-[70] w-full rounded-t-[16px] border border-[#d9d9d9] bg-white px-5 pt-6 pb-[calc(env(safe-area-inset-bottom)+1.25rem)] text-center opacity-100 shadow-[0_12px_35px_rgba(0,0,0,0.18)] sm:px-6 sm:pt-7 lg:inset-x-auto lg:right-6 lg:bottom-6 lg:h-[312px] lg:w-[542.6322021484375px] lg:rounded-[16px] lg:py-12 lg:text-left"
     >
-      <div className="flex flex-col items-center gap-6 lg:grid lg:grid-cols-[1fr_136px] lg:gap-4">
-        <div className="order-2 lg:order-1">
-          <h2 className="font-heading text-[32px] leading-[1.08] font-bold text-[#1f1f1f] lg:text-[30px]">
-            Our Cookie Jar
-            <br />
-            Is Always Kept Empty
+      <div className="flex flex-col items-center gap-3.5 sm:gap-4 lg:grid lg:grid-cols-[1fr_136px] lg:gap-4">
+        <div className="order-2 flex w-full flex-col items-center lg:order-1 lg:block">
+          <h2 className="font-heading whitespace-nowrap text-[17px] font-bold tracking-tight text-[#1f1f1f] min-[360px]:text-[19px] min-[390px]:text-[20px] sm:text-[22px] lg:whitespace-normal lg:text-[30px] lg:leading-[1.08]">
+            We won&apos;t serve <br className="hidden lg:inline" />you any cookies
           </h2>
-          <p className="mt-3 text-[13px] leading-[1.45] text-[#4a4a4a] min-[380px]:text-[16px] lg:text-[15px]">
-            <span className="lg:hidden">
-              <span className="block whitespace-nowrap">
-                We use privacy-friendly, cookieless analytics
+          <div className="mx-auto w-full max-w-[380px] lg:mx-0 lg:max-w-none">
+            <p className="mt-2 text-[13px] leading-[1.45] text-[#4a4a4a] sm:mt-2.5 sm:text-[14px] lg:mt-3 lg:text-[15px]">
+              <span className="lg:hidden">
+                We use privacy-friendly, cookieless analytics to give useful insights from visits without identifying or tracking individual visitors.
               </span>
-              <span className="block whitespace-nowrap">
-                to give useful insights from visits without
+              <span className="hidden lg:inline">
+                <span className="block whitespace-nowrap">
+                  We use privacy-friendly, cookieless analytics to
+                </span>
+                <span className="block whitespace-nowrap">
+                  give us useful insights, helping us learn from visits
+                </span>
+                <span className="block whitespace-nowrap">
+                  without identifying or tracking individual visitors.
+                </span>
               </span>
-              <span className="block whitespace-nowrap">
-                identifying or tracking individual visitors.
-              </span>
-            </span>
-            <span className="hidden lg:inline">
-              <span className="block whitespace-nowrap">
-                We use privacy-friendly, cookieless analytics to
-              </span>
-              <span className="block whitespace-nowrap">
-                give us useful insights, helping us learn from visits
-              </span>
-              <span className="block whitespace-nowrap">
-                without identifying or tracking individual visitors.
-              </span>
-            </span>
-          </p>
-          <button
-            type="button"
-            onClick={dismiss}
-            className="mt-8 h-14 w-full rounded-[6px] bg-[#1f1f1f] px-4 text-[20px] font-bold text-white transition-colors hover:bg-black focus-visible:ring-3 focus-visible:ring-[#1f1f1f]/30 focus-visible:outline-none lg:mt-4 lg:h-11 lg:w-[220px] lg:text-[16px]"
-          >
-            Respect My Privacy
-          </button>
+            </p>
+            <button
+              type="button"
+              onClick={dismiss}
+              className="mt-4 flex h-11 w-full items-center justify-center rounded-[6px] bg-[#1f1f1f] px-4 text-[14px] font-semibold text-white transition-colors hover:bg-black focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#1f1f1f]/30 sm:text-[15px] lg:mt-4 lg:h-11 lg:w-[220px] lg:text-[16px] lg:font-bold"
+            >
+              Respect My Privacy
+            </button>
+          </div>
         </div>
         <Image
           src="/cookies.svg"
@@ -83,7 +75,7 @@ export function CookieBanner() {
           width={133}
           height={198}
           priority
-          className="order-1 h-auto w-[132px] lg:order-2 lg:w-[136px]"
+          className="order-1 h-auto w-[68px] sm:w-[76px] lg:order-2 lg:w-[136px]"
         />
       </div>
     </aside>
