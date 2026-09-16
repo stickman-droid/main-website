@@ -1,0 +1,107 @@
+"use client";
+
+import React from "react";
+
+export function Loader({
+  className,
+  color = "#1C1C1C",
+}: {
+  className?: string;
+  color?: string;
+}) {
+  return (
+    <div
+      className={`relative inline-flex items-center justify-center ${className || ""}`}
+      style={{ "--loader-sq-color": color } as React.CSSProperties}
+    >
+      <style>{`
+        @keyframes loader_5191 {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .loader-5191 {
+          position: relative;
+          width: 50px;
+          height: 50px;
+        }
+
+        .loader-5191 .square {
+          background: var(--loader-sq-color, #1C1C1C);
+          width: 10px;
+          height: 10px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin-top: -5px;
+          margin-left: -5px;
+        }
+
+        .loader-5191 #sq1 {
+          margin-top: -25px;
+          margin-left: -25px;
+          animation: loader_5191 675ms ease-in-out 0s infinite alternate;
+        }
+
+        .loader-5191 #sq2 {
+          margin-top: -25px;
+          animation: loader_5191 675ms ease-in-out 75ms infinite alternate;
+        }
+
+        .loader-5191 #sq3 {
+          margin-top: -25px;
+          margin-left: 15px;
+          animation: loader_5191 675ms ease-in-out 150ms infinite alternate;
+        }
+
+        .loader-5191 #sq4 {
+          margin-left: -25px;
+          animation: loader_5191 675ms ease-in-out 225ms infinite alternate;
+        }
+
+        .loader-5191 #sq5 {
+          animation: loader_5191 675ms ease-in-out 300ms infinite alternate;
+        }
+
+        .loader-5191 #sq6 {
+          margin-left: 15px;
+          animation: loader_5191 675ms ease-in-out 375ms infinite alternate;
+        }
+
+        .loader-5191 #sq7 {
+          margin-top: 15px;
+          margin-left: -25px;
+          animation: loader_5191 675ms ease-in-out 450ms infinite alternate;
+        }
+
+        .loader-5191 #sq8 {
+          margin-top: 15px;
+          animation: loader_5191 675ms ease-in-out 525ms infinite alternate;
+        }
+
+        .loader-5191 #sq9 {
+          margin-top: 15px;
+          margin-left: 15px;
+          animation: loader_5191 675ms ease-in-out 600ms infinite alternate;
+        }
+      `}</style>
+      <div className="loader loader-5191">
+        <div className="square" id="sq1" />
+        <div className="square" id="sq2" />
+        <div className="square" id="sq3" />
+        <div className="square" id="sq4" />
+        <div className="square" id="sq5" />
+        <div className="square" id="sq6" />
+        <div className="square" id="sq7" />
+        <div className="square" id="sq8" />
+        <div className="square" id="sq9" />
+      </div>
+    </div>
+  );
+}
+
+export default Loader;
